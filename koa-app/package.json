@@ -1,0 +1,28 @@
+{
+  "name": "growing-up",
+  "version": "1.0.0",
+  "description": "koa learning record, develop growing up background",
+  "main": "index.js",
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-compose": "^4.1.0",
+    "koa-router": "^7.4.0",
+    "mysql2": "^1.6.5",
+    "sequelize": "^5.10.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/runtime": "^7.5.5"
+  },
+  "scripts": {
+    "build": "npx babel src --out-dir dist",
+    "start": "node dist/index.js",
+    "server": "npm run build & npm run start"
+  },
+  "author": "YlonelY",
+  "license": "ISC"
+}

@@ -1,0 +1,33 @@
+@import '../../style/variable.scss';
+
+.dateBox {
+    font: {
+        size: 12px;
+    }
+    .title-bold {
+        font: {
+            weight: 700;
+        }
+    }
+    .date-progress {
+        font-size: 12px;
+    }
+}
+.clockBox {
+    text: {
+        align: right;
+    }
+    .clock-btn {
+        display: inline-block;
+        color: $gray;
+        cursor: default;
+        user-select: none;
+        height: 50px;
+        font: {
+            size: 12px;
+        }
+        &:hover {
+            color: #fff;
+        }
+    }
+}

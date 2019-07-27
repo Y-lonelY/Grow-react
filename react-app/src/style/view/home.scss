@@ -1,0 +1,27 @@
+@import '../variable.scss';
+
+.homeBox {
+    box: {
+        sizing: border-box;
+    }
+    .home-con {
+        .hm-con-sdr {
+            overflow: auto;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            .logo-box {
+                display: none;
+            }
+        }
+        .hm-con-dash {
+            margin: 0 0 0 200px;
+            .dash-header {
+                background: {
+                    color: $bck-color;
+                }
+            }
+        }
+    }
+}
