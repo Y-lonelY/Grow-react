@@ -42,7 +42,7 @@ const rrtime = async (ctx, next) => {
 
 // 声明一个 router 实例
 const daily = new Router();
-daily.get('/service', async ctx => {
+daily.get('/daily', async ctx => {
     // 设置返回类型
     await getDailyLists()
     .then(results => {
@@ -55,7 +55,7 @@ daily.get('/service', async ctx => {
 
 // 装载所有路由
 const router = new Router;
-router.use('/daily', daily.routes(), daily.allowedMethods());
+router.use('/service', daily.routes(), daily.allowedMethods());
 
 // 生成路由中间件
 const router_middle = router.routes();

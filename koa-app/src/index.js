@@ -8,5 +8,5 @@ const app = new Koa();
 // 加载路由中间件
 app.use(dailyView);
 
-// 监听端口 7177
-app.listen(7177);
+// 监听端口 3000
+app.listen(3000);

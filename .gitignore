@@ -11,7 +11,8 @@
 /coverage
 
 # production
-/build
+# react build category
+/react-app/build
 
 # misc
 .DS_Store

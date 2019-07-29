@@ -105,7 +105,7 @@ function () {
 
 
 var daily = new _koaRouter["default"]();
-daily.get('/',
+daily.get('/daily',
 /*#__PURE__*/
 function () {
   var _ref3 = (0, _asyncToGenerator2["default"])(
@@ -136,7 +136,7 @@ function () {
 }()); // 装载所有路由
 
 var router = new _koaRouter["default"]();
-router.use('/home', daily.routes(), daily.allowedMethods()); // 生成路由中间件
+router.use('/service', daily.routes(), daily.allowedMethods()); // 生成路由中间件
 
 var router_middle = router.routes();
 var router_allow_methods = router.allowedMethods(); // 合并中间件

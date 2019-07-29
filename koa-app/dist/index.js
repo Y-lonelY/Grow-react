@@ -11,6 +11,6 @@ var _dailyView = _interopRequireDefault(require("./view/dailyView"));
 // 声明一个 koa 实例
 var app = new _koa["default"](); // 加载路由中间件
 
-app.use(_dailyView["default"]); // 监听端口
+app.use(_dailyView["default"]); // 监听端口 3000
 
-app.listen(7177);
+app.listen(3000);
