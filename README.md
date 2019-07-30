@@ -1,6 +1,8 @@
 <!-- MarkdownTOC levels="2,3" -->
 
-- [nginx](#nginx)
+- [Usage](#usage)
+	- [Create start.sh](#create-startsh)
+- [Nginx](#nginx)
 	- [Config](#config)
 	- [Command](#command)
 
@@ -9,8 +11,24 @@
 
 > YlonelY-GrowingUp is The Project To Record The Growth
 
+## Usage
 
-## nginx
+**basic Usage**
+
+1. 在 terminal 内 `cd ~` 进入根目录
+2. `nginx` 启动 nginx service
+3. `cd /Users/yango/YlonelY-GrowingUp/koa-app` 进入 node 根目录
+4. `npm run start` 开启 node 服务
+
+**shell usage**
+
+1. 在项目根目录下，`./start.sh` 启动 shell script
+2. list 展示当前占有 3000(node service) 和 7177(nginx) 端口的进程
+3. start 启动 nginx 和 node service
+4. stop 终止 nginx，同时输入 node 的 pid 来终止 node service
+
+
+## Nginx
 
 `brew update` 查看 brew 安装是否成功<br>
 `brew search nginx` 查看 nginx 信息<br>
@@ -24,6 +42,7 @@
 ### Config
 
 在本项目内，koa 在3000端口上运行，react-app 在 7177端口上运行，需要：
+
 1. 将react工程内的 build/index.html 代理到 127.0.0.1:7177/ 路径下
 2. 将koa启动之后，即后台服务启动之后，将其代理到 127.0.0.1:7177/service 路径下
 

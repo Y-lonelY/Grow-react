@@ -20,6 +20,38 @@ moment.js
 
 
 
+## Bizcharts
+
+通过 `npm install bizcharts --save` 安装[Bizcharts](https://bizcharts.net/products/bizCharts/docs/start)
+
+### 图表类型
+
+[数据可视化之图表类型](https://bizcharts.net/products/bizCharts/docs/chartType)
+
+数据可视化的核心在于**可视化编码**，而可视化编码由几何标记和视觉通道组成，图表类型一般指的就是几何标记
+
+几何标记可以根据数据维度来划分
+
+图形空间的自由度指在不改变图形性质的基础上可以自由扩展的维度，自由度 = 空间维度 - 几何标记的维度
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -4,6 +4,7 @@
   "description": "koa learning record, develop growing up background",
   "main": "index.js",
   "dependencies": {
+    "concurrently": "^4.1.1",
     "koa": "^2.7.0",
     "koa-compose": "^4.1.0",
     "koa-router": "^7.4.0",
@@ -21,7 +22,7 @@
   "scripts": {
     "build": "npx babel src --out-dir dist",
     "start": "node dist/index.js",
-    "server": "npm run build & npm run start"
+    "server": "concurrently \"npx babel src --out-dir dist\" \"node dist/index.js\""
   },
   "author": "YlonelY",
   "license": "ISC"
