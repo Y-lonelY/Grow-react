@@ -11,6 +11,7 @@
 
 > YlonelY-GrowingUp is The Project To Record The Growth
 
+
 ## Usage
 
 **basic Usage**
@@ -65,6 +66,6 @@ server {
 
 ### Command
 
-`nginx` 启动 nginx 服务
-`nginx -s stop` 停止 nginx 服务
+`nginx` 启动 nginx 服务<br>
+`nginx -s stop` 停止 nginx 服务<br>
 `nginx -s reload` 重启 nginx 服务

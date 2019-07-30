@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
-import React, { Component } from "react";
+import React from "react";
 
-class Router extends Component {
+class Router extends React.Component {
     render () {
  		/**
  		 * props 接受配置参数

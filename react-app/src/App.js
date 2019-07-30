@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from "react-router-dom";
-import RouteConfig from './cluster/RouteConfig';
+import config from './cluster/config';
 import Router from './cluster/Router';
 import './App.css';
 
@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div className="app">
         <BrowserRouter>
-          <Router defaultConfig={ RouteConfig }></Router>
+          <Router defaultConfig={ config.routeConfig }></Router>
         </BrowserRouter>
       </div>
     );

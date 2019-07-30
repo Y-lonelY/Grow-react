@@ -1,28 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Layout, Menu, Icon, Row, Col } from 'antd';
-import { Chart, Geom, Axis, Tooltip, Legend, Coord } from 'bizcharts';
 import Clock from '../components/clock/index';
-import '../style/view/home.scss';
+import DashBoard from "./dashboard/DashBoardIndex";
+import "./style/mainView.scss";
 
 const {
     Header, Footer, Sider, Content
 } = Layout;
-
-// 数据源
-const data = [
-    { genre: 'Sports', sold: 275, income: 2300 },
-    { genre: 'Strategy', sold: 115, income: 667 },
-    { genre: 'Action', sold: 120, income: 982 },
-    { genre: 'Shooter', sold: 350, income: 5271 },
-    { genre: 'Other', sold: 150, income: 3710 }
-];
-
-// 定义度量
-const cols = {
-    sold: { alias: '销售量' },
-    genre: { alias: '游戏种类' }
-};
 
 class Home extends Component {
     render() {
@@ -55,13 +40,7 @@ class Home extends Component {
                             overflow: 'initial',
                             backgroundColor: '#fff'
                         }}>
-                            <div><Chart width={600} height={400} data={data} scale={cols}>
-                                <Axis name="genre" title />
-                                <Axis name="sold" title />
-                                <Legend position="top" dy={-20} />
-                                <Tooltip />
-                                <Geom type="interval" position="genre*sold" color="genre" />
-                            </Chart></div>
+                            <DashBoard></DashBoard>
                         </Content>
                         <Footer style={{
                             textAlign: 'center'
