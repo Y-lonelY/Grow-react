@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Layout, Menu, Icon, Row, Col } from 'antd';
 import Clock from '../components/clock/index';
 import DashBoard from "./dashboard/DashBoardIndex";

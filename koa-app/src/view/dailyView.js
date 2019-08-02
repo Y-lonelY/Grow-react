@@ -4,7 +4,7 @@ import Router from "koa-router"
 import Compose from "koa-compose"
 // 引入 mysql
 import sequelizeCase from "../components/mysqlSequelize"
-import {getDailyLists} from "../service/daliyController"
+import { getDailyLists, getDailySum } from "../service/daliyController"
 
 // data handle
 function dataHandle(data, ctx) {
@@ -25,7 +25,6 @@ function dataHandle(data, ctx) {
 // 打印接口返回时间
 const logger = async (ctx, next) => {
     await next();
-    sequelizeCase.testConnection()
     const rt = ctx.response.get('x-response-time');
     console.log(`${ctx.method} ${ctx.url} = ${rt}`);
 }
@@ -43,14 +42,22 @@ const rrtime = async (ctx, next) => {
 // 声明一个 router 实例
 const daily = new Router();
 daily.get('/daily', async ctx => {
-    // 设置返回类型
-    await getDailyLists()
-    .then(results => {
-        dataHandle(results, ctx);
-    })
-    .catch(err => {
-        dataHandle(null, ctx);
-    })
+    let results = {
+        success: false,
+        list: [],
+        sum: [],
+    };
+    ctx.response.type = 'json';
+    try {
+        const sum = await getDailySum();
+        results['list'] = await getDailyLists();
+        results['sum'] = sum[0];
+        results['success'] = true;
+        ctx.body = results;
+    // catch await error
+    } catch (e) {
+        ctx.body = results;
+    }
 });
 
 // 装载所有路由

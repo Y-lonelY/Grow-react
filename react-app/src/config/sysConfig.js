@@ -7,7 +7,7 @@ const config = {
         exact: true,
         path: '/',
         component: MainView
-    }]
+    }],
 }
 
 export default config;

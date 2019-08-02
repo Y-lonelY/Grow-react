@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import ReactDOM from "react-dom";
 import {Row, Col} from "antd";
 import DailyView from "./DailyView"
 
@@ -8,7 +7,7 @@ class DashBoard extends Component {
         return (
             <div className="dashboard">
                 <Row>
-                    <Col span={24}>
+                    <Col span={18}>
                         <DailyView></DailyView>
                     </Col>
                 </Row>

@@ -38,7 +38,7 @@ class Clock extends Component {
         }
 
         let leftDays = fullDays - days;
-        let percent = (days * 100 / fullDays).toFixed(0);
+        let percent = Number((days * 100 / fullDays).toFixed(0));
         let mockLIst = ['react', 'redux', 'python api'];
 
         return (

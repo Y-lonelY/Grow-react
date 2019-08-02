@@ -50,12 +50,10 @@ function () {
             return next();
 
           case 2:
-            _mysqlSequelize["default"].testConnection();
-
             rt = ctx.response.get('x-response-time');
             console.log("".concat(ctx.method, " ").concat(ctx.url, " = ").concat(rt));
 
-          case 5:
+          case 4:
           case "end":
             return _context.stop();
         }
@@ -111,23 +109,46 @@ function () {
   var _ref3 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee3(ctx) {
+    var results, sum;
     return _regenerator["default"].wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            _context3.next = 2;
-            return (0, _daliyController.getDailyLists)().then(function (results) {
-              dataHandle(results, ctx);
-            })["catch"](function (err) {
-              dataHandle(null, ctx);
-            });
+            results = {
+              success: false,
+              list: [],
+              sum: []
+            };
+            ctx.response.type = 'json';
+            _context3.prev = 2;
+            _context3.next = 5;
+            return (0, _daliyController.getDailySum)();
 
-          case 2:
+          case 5:
+            sum = _context3.sent;
+            _context3.next = 8;
+            return (0, _daliyController.getDailyLists)();
+
+          case 8:
+            results['list'] = _context3.sent;
+            results['sum'] = sum[0];
+            results['success'] = true;
+            ctx.body = results; // catch await error
+
+            _context3.next = 17;
+            break;
+
+          case 14:
+            _context3.prev = 14;
+            _context3.t0 = _context3["catch"](2);
+            ctx.body = results;
+
+          case 17:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3);
+    }, _callee3, null, [[2, 14]]);
   }));
 
   return function (_x5) {
