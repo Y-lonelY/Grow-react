@@ -6,6 +6,7 @@
 	- [Config](#config)
 	- [Command](#command)
 - [Develop Flows](#develop-flows)
+	- [2019-08-04](#2019-08-04)
 	- [2019-08-03](#2019-08-03)
 	- [2019-08-02](#2019-08-02)
 
@@ -95,6 +96,18 @@ server {
 4. log 日志集成
 5. mock data 集成
 
+### 2019-08-04
+
+在 window 下运行项目
+
+`npm install @antv/data-set --save` 添加对数据集处理
+
+[@antv/data-set](https://www.yuque.com/antv/g2-docs/api-data-set#1976bl) 类似之前做玩家级想要的，将数据转换成类似数据库表的形式进行处理的一种实现
+
+添加饼图展示锻炼情况分布
+
+
+
 ### 2019-08-03
 
 进一步封装 Axios，添加请求/响应拦截器和重复请求处理
@@ -103,7 +116,7 @@ server {
 
 添加总数统计
 
-对象遍历不建议使用 `for...in...`
+对象遍历不建议使用 `for...in...`，用 `Object.enteries()` 或者 `Object.keys()` 代替
 
 ### 2019-08-02
 

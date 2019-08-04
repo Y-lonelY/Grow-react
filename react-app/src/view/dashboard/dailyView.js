@@ -1,25 +1,13 @@
 import React from "react";
-import { G2, Chart, Geom, Axis, Tooltip, Legend, Coord, View, } from 'bizcharts';
+import { G2, Chart, Geom, Axis, Tooltip, Legend, Coord, View, Label } from 'bizcharts';
 import { Row, Col } from "antd";
+import DataSet from "@antv/data-set";
 import ChartBar from "../../components/chartBar/index";
 import * as DailyService from "../../service/dailyService";
+import { dailyListChart, dailySumChart } from './config';
 
-// 定义度量
-const cols = {
-    date: {
-        // 为数据属性定义别名，用于图例、坐标轴、tooltip 的个性化显示.
-        alias: '日',
-        // 数据类型，非连续的时间类型
-        type: 'timeCat',
-        // 坐标轴两端留白
-        range: [0, 0.98]
-    },
-    number: {
-        // 连续非线性数据
-        type: 'pow'
-    }
-};
-
+// 数据集视图构造函数
+const { DataView } = DataSet;
 
 class DailyView extends React.Component {
 
@@ -48,13 +36,34 @@ class DailyView extends React.Component {
     }
 
     render() {
-        const sumListView = Object.entries(this.state.sumList).map(item => {
+        // 注意添加 key
+        const sumListView = Object.entries(this.state.sumList).map((item, index) => {
             return (
-                <Row className='dailySumItem'>
+                <Row className='dailySumItem' key={index}>
                     <Col className='dailySumTitle' span={8}>{String(item[0]).toUpperCase()}</Col>
                     <Col className='dailySumLabel' span={16}>{item[1]}</Col>
                 </Row>
             );
+        });
+        let sumChartData = [];
+        Object.entries(this.state.sumList).forEach(item => {
+            let currentObj = {};
+            currentObj['item'] = item[0].toUpperCase();
+            currentObj['count'] = item[1];
+            sumChartData.push(currentObj);
+        });
+        // 声明一个数据视图实例
+        const dv = new DataView();
+        // source 载入数据
+        // transform 根据配置项处理数据
+        dv.source(sumChartData).transform({
+            // 通过 type 指定总和百分比
+            type: 'percent',
+            // 每个 dimension 下，其 filed 占比
+            field: 'count',
+            dimension: 'item',
+            // 将结果存储在 percent 字段
+            as: 'percent',
         });
 
         return (
@@ -65,10 +74,10 @@ class DailyView extends React.Component {
                         <Chart
                             className='dailyChartBox'
                             padding="auto"
-                            forceFit={true}
                             height={460}
                             data={this.state.dailyList}
-                            scale={cols}>
+                            scale={dailyListChart.scale}
+                            forceFit>
                             {/* 图例 */}
                             <Legend></Legend>
                             {/* Axis 通过 name 来指定坐标轴 */}
@@ -96,7 +105,22 @@ class DailyView extends React.Component {
                     </Col>
                     <Col className='dailySumView' span={6}>
                         {Object.keys(this.state.sumList).length &&
-                            <div className="dailySumBox">{sumListView}</div>
+                            <div>
+                                <div className="dailySumBox">{sumListView}</div>
+                                <Chart data={dv} scale={dailySumChart.scale} height={320} padding={[20, 'auto', 20, 'auto']} forceFit>
+                                    <Coord type="theta" radius={0.75} />
+                                    <Axis name="percent" />
+                                    <Geom type="intervalStack" position="percent" color="item" style={{ lineWidth: 1, stroke: "#fff" }}>
+                                        <Label
+                                            content="percent"
+                                            formatter={(val, item) => {
+                                                const percent = (item.point.percent * 100).toFixed(2);
+                                                return `${item.point.item}：${percent}%`;
+                                            }}
+                                        />
+                                    </Geom>
+                                </Chart>
+                            </div>
                         }
                     </Col>
                 </Row>

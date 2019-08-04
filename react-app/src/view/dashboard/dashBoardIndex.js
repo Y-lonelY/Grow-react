@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import DailyView from "./DailyView"
+import DailyView from "./dailyView"
 
 class DashBoard extends Component {
     render() {
