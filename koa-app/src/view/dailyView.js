@@ -2,9 +2,7 @@
 import Router from "koa-router"
 // 引入 koa-compose
 import Compose from "koa-compose"
-// 引入 mysql
-import sequelizeCase from "../components/mysqlSequelize"
-import { getDailyLists, getDailySum } from "../service/daliyController"
+import * as daliyController from "../service/daliyController"
 
 // data handle
 function dataHandle(data, ctx) {
@@ -49,8 +47,8 @@ daily.get('/daily', async ctx => {
     };
     ctx.response.type = 'json';
     try {
-        const sum = await getDailySum();
-        results['list'] = await getDailyLists();
+        const sum = await daliyController.getDailySum();
+        results['list'] = await daliyController.getDailyLists();
         results['sum'] = sum[0];
         results['success'] = true;
         ctx.body = results;

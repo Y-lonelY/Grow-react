@@ -10,6 +10,7 @@ function READ_USER_INPUT() {
   options=$2
   maxValue=$3
   echo "${title}"
+  # for circle
   for option in ${options[*]}; do
     echo "${option}"
   done
@@ -22,20 +23,20 @@ function READ_USER_INPUT() {
     if [[ $sort -gt 0 && $sort -le $maxValue ]]; then
       return $sort
     else
-      echo "Input Error: Out Of Range!"
+      echo -n "Input Error: Out Of Range!"
       READ_USER_INPUT "$title" "${options[*]}" $maxValue
     # fi 用来标示语句快结束
     fi
   # 不为数字则直接进行提示
   else
-    echo "Input Error: Select Sort Number!"
+    echo -n "Input Error: Select Sort Number!"
     READ_USER_INPUT "$title" "${options[*]}" $maxValue
   fi
 }
 
 # 定义 shell 内数组
 options_label="Select what you want about the shell script:"
-options_value=("1.start" "2.stop" "3.list")
+options_value=("1.start" "2.stop" "3.list-pid" "4.reload-node-server")
 
 READ_USER_INPUT "${options_label}" "${options_value[*]}" ${#options_value[*]}
 
@@ -48,6 +49,9 @@ if [[ $option_select -eq 1 ]]; then
     nginx -s stop
     cd ~
     nginx
+    # compile react
+    cd /Users/yango/YlonelY-GrowingUp/react-app
+    npm run build
     # node category
     cd /Users/yango/YlonelY-GrowingUp/koa-app
     npm run server
@@ -66,4 +70,13 @@ elif [[ $option_select -eq 3 ]]; then
     lsof -i :3000
     echo "port 7177 running process"
     lsof -i :7177
+elif [[ $option_select -eq 4 ]]; then
+    cd ~
+    lsof -i :3000
+    # -n 默认设置不换行
+    echo -n "Input PID to kill the node process: "
+    read pid
+    kill -9 ${pid}
+    cd /Users/yango/YlonelY-GrowingUp/koa-app
+    npm run server
 fi

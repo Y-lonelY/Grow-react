@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from "react-router-dom";
-import config from './config/sysConfig';
+import config from './config/routerConfig';
 import Router from './cluster/Router';
 import './App.css';
 

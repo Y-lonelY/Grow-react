@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
@@ -10,13 +12,10 @@ var _koaRouter = _interopRequireDefault(require("koa-router"));
 
 var _koaCompose = _interopRequireDefault(require("koa-compose"));
 
-var _mysqlSequelize = _interopRequireDefault(require("../components/mysqlSequelize"));
-
-var _daliyController = require("../service/daliyController");
+var daliyController = _interopRequireWildcard(require("../service/daliyController"));
 
 // 引入 koa-router
 // 引入 koa-compose
-// 引入 mysql
 // data handle
 function dataHandle(data, ctx) {
   var results = {};
@@ -122,12 +121,12 @@ function () {
             ctx.response.type = 'json';
             _context3.prev = 2;
             _context3.next = 5;
-            return (0, _daliyController.getDailySum)();
+            return daliyController.getDailySum();
 
           case 5:
             sum = _context3.sent;
             _context3.next = 8;
-            return (0, _daliyController.getDailyLists)();
+            return daliyController.getDailyLists();
 
           case 8:
             results['list'] = _context3.sent;

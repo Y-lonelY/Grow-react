@@ -1,13 +1,6 @@
-import MainView from '../view/MainView'
-
 const config = {
-    routeConfig: [{
-        key: 1,
-        title: 'mainView',
-        exact: true,
-        path: '/',
-        component: MainView
-    }],
+    // 是否使用虚拟数据
+    useMock: true,
 }
 
-export default config;
+export default config

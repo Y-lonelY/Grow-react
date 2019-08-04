@@ -1,15 +1,26 @@
 // 引入 mysql
 import sequelizeCase from "../components/mysqlSequelize"
 
+// sum(leg/belly/chest)
+async function getDailySum() {
+    const sql = "SELECT SUM(`leg-nums`) AS leg, SUM(`belly-nums`) AS belly, SUM(`chest-nums`) AS chest " 
+              + "FROM `gro-up`.`exc_daily` LIMIT 30";
+    return await sequelizeCase.query({
+        sql: sql,
+        queryType: "select"
+    })
+}
 
-export async function getDailyLists() {
+// everyday lists of (leg/belly/chest)
+async function getDailyLists() {
     let list = [];
     const sql_leg = "SELECT `leg-nums` AS leg, `date` FROM `gro-up`.`exc_daily` LIMIT 30";
     const sql_belly = "SELECT `belly-nums` AS belly, `date` FROM `gro-up`.`exc_daily` LIMIT 30";
     const sql_chest = "SELECT `chest-nums` AS chest, `date` FROM `gro-up`.`exc_daily` LIMIT 30";
-    let leg_list = await sequelizeCase.query({ sql: sql_leg, queryType: "select" })
-    let belly_list = await sequelizeCase.query({ sql: sql_belly, queryType: "select" })
-    let chest_list = await sequelizeCase.query({ sql: sql_chest, queryType: "select" })
+    let leg_list = await sequelizeCase.query({ sql: sql_leg, queryType: "select" });
+    let belly_list = await sequelizeCase.query({ sql: sql_belly, queryType: "select" });
+    let chest_list = await sequelizeCase.query({ sql: sql_chest, queryType: "select" });
+    // map() create a new array
     leg_list = leg_list.map(item => {
         return {
             type: 'leg',
@@ -35,11 +46,4 @@ export async function getDailyLists() {
     return list;
 }
 
-export async function getDailySum() {
-    const sql = "SELECT SUM(`leg-nums`) AS leg, SUM(`belly-nums`) AS belly, SUM(`chest-nums`) AS chest " 
-              + "FROM `gro-up`.`exc_daily` LIMIT 30";
-    return await sequelizeCase.query({
-        sql: sql,
-        queryType: "select"
-    })
-}
+export { getDailySum, getDailyLists }

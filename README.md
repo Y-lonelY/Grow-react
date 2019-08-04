@@ -1,15 +1,22 @@
 <!-- MarkdownTOC levels="2,3" -->
 
+- [front](#front)
 - [Usage](#usage)
-	- [Create start.sh](#create-startsh)
 - [Nginx](#nginx)
 	- [Config](#config)
 	- [Command](#command)
+- [Develop Flows](#develop-flows)
+	- [2019-08-03](#2019-08-03)
+	- [2019-08-02](#2019-08-02)
 
 <!-- /MarkdownTOC -->
 
 
 > YlonelY-GrowingUp is The Project To Record The Growth
+
+## front
+
+这个项目用来记录 Grow，采用前后端分离的方式进行开发，因为流程的增加可以获得更多的知识累积
 
 
 ## Usage
@@ -69,3 +76,43 @@ server {
 `nginx` 启动 nginx 服务<br>
 `nginx -s stop` 停止 nginx 服务<br>
 `nginx -s reload` 重启 nginx 服务
+
+
+## Develop Flows
+
+至2019-08-02，前后端+Nginx转发的基本框架已经搭建完成，开始进入实质性开发工作，之后以2周为单位进行总结
+
+已经做的工作：
+1. react 框架，路由，请求接口封装
+2. koa-node 框架，路由，数据库连接封装
+3. Nginx配置
+4. shell script 开发
+
+待完成工作
+1. redux 集成
+2. typescript 集成
+3. think flow 搭建
+4. log 日志集成
+5. mock data 集成
+
+### 2019-08-03
+
+进一步封装 Axios，添加请求/响应拦截器和重复请求处理
+
+添加.json假数据处理
+
+添加总数统计
+
+对象遍历不建议使用 `for...in...`
+
+### 2019-08-02
+
+`await/async` 的异常捕获
+
+之前是 `await a().then().catch()` 的写法，因为 await 实际返回就是一个 Promise Object，所以沿用了其写法<br>
+之后发现，有更好的写法，就是通过 `try catch` 来进行，Promise 的 reject 异常通常能够被 catch 捕获到
+
+
+
+
+
