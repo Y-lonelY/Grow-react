@@ -6,6 +6,7 @@
 	- [Config](#config)
 	- [Command](#command)
 - [Develop Flows](#develop-flows)
+	- [2019-08-05](#2019-08-05)
 	- [2019-08-04](#2019-08-04)
 	- [2019-08-03](#2019-08-03)
 	- [2019-08-02](#2019-08-02)
@@ -96,6 +97,13 @@ server {
 4. log 日志集成
 5. mock data 集成
 
+### 2019-08-05
+
+开始学习 redux
+- [阮一峰:redux入门](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html)
+
+新建 redux 学习 note
+
 ### 2019-08-04
 
 在 window 下运行项目
@@ -105,8 +113,6 @@ server {
 [@antv/data-set](https://www.yuque.com/antv/g2-docs/api-data-set#1976bl) 类似之前做玩家级想要的，将数据转换成类似数据库表的形式进行处理的一种实现
 
 添加饼图展示锻炼情况分布
-
-
 
 ### 2019-08-03
 
