@@ -6,6 +6,7 @@
 	- [Config](#config)
 	- [Command](#command)
 - [Develop Flows](#develop-flows)
+	- [2019-08-06](#2019-08-06)
 	- [2019-08-05](#2019-08-05)
 	- [2019-08-04](#2019-08-04)
 	- [2019-08-03](#2019-08-03)
@@ -97,10 +98,17 @@ server {
 4. log 日志集成
 5. mock data 集成
 
+### 2019-08-06
+
+继续学习 redux
+
+[一个 redux 学习demo](https://github.com/bailicangdu/react-pxq)
+
 ### 2019-08-05
 
 开始学习 redux
 - [阮一峰:redux入门](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html)
+- [官方中文文档](http://cn.redux.js.org/docs/advanced/Middleware.html)
 
 新建 redux 学习 note
 

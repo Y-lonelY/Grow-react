@@ -107,15 +107,18 @@ class DailyView extends React.Component {
                         {Object.keys(this.state.sumList).length &&
                             <div>
                                 <div className="dailySumBox">{sumListView}</div>
-                                <Chart data={dv} scale={dailySumChart.scale} height={320} padding={[20, 'auto', 20, 'auto']} forceFit>
-                                    <Coord type="theta" radius={0.75} />
+                                <Chart data={dv} scale={dailySumChart.scale} height={320} padding={20} forceFit>
+                                    <Coord type="theta" radius={0.65} />
                                     <Axis name="percent" />
                                     <Geom type="intervalStack" position="percent" color="item" style={{ lineWidth: 1, stroke: "#fff" }}>
                                         <Label
                                             content="percent"
+                                            textStyle={{
+                                                fontSize: '10'
+                                            }}
                                             formatter={(val, item) => {
                                                 const percent = (item.point.percent * 100).toFixed(2);
-                                                return `${item.point.item}：${percent}%`;
+                                                return `${item.point.item}-${percent}%`;
                                             }}
                                         />
                                     </Geom>
