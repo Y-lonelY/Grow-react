@@ -6,6 +6,7 @@
 	- [Config](#config)
 	- [Command](#command)
 - [Develop Flows](#develop-flows)
+	- [2019-08-07](#2019-08-07)
 	- [2019-08-06](#2019-08-06)
 	- [2019-08-05](#2019-08-05)
 	- [2019-08-04](#2019-08-04)
@@ -97,6 +98,39 @@ server {
 3. think flow 搭建
 4. log 日志集成
 5. mock data 集成
+
+### 2019-08-07
+
+引入 `react-hot-loader` 来实现局部热加载
+
+开始尝试接入 redux
+
+根据[Airbnb React/JSX 编码规范](https://github.com/JasonBoy/javascript/tree/master/react) 对项目进行规范化除了入口文件
+
+react-pxq 项目学习
+- asyncComponent 的理解
+- class-static 学习
+- [使用 PropTypes 进行类型检查](https://react.docschina.org/docs/typechecking-with-proptypes.html)
+
+Class 通过 static 关键字来定义静态方法，通过类本身来调用，而不是通过类的实例，结合 prototypes 使用：
+
+```javascript
+import Test from 'prop-types';
+class Test {
+	static proptypes = {
+		// 通过 isRequired 确保这个 props 没有被提供时，会打印警告信息
+		testa: PropTypes.Object.isRequired,
+	}
+}
+
+// 不利用 static 写法
+Test.proptypes = {
+	testa: PropTypes.Object.isRequired,
+}
+```
+
+**根据官方文档，推荐使用 typescript 来执行静态类型检查，它们支持代码自动补全，同时可以在运行前识别某些类型的问题**
+
 
 ### 2019-08-06
 
