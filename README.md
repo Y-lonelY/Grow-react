@@ -6,6 +6,7 @@
 	- [Config](#config)
 	- [Command](#command)
 - [Develop Flows](#develop-flows)
+	- [2019-08-08](#2019-08-08)
 	- [2019-08-07](#2019-08-07)
 	- [2019-08-06](#2019-08-06)
 	- [2019-08-05](#2019-08-05)
@@ -98,6 +99,21 @@ server {
 3. think flow 搭建
 4. log 日志集成
 5. mock data 集成
+	- 目前直接引入 json 文件作为假数据
+
+### 2019-08-08
+
+规范文件命名和引入
+
+合并入口文件 `index.js` 和 `app.js`，采用函数组件来创建 App Components
+
+注意，根据官方建议，**如果不初始化 state 或不进行方法绑定，则不需要为 React 组件实现构造函数**
+
+在 `constructor()` 函数中不要调用 `setState()` 方法，直接使用 `this.state` 进行赋值
+
+在 react 内的执行顺序，`constructor()` > `render()` > `componentDidMounted()`
+
+如果在构造函数内需要使用 `props`，要使用 `super(props)`，否则 `this.props` 在构造函数内可能会出现为定义的bug
 
 ### 2019-08-07
 
@@ -130,7 +146,6 @@ Test.proptypes = {
 ```
 
 **根据官方文档，推荐使用 typescript 来执行静态类型检查，它们支持代码自动补全，同时可以在运行前识别某些类型的问题**
-
 
 ### 2019-08-06
 

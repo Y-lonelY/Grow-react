@@ -3,9 +3,6 @@ import { Row, Col } from "antd";
 import './index.scss'
 
 class ChartBar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         const title = this.props.title && this.props.title !== '' ? this.props.title : ''

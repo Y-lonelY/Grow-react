@@ -1,8 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { BrowserRouter } from "react-router-dom";
+import { hot } from 'react-hot-loader/root';
+import config from './config/routerConfig';
+import Router from './cluster/Router';
 import * as serviceWorker from './serviceWorker';
+import './index.css';
+
+function App() {
+    return (
+        <BrowserRouter>
+            <Router defaultConfig={config.routeConfig}></Router>
+        </BrowserRouter>
+    );
+}
+
+// set App hot loader
+hot(App)
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

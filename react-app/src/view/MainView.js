@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Layout, Row, Col } from 'antd';
-import Clock from '../components/clock';
-import DashBoard from "./dashboard/dashBoardIndex";
+import Clock from '../components/Clock';
+import DashBoard from "./Dashboard";
 import "./style/mainView.scss";
 
 const {
