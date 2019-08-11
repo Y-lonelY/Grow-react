@@ -1,5 +1,10 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import dashBoard from './dashBoard/reducer';
 
-const store = createStore();
+let store = createStore(
+    dashBoard,
+    applyMiddleware(thunk)
+);
 
 export default store;

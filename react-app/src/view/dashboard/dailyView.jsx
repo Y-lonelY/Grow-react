@@ -2,6 +2,8 @@ import React from "react";
 import { G2, Chart, Geom, Axis, Tooltip, Legend, Coord, View, Label } from 'bizcharts';
 import { Row, Col } from "antd";
 import DataSet from "@antv/data-set";
+import { connect } from 'react-redux';
+import { changeChart } from '../../store/dashBoard/action';
 import ChartBar from "../../components/ChartBar";
 import * as DailyService from "../../service/dailyService";
 import { dailyListChart, dailySumChart } from './config';
@@ -11,33 +13,35 @@ const { DataView } = DataSet;
 
 class DailyView extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            dailyList: [],
-            sumList: {},
-        }
-    }
+    // constructor() {
+    //     this.state = {
+    //         dailyList: [],
+    //         sumList: {},
+    //     }
+    // }
 
     // api request
-    async componentDidMount() {
+    async componentWillMount() {
         try {
             const res = await DailyService.getDailyExerciseList();
 
             if (res.success) {
-                this.setState({
-                    dailyList: res.list,
-                    sumList: res.sum,
-                })
+                this.props.changeChart(res.list, res.sum);
+                console.log(this.props);
+                // this.setState({
+                //     dailyList: res.list,
+                //     sumList: res.sum,
+                // })
             }
         } catch (e) {
-            console.log(e);
+            throw e;
         }
     }
 
     render() {
+        const sumMap = this.props.dashBoardData ? this.props.dashBoardData.sumMap : {};
         // 注意添加 key
-        const sumListView = Object.entries(this.state.sumList).map((item, index) => {
+        const sumListView = Object.entries(sumMap).map((item, index) => {
             return (
                 <Row className='dailySumItem' key={index}>
                     <Col className='dailySumTitle' span={8}>{String(item[0]).toUpperCase()}</Col>
@@ -46,7 +50,7 @@ class DailyView extends React.Component {
             );
         });
         let sumChartData = [];
-        Object.entries(this.state.sumList).forEach(item => {
+        Object.entries(sumMap).forEach(item => {
             let currentObj = {};
             currentObj['item'] = item[0].toUpperCase();
             currentObj['count'] = item[1];
@@ -75,7 +79,7 @@ class DailyView extends React.Component {
                             className='dailyChartBox'
                             padding="auto"
                             height={460}
-                            data={this.state.dailyList}
+                            data={this.props.dashBoardData ? this.props.dashBoardData.dailyList : []}
                             scale={dailyListChart.scale}
                             forceFit>
                             {/* 图例 */}
@@ -104,7 +108,7 @@ class DailyView extends React.Component {
                         </Chart>
                     </Col>
                     <Col className='dailySumView' span={6}>
-                        {Object.keys(this.state.sumList).length &&
+                        {Object.keys(sumMap).length &&
                             <div>
                                 <div className="dailySumBox">{sumListView}</div>
                                 <Chart data={dv} scale={dailySumChart.scale} height={320} padding={20} forceFit>
@@ -133,4 +137,8 @@ class DailyView extends React.Component {
     }
 }
 
-export default DailyView
+export default connect(state => ({
+    dashBoardData: state.dashBoardData
+}), {
+    changeChart
+})(DailyView);
