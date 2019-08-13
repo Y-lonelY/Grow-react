@@ -1,9 +1,9 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
-import dashBoard from './dashBoard/reducer';
+import * as dashBoard from './dashBoard/reducer';
 
 let store = createStore(
-    dashBoard,
+    combineReducers({...dashBoard}),
     applyMiddleware(thunk)
 );
 

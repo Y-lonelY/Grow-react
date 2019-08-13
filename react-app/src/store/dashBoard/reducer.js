@@ -6,16 +6,16 @@ let defaultState = {
     sumMap: {},
 };
 
-const dashBoardData = (state = defaultState, action = {}) => {
+export const dashBoardData = (state = defaultState, action = {}) => {
     switch(action.type) {
         case Type.dailyCharts:
-            return {...state, ...{
+            const a = {...state, ...{
                 dailyList: action.dailyList,
                 sumMap: action.sumMap
             }};
+            console.log(a)
+            return a;
         default:
             return state;
     }
 }
-
-export default dashBoardData;

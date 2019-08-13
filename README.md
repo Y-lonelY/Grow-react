@@ -6,6 +6,7 @@
 	- [Config](#config)
 	- [Command](#command)
 - [Develop Flows](#develop-flows)
+	- [2019-08-12](#2019-08-12)
 	- [2019-08-11](#2019-08-11)
 	- [2019-08-08](#2019-08-08)
 	- [2019-08-07](#2019-08-07)
@@ -101,6 +102,15 @@ server {
 4. log 日志集成
 5. mock data 集成
 	- 目前直接引入 json 文件作为假数据
+
+### 2019-08-12
+
+解决之前遗留的 redux 问题
+
+原因: export 的是一个函数，所以数据没有被装载在 `dashBoardData` 字段内<br>
+解决: `export const dashBoardData = () => {return obj}` 形式来返回一个对象，通过 `combineReducers` 来封装对象，注意如果不用 `combineReducers`，而直接使用原始方法承接 reducer，则该 reducer 必须是一个函数
+
+通过 `await data` 获取数据，如果 data 不是 Promise，则直接获取返回值，如果是一个 Promise，则获取其 `resolve(res)` 传递的 res
 
 ### 2019-08-11
 
