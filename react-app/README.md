@@ -4,7 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 [Axios](https://www.kancloud.cn/yunye/axios/234845)
 
-在 create 内尝试许久不能实现 @ 替代 scr/ 作为绝对路径，通过 github's issues 发现作者关闭了该问题，发现可以通过 `view/` 来直接访问 `src/view/` 的内容
+~在 create 内尝试许久不能实现 @ 替代 scr/ 作为绝对路径，通过 github's issues 发现作者关闭了该问题，发现可以通过 `view/` 来直接访问 `src/view/` 的内容~
+（这样的路径设置在编译时会失效）
 
 `import` 和 `export` 用来取代 `require` 和 `module.exports`
 
@@ -62,8 +63,6 @@ import {b,c as func} from './b';
 moment.js
 
 `npm install moment --save`
-
-
 
 
 ## Bizcharts

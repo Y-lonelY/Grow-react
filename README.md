@@ -103,6 +103,19 @@ server {
 5. mock data 集成
 	- 目前直接引入 json 文件作为假数据
 
+
+### 2019-08-19
+
+通过 `npm install --save typescript @types/node @types/react @types/react-dom @types/jest` 在已有项目内引入 TypeScript
+
+重新命名文件，`.js/.jsx -> .tsx`
+
+### 2019-08-13
+
+对文档内容进行整理
+
+学习 typescript
+
 ### 2019-08-12
 
 解决之前遗留的 redux 问题
