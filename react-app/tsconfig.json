@@ -1,0 +1,6 @@
+{
+    "compilerOptions": {
+        // 指定 jsx 代码的生成: 'preserve', 'react-native', or 'react'
+        "jsx": "preserve"
+    }
+}

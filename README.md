@@ -108,7 +108,9 @@ server {
 
 通过 `npm install --save typescript @types/node @types/react @types/react-dom @types/jest` 在已有项目内引入 TypeScript
 
-重新命名文件，`.js/.jsx -> .tsx`
+重新入口命名文件，`.js/.jsx -> .tsx`，解决产生的问题
+
+新建 `tsconfig.json`，并初始化相应配置
 
 ### 2019-08-13
 
