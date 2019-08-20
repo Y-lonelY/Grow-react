@@ -1,10 +1,16 @@
 import React from "react";
 import { Row, Col } from "antd";
-import './index.scss'
+import './index.scss';
 
-class ChartBar extends React.Component {
+// create interface to adapt props
+interface Props {
+    title: string;
+}
 
-    render() {
+// 利用接口对传递参数进行检查
+class ChartBar extends React.Component<Props> {
+
+    public render() {
         const title = this.props.title && this.props.title !== '' ? this.props.title : ''
 
         return(

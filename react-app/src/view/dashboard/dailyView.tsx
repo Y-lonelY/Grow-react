@@ -7,18 +7,12 @@ import { changeChart } from '../../store/dashBoard/action';
 import ChartBar from "../../components/ChartBar";
 import * as DailyService from "../../service/dailyService";
 import { dailyListChart, dailySumChart } from './config';
+import { DashBoardProps } from './dailyData';
 
 // 数据集视图构造函数
 const { DataView } = DataSet;
 
-class DailyView extends React.Component {
-
-    // constructor() {
-    //     this.state = {
-    //         dailyList: [],
-    //         sumList: {},
-    //     }
-    // }
+class DailyView extends React.Component<DashBoardProps> {
 
     // api request
     async componentWillMount() {
@@ -28,10 +22,6 @@ class DailyView extends React.Component {
             if (res.success) {
                 this.props.changeChart(res.list, res.sum);
                 console.log(this.props);
-                // this.setState({
-                //     dailyList: res.list,
-                //     sumList: res.sum,
-                // })
             }
         } catch (e) {
             throw e;

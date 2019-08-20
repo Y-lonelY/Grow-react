@@ -6,6 +6,9 @@
 	- [Config](#config)
 	- [Command](#command)
 - [Develop Flows](#develop-flows)
+	- [2019-08-20](#2019-08-20)
+	- [2019-08-19](#2019-08-19)
+	- [2019-08-13](#2019-08-13)
 	- [2019-08-12](#2019-08-12)
 	- [2019-08-11](#2019-08-11)
 	- [2019-08-08](#2019-08-08)
@@ -34,6 +37,9 @@
 2. `nginx` 启动 nginx service
 3. `cd /Users/yango/YlonelY-GrowingUp/koa-app` 进入 node 根目录
 4. `npm run start` 开启 node 服务
+5. `cd /Users/yango/YlonelY-GrowingUp/react-app` 进入 react 根目录
+6. 修改 `src/sysConfig.js` 文件内，不使用虚拟数据
+7. 执行 `npm run build` 编译文件
 
 **shell usage**
 
@@ -41,6 +47,7 @@
 2. list 展示当前占有 3000(node service) 和 7177(nginx) 端口的进程
 3. start 启动 nginx 和 node service
 4. stop 终止 nginx，同时输入 node 的 pid 来终止 node service
+5. 也可以直接 `ctrl-c` 来终止 node service，然后重新执行脚本，选择 start，因为每次 start 之前都会先尝试终止 nginx 服务
 
 
 ## Nginx
@@ -103,6 +110,9 @@ server {
 5. mock data 集成
 	- 目前直接引入 json 文件作为假数据
 
+### 2019-08-20
+
+改写项目内文件为 tsx，解决产生的问题
 
 ### 2019-08-19
 

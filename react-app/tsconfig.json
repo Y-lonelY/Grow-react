@@ -1,6 +1,12 @@
 {
     "compilerOptions": {
         // 指定 jsx 代码的生成: 'preserve', 'react-native', or 'react'
-        "jsx": "preserve"
-    }
+        "jsx": "preserve",
+        // 为运行时babel生态系统兼容性发出'__importStar'和'__importDefault'助手
+        "esModuleInterop": true
+    },
+    // 用来指定不需要编译的文件
+    "exclude": [
+        "node_modules"
+    ]
 }

@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Layout, Row, Col } from 'antd';
 import Clock from '../components/Clock';
-import DashBoard from "./Dashboard";
-import "./style/mainView.scss";
+import DashBoard from './Dashboard';
+import './style/mainView.scss';
 
 const {
     Header, Footer, Content
 } = Layout;
 
-class Home extends Component {
-    render() {
+class Home extends React.Component {
+    public render() {
         return (
             <div className="homeBox">
                 <Layout className="home-con">
@@ -23,9 +23,7 @@ class Home extends Component {
                     <Content className='dash-content'>
                         <DashBoard></DashBoard>
                     </Content>
-                    <Footer style={{
-                        textAlign: 'center'
-                    }}>"hell is other people!"</Footer>
+                    <Footer>"hell is other people!"</Footer>
                 </Layout>
             </div>
         );
