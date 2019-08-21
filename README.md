@@ -110,6 +110,14 @@ server {
 5. mock data 集成
 	- 目前直接引入 json 文件作为假数据
 
+### 2019-08-21
+
+兼容 TypeScript
+
+引入 @types/react-redux && @types/react-router-dom 文件
+
+配置 @ 作为 src 路径
+
 ### 2019-08-20
 
 改写项目内文件为 tsx，解决产生的问题

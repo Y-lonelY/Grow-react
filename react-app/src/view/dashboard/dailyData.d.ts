@@ -4,6 +4,6 @@ interface DashBoardData {
 }
 
 export interface DashBoardProps {
-    changeChart: (list, sum) => void;
+    changeChart: (list: any, sum: any) => void;
     dashBoardData: DashBoardData;
 }
