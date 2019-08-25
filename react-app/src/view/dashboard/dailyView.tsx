@@ -8,7 +8,6 @@ import ChartBar from "../../components/ChartBar";
 import * as DailyService from "../../service/dailyService";
 import { dailyListChart, dailySumChart } from './config';
 import { DashBoardProps } from './dailyData';
-import { object } from "prop-types";
 
 // 数据集视图构造函数
 const { DataView } = DataSet;
@@ -128,8 +127,12 @@ class DailyView extends React.Component<DashBoardProps> {
     }
 }
 
-export default connect(state: {dashBoardData: object} => ({
-    dashBoardData: state.dashBoardData
-}), {
+function mapStateToProps({ dashBoardData }: any) {
+    return {
+        dashBoardData,
+    }
+}
+
+export default connect(mapStateToProps, {
     changeChart
 })(DailyView);

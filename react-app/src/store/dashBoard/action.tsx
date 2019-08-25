@@ -1,8 +1,14 @@
-import * as Type from '@/store/dashBoard/actionType';
+import {DailyChartTypes} from '@/store/dashBoard/types';
 
-const changeChart: (dailyList: any, sumMap: any) => any  = (dailyList, sumMap) => {
+interface ChangeChart {
+    type: string;
+    dailyList: any;
+    sumMap: any;
+}
+
+const changeChart: (dailyList: any, sumMap: any) => ChangeChart  = (dailyList, sumMap) => {
     return {
-        type: Type.dailyCharts,
+        type: DailyChartTypes.DAILYCHARTS,
         dailyList,
         sumMap,
     }

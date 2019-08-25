@@ -6,6 +6,8 @@
 	- [Config](#config)
 	- [Command](#command)
 - [Develop Flows](#develop-flows)
+	- [2019-08-22](#2019-08-22)
+	- [2019-08-21](#2019-08-21)
 	- [2019-08-20](#2019-08-20)
 	- [2019-08-19](#2019-08-19)
 	- [2019-08-13](#2019-08-13)
@@ -110,11 +112,15 @@ server {
 5. mock data 集成
 	- 目前直接引入 json 文件作为假数据
 
+### 2019-08-22
+
+解决 redux 和 TypeScript 兼容问题
+
 ### 2019-08-21
 
 兼容 TypeScript
 
-引入 @types/react-redux && @types/react-router-dom 文件
+引入 `@types/react-redux` && `@types/react-router-dom` 文件
 
 配置 @ 作为 src 路径
 

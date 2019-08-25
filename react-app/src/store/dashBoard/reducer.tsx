@@ -1,4 +1,9 @@
-import * as Type from './actionType';
+import {DailyChartTypes} from '@/store/dashBoard/types';
+
+interface StoreState{
+    dailyList?: any[];
+    sumMap?: object;
+}
 
 // default
 let defaultState = {
@@ -6,9 +11,9 @@ let defaultState = {
     sumMap: {},
 };
 
-export const dashBoardData = (state = defaultState as any, action = {} as any) => {
+export const dashBoardData: (state: StoreState, action: any) => StoreState = (state = defaultState, action) => {
     switch(action.type) {
-        case Type.dailyCharts:
+        case DailyChartTypes.DAILYCHARTS:
             return {...state, ...{
                 dailyList: action.dailyList,
                 sumMap: action.sumMap
