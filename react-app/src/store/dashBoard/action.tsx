@@ -1,14 +1,8 @@
-import {DailyChartTypes} from '@/store/dashBoard/types';
+import {ChangeChart, DashBoardData} from '@/index.d.ts';
 
-interface ChangeChart {
-    type: string;
-    dailyList: any;
-    sumMap: any;
-}
-
-const changeChart: (dailyList: any, sumMap: any) => ChangeChart  = (dailyList, sumMap) => {
+const changeChart: (...DashBoardData) => ChangeChart  = (dailyList, sumMap) => {
     return {
-        type: DailyChartTypes.DAILYCHARTS,
+        type: 'dailycharts',
         dailyList,
         sumMap,
     }

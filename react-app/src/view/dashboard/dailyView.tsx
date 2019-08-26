@@ -3,11 +3,11 @@ import { G2, Chart, Geom, Axis, Tooltip, Legend, Coord, View, Label } from 'bizc
 import { Row, Col } from "antd";
 import DataSet from "@antv/data-set";
 import { connect } from 'react-redux';
-import { changeChart } from '../../store/dashBoard/action';
-import ChartBar from "../../components/ChartBar";
-import * as DailyService from "../../service/dailyService";
+import { changeChart } from '@/store/dashBoard/action';
+import ChartBar from "@/components/ChartBar";
+import * as DailyService from "@/service/dailyService";
 import { dailyListChart, dailySumChart } from './config';
-import { DashBoardProps } from './dailyData';
+import { DashBoardProps } from '@/index.d.ts';
 
 // 数据集视图构造函数
 const { DataView } = DataSet;
@@ -21,7 +21,6 @@ class DailyView extends React.Component<DashBoardProps> {
 
             if (res.success) {
                 this.props.changeChart(res.list, res.sum);
-                console.log(this.props);
             }
         } catch (e) {
             throw e;
@@ -127,6 +126,7 @@ class DailyView extends React.Component<DashBoardProps> {
     }
 }
 
+// 建立 state.dashBoardData 和 this.props.dashBoardData 的对应关系
 function mapStateToProps({ dashBoardData }: any) {
     return {
         dashBoardData,

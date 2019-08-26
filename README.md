@@ -6,6 +6,7 @@
 	- [Config](#config)
 	- [Command](#command)
 - [Develop Flows](#develop-flows)
+	- [2019-08-26](#2019-08-26)
 	- [2019-08-22](#2019-08-22)
 	- [2019-08-21](#2019-08-21)
 	- [2019-08-20](#2019-08-20)
@@ -112,9 +113,17 @@ server {
 5. mock data 集成
 	- 目前直接引入 json 文件作为假数据
 
+### 2019-08-26
+
+TypeScript && redux 判断类型引入 enum 检查
+
+重新梳理项目内 typescript 写法，新建 index.d.ts 用于全局类型检查
+
 ### 2019-08-22
 
 解决 redux 和 TypeScript 兼容问题
+
+关键在 `connect()` 组件方式时，将 `mapStateToProps` 提出来，作为一个命名函数传入，从而对参数进行检查
 
 ### 2019-08-21
 
