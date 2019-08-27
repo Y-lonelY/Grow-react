@@ -1,4 +1,4 @@
-import MainView from '../view/MainView'
+import DashboardView from '@/view/Dashboard'
 
 interface routeConfig {
     key: number;
@@ -18,7 +18,7 @@ const config: Config = {
         title: 'mainView',
         exact: true,
         path: '/',
-        component: MainView
+        component: DashboardView
     }],
 }
 

@@ -1,14 +1,17 @@
 import React from 'react';
 import { Layout, Row, Col } from 'antd';
-import Clock from '../components/Clock';
-import DashBoard from './Dashboard';
-import './style/mainView.scss';
+import { BrowserRouter } from "react-router-dom";
+import config from '@/config/routerConfig';
+import Router from '@/cluster/Router';
+import Clock from '@/components/Clock';
+import '@/app.scss';
+
 
 const {
     Header, Footer, Content
 } = Layout;
 
-class Home extends React.Component {
+class App extends React.Component {
     public render() {
         return (
             <div className="homeBox">
@@ -21,13 +24,17 @@ class Home extends React.Component {
                         </Row>
                     </Header>
                     <Content className='dash-content'>
-                        <DashBoard></DashBoard>
+                        {/* 路由主体 */}
+                        <BrowserRouter>
+                            <Router defaultConfig={config.routeConfig}></Router>
+                        </BrowserRouter>
+                        {/* 路由主体 */}
                     </Content>
                     <Footer>"hell is other people!"</Footer>
                 </Layout>
             </div>
-        );
+        )
     }
 }
 
-export default Home;
+export default App;

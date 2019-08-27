@@ -1,13 +1,14 @@
-@import './variable.scss';
+@import '@/common.scss';
 
 .homeBox {
-    box: {
-        sizing: border-box;
-    }
-    font-family: $main-font-family;
     .home-con {
         background: {
             color: #ffffff;
+        }
+        .dash-header {
+            background: {
+                color: $blackBack;
+            }
         }
         .dash-content {
             margin: 0 auto;

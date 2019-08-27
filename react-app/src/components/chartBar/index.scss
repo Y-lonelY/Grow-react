@@ -1,10 +1,10 @@
-@import '../../view/style/variable.scss';
+$text: rgba(0, 0, 0, .85);
 
 .chartBar {
     padding: 10px 0;
     .charBarTitle {
         padding-left: 20px;
         font-weight: 600;
-        color: $chart-label;
+        color: $text;
     }
 }
