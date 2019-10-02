@@ -1,0 +1,35 @@
+@import '@/common.scss';
+
+.flow-header {
+    .main-header {
+        background: {
+            color: $blackBack;
+        }
+        .header-label {
+            font: {
+                size: 18px;
+                family: $robotFont;
+                weight: 400;
+            }
+            text-transform: uppercase;
+            color: #ffffff;
+    
+        }
+    }
+    .sub-header {
+        height: 32px;
+        padding: 0 50px;
+        line-height: 32px;
+        box-shadow: 0 2px 4px rgba(0,0,0,.5);
+        .header-label {
+            font: {
+                size: 18px;
+                family: $robotFont;
+                weight: 400;
+            }
+            text-transform: uppercase;
+            color: #000000;
+    
+        }
+    }
+}

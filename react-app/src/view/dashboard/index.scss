@@ -1,0 +1,28 @@
+@import '@/common.scss';
+
+.dashboard {
+    .dailyChartView {
+        margin: 20px 0;
+        box-sizing: border-box;
+        .dailyListView {
+        }
+        .dailySumView {
+            .dailySumBox {
+                padding: 20px;
+                box-shadow: $box-shadow;
+                .dailySumItem {
+                    padding-bottom: 20px;
+                    &:last-child {
+                        padding-bottom: 0;
+                    }
+                    .dailySumTitle {
+                        font-family: "Roboto Mono",monospace;
+                    }
+                    .dailySumLabel {
+                        text-align: end;
+                    }
+                }
+            }
+        }
+    }
+}
