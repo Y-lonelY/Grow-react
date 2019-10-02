@@ -14,19 +14,20 @@ const {
 class App extends React.Component {
     public render() {
         return (
+            <BrowserRouter>
             <div className="homeBox">
                 <Layout className="home-con">
                     <FlowHeader></FlowHeader>
                     <Content className='dash-content'>
                         {/* 路由主体 */}
-                        <BrowserRouter>
+                        
                             <Router defaultConfig={config.routeConfig}></Router>
-                        </BrowserRouter>
                         {/* 路由主体 */}
                     </Content>
                     <Footer>"hell is other people!"</Footer>
                 </Layout>
             </div>
+            </BrowserRouter>
         )
     }
 }

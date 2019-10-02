@@ -1,4 +1,5 @@
 import DashboardView from '@/view/Dashboard'
+import ChartBarView from '@/components/ChartBar'
 
 interface routeConfig {
     key: number;
@@ -19,6 +20,12 @@ const config: Config = {
         exact: true,
         path: '/',
         component: DashboardView
+    }, {
+        key: 2,
+        title: 'mainView',
+        exact: true,
+        path: '/test',
+        component: ChartBarView
     }],
 }
 

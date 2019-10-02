@@ -17,9 +17,9 @@
         }
     }
     .sub-header {
-        height: 32px;
+        height: 36px;
         padding: 0 50px;
-        line-height: 32px;
+        line-height: 36px;
         box-shadow: 0 2px 4px rgba(0,0,0,.5);
         .header-label {
             font: {
@@ -30,6 +30,41 @@
             text-transform: uppercase;
             color: #000000;
     
+        }
+        .list-content {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            
+            .item {
+                margin-right: 24px;
+                transform: translateY(-1px);
+                color: #767676;
+                font: {
+                    size: 14px;
+                    weight: 400;
+                }
+
+                &:hover {
+                    color: #000000;
+                }
+
+                &.active {
+                    color: #111;
+                    font-weight: 500;
+                    border-bottom: 1px solid #111;
+                }
+            }
+
+            .other-item {
+                transform: translateY(-1px);
+                color: #767676;
+
+                &:hover {
+                    color: #000000;
+                }
+            }
         }
     }
 }

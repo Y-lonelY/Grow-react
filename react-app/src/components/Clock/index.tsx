@@ -1,9 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Popover, Progress } from 'antd';
 import moment from 'moment';
 import './index.scss'
 
-class Clock extends Component {
+interface ClockState {
+    date: String
+}
+
+class Clock extends React.Component<{}, ClockState> {
+    timeInterval: number;
     // 添加一个类构造函数来初始化状态 this.state
     // 类组件应该始终使用 props 调用基础构造函数，super() 方法就是为达到此目的
     constructor(props) {
@@ -39,7 +44,7 @@ class Clock extends Component {
 
         let leftDays = fullDays - days;
         let percent = Number((days * 100 / fullDays).toFixed(0));
-        let mockLIst = ['react', 'redux', 'python api'];
+        let mockList: string[] = ['react', 'redux', 'python api'];
 
         return (
             <div className="dateBox">
@@ -55,7 +60,7 @@ class Clock extends Component {
                     to: '#777'
                 }}></Progress>
                 <p className="title-bold">todo list</p>
-                {mockLIst.map((item, index) => {
+                {mockList.map((item, index) => {
                     return (<p key={ String(index) }>{ item }</p>);
                 })}
             </div>
@@ -67,7 +72,7 @@ class Clock extends Component {
             <div className="clockBox">
             <Popover
             trigger="hover"
-            title="Time Flows"
+            title="Time Flow"
             content={ this.timeFlow() }>
                 <span className="clock-btn">
                 { this.state.date }
