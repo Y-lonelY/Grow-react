@@ -129,7 +129,13 @@ server {
 	- 目前直接引入 json 文件作为假数据
 
 
-### 2019-09-30
+### 2019-10-02
+
+react 内多个 className可以通过模板字符串来实现
+
+```js
+className={`${item.class} ${item.label === this.state.currentItem ? 'active' : ''}`}
+```
 
 
 

@@ -5,6 +5,15 @@
         background: {
             color: $blackBack;
         }
+
+        .seperator {
+            width: 2px;
+            background-color: rgba(255,255,255,.75);
+            height: 25%;
+            transform: translateY(150%);
+            border-radius: 4px;
+        } 
+
         .header-label {
             font: {
                 size: 18px;
@@ -15,55 +24,80 @@
             color: #ffffff;
     
         }
-    }
-    .sub-header {
-        height: 36px;
-        padding: 0 50px;
-        line-height: 36px;
-        box-shadow: 0 2px 4px rgba(0,0,0,.5);
-        .header-label {
-            font: {
-                size: 18px;
-                family: $robotFont;
-                weight: 400;
-            }
-            text-transform: uppercase;
-            color: #000000;
-    
+
+        .header-flow-list {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-end;
         }
-        .list-content {
+
+        .header-link-list {
             display: flex;
             flex-direction: row;
             flex-wrap: nowrap;
             justify-content: flex-start;
-            
+
             .item {
-                margin-right: 24px;
-                transform: translateY(-1px);
-                color: #767676;
-                font: {
-                    size: 14px;
-                    weight: 400;
+                &:first-child {
+                    padding-left: 18px;
+                }
+                &.github {
+                    i {
+                        display: inline-block;
+                        width: 24px;
+                        height: 22px;
+                        transform: translateY(5px);
+                        background: {
+                            image: url(../../assets/github.png);
+                            repeat: no-repeat;
+                            position: center right;
+                        }
+                    }
                 }
 
-                &:hover {
-                    color: #000000;
-                }
-
-                &.active {
-                    color: #111;
-                    font-weight: 500;
-                    border-bottom: 1px solid #111;
+                &.lore {
+                    i {
+                        display: inline-block;
+                        width: 24px;
+                        height: 22px;
+                        transform: translateY(5px);
+                        background: {
+                            image: url(../../assets/lore.png);
+                            repeat: no-repeat;
+                            position: center right;
+                        }
+                    }
                 }
             }
+        }
 
-            .other-item {
-                transform: translateY(-1px);
-                color: #767676;
+        .item {
+            height: calc(100% - 5px);
+            margin-right: 24px;
+            color: $gray;
+            cursor: pointer;
+            font: {
+                size: 14px;
+                weight: 400;
+            }
 
-                &:hover {
-                    color: #000000;
-                }
+            &:hover {
+                color: #ffffff;
+            }
+
+            &.active {
+                color: #ffffff;
+                font-weight: 500;
+                border-bottom: 2px solid #ffffff;
+            }
+
+            a {
+                color: $gray;
+            }
+
+            a:hover {
+                color: #ffffff;
             }
         }
     }
