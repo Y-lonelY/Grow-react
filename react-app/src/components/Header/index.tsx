@@ -31,10 +31,10 @@ class FlowHeader extends React.Component<FlowHeaderProps, FlowHeaderState> {
             <div className='flow-header'>
                 <Header className="main-header">
                     <Row type="flex" justify="start">
-                        <Col span={2}>
+                        <Col span={3}>
                             <span className="header-label">GROWTH FLOW</span>
                         </Col>
-                        <Col className="header-flow-list" span={4} offset={10}>
+                        <Col className="header-flow-list" span={12}>
                             {flowItems.map((item,index) => {
                                 return (
                                 <div   
@@ -45,7 +45,7 @@ class FlowHeader extends React.Component<FlowHeaderProps, FlowHeaderState> {
                             }
                             <div className="seperator"></div>
                         </Col>
-                        <Col className="header-link-list" span={4}>
+                        <Col className="header-link-list" span={5}>
                             {linkItems.map((item,index) => {
                                 return (
                                 <div   

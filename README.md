@@ -133,11 +133,11 @@ server {
 
 react 内多个 className可以通过模板字符串来实现
 
+✅封装header组件，实现spa跳转和link跳转
+
 ```js
 className={`${item.class} ${item.label === this.state.currentItem ? 'active' : ''}`}
 ```
-
-
 
 ### 2019-08-27
 
