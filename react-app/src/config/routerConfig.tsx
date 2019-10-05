@@ -1,4 +1,4 @@
-import DashboardView from '@/view/Dashboard'
+import DashboardView from '@/view/Exercise'
 import ChartBarView from '@/components/ChartBar'
 
 interface routeConfig {

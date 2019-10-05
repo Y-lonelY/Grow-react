@@ -11,18 +11,18 @@ export interface StoreState{
  * DashBoard module declare
  */
 
-export interface DashBoardData {
+export interface ExerciseData {
     sumMap?: {};
     dailyList?: {}[];
 }
 
-export interface ChangeChart extends DashBoardData{
+export interface ExerciseChartAction extends ExerciseData {
     type: string;
 }
 
-export type DashBoardProps = {
-    changeChart: (...DashBoardData) => ChangeChart;
-    dashBoardData: DashBoardData;
+export type ExerciseProps = {
+    changeChart: (...DashBoardData) => ExerciseChartAction;
+    exerciseData: ExerciseData;
 }
 
 // 用于各个模块的action.type类型检查

@@ -1,12 +1,12 @@
-import { DailyChartTypes, ChangeChart, StoreState, DashBoardData } from '@/index.d.ts';
+import { DailyChartTypes, ExerciseChartAction, StoreState, ExerciseData } from '@/index.d.ts';
 
 // default
-let defaultState: DashBoardData = {
+let defaultState: ExerciseData = {
     dailyList: [],
     sumMap: {},
 };
 
-export const dashBoardData: (state: StoreState, action: ChangeChart) => StoreState = (state = defaultState, action) => {
+export const exerciseData: (state: StoreState, action: ExerciseChartAction) => StoreState = (state = defaultState, action) => {
     switch(action.type) {
         case DailyChartTypes.DAILYCHARTS:
             return {...state, ...{

@@ -3,19 +3,20 @@ import { G2, Chart, Geom, Axis, Tooltip, Legend, Coord, View, Label } from 'bizc
 import { Row, Col } from "antd";
 import DataSet from "@antv/data-set";
 import { connect } from 'react-redux';
-import { changeChart } from '@/store/dashBoard/action';
+import { Polyline } from '@/components/Chart/polyline';
+import { changeChart } from '@/store/Exercise/action';
 import ChartBar from "@/components/ChartBar";
 import * as DailyService from "@/service/dailyService";
 import { dailyListChart, dailySumChart } from './config';
-import { DashBoardProps } from '@/index.d.ts';
+import { ExerciseProps } from '@/index.d.ts';
 
 // 数据集视图构造函数
 const { DataView } = DataSet;
 
-class DailyView extends React.Component<DashBoardProps> {
+class DailyView extends React.Component<ExerciseProps, {}> {
 
     // api request
-    async componentWillMount() {
+    async componentDidMount() {
         try {
             const res = await DailyService.getDailyExerciseList();
 
@@ -28,7 +29,7 @@ class DailyView extends React.Component<DashBoardProps> {
     }
 
     render() {
-        const sumMap = this.props.dashBoardData ? this.props.dashBoardData.sumMap : {};
+        const sumMap = this.props.exerciseData ? this.props.exerciseData.sumMap : {};
         // 注意添加 key
         const sumListView = Object.entries(sumMap).map((item, index) => {
             return (
@@ -64,37 +65,7 @@ class DailyView extends React.Component<DashBoardProps> {
                 <Row>
                     <Col className='dailyListView' span={18}>
                         <ChartBar title='最近30次锻炼记录'></ChartBar>
-                        <Chart
-                            className='dailyChartBox'
-                            padding="auto"
-                            height={460}
-                            data={this.props.dashBoardData ? this.props.dashBoardData.dailyList : []}
-                            scale={dailyListChart.scale}
-                            forceFit>
-                            {/* 图例 */}
-                            <Legend></Legend>
-                            {/* Axis 通过 name 来指定坐标轴 */}
-                            {/* position 控制当前坐标轴展示位置 */}
-                            <Axis name="date" position="bottom"></Axis>
-                            <Axis name="number" position="left"></Axis>
-                            {/* 点，线，面几何图形 */}
-                            {/* position 位置属性的映射，表示标记位置是由哪些数据控制，即（x,y） */}
-                            {/* 对于 line 来说，size表示线的宽度 */}
-                            <Geom type="line" position="date*number" size={2} color={"type"}></Geom>
-                            {/* 'shapeType'，指定常量，将所有数据值映射到固定的 shape */}
-                            {/* 对于 point 来说，size表示点的半径 */}
-                            {/* style 作用于点样式 */}
-                            <Geom
-                                type="point"
-                                position="date*number"
-                                size={4}
-                                shape={'circle'}
-                                color={"type"}
-                                style={{ stroke: '#fff', lineWidth: 1 }}
-                            />
-                            {/* 设置y:垂直辅助线 */}
-                            <Tooltip crosshairs={{ type: 'y' }} />
-                        </Chart>
+                        <Polyline data={this.props.exerciseData}></Polyline>
                     </Col>
                     <Col className='dailySumView' span={6}>
                         {Object.keys(sumMap).length &&
@@ -126,10 +97,10 @@ class DailyView extends React.Component<DashBoardProps> {
     }
 }
 
-// 建立 state.dashBoardData 和 this.props.dashBoardData 的对应关系
-function mapStateToProps({ dashBoardData }: any) {
+// 建立 this.state.dashBoardData 和 this.props.dashBoardData 的对应关系
+function mapStateToProps({ exerciseData }: any) {
     return {
-        dashBoardData,
+        exerciseData,
     }
 }
 

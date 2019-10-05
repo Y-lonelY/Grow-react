@@ -1,9 +1,9 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import * as dashBoard from '@/store/dashBoard/reducer';
+import * as Exercise from '@/store/Exercise/reducer';
 
 let store = createStore(
-    combineReducers({...dashBoard}),
+    combineReducers({...Exercise}),
     applyMiddleware(thunk)
 );
 
