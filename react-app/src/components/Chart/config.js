@@ -1,4 +1,4 @@
-const dailyListChart = {
+const ExercisePolyline = {
     scale: {
         date: {
             // 为数据属性定义别名，用于图例、坐标轴、tooltip 的个性化显示.
@@ -15,7 +15,7 @@ const dailyListChart = {
     }
 };
 
-const dailySumChart = {
+const ExercisePie = {
     scale: {
         percent: {
             formatter: val => {
@@ -26,4 +26,4 @@ const dailySumChart = {
     }
 };
 
-export { dailyListChart, dailySumChart }
+export { ExercisePolyline, ExercisePie }

@@ -1,7 +1,7 @@
 import DashboardView from '@/view/Exercise'
 import ChartBarView from '@/components/ChartBar'
 
-interface routeConfig {
+interface routeConfigItem {
     key: number;
     title: string;
     exact: boolean;
@@ -9,11 +9,11 @@ interface routeConfig {
     component: any;
 }
 
-interface Config {
-    routeConfig: routeConfig[];
+interface RouterConfig {
+    routeConfig: routeConfigItem[];
 }
 
-const config: Config = {
+const config: RouterConfig = {
     routeConfig: [{
         key: 1,
         title: 'mainView',
