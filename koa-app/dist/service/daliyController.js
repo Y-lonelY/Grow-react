@@ -58,7 +58,7 @@ function _getDailyLists() {
   _getDailyLists = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee2() {
-    var list, sql_leg, sql_belly, sql_chest, leg_list, belly_list, chest_list;
+    var list, sql_leg, sql_belly, sql_chest, sql_daily_list, daily_list;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -67,56 +67,44 @@ function _getDailyLists() {
             sql_leg = "SELECT `leg-nums` AS leg, `date` FROM `gro-up`.`exc_daily` LIMIT 30";
             sql_belly = "SELECT `belly-nums` AS belly, `date` FROM `gro-up`.`exc_daily` LIMIT 30";
             sql_chest = "SELECT `chest-nums` AS chest, `date` FROM `gro-up`.`exc_daily` LIMIT 30";
-            _context2.next = 6;
+            sql_daily_list = "SELECT id, date, `leg-nums` AS leg, `belly-nums` AS belly, `chest-nums` AS chest FROM " + "`gro-up`.exc_daily ORDER BY date DESC LIMIT 30"; // let leg_list = await sequelizeCase.query({ sql: sql_leg, queryType: "select" });
+            // let belly_list = await sequelizeCase.query({ sql: sql_belly, queryType: "select" });
+            // let chest_list = await sequelizeCase.query({ sql: sql_chest, queryType: "select" });
+
+            _context2.next = 7;
             return _mysqlSequelize["default"].query({
-              sql: sql_leg,
+              sql: sql_daily_list,
               queryType: "select"
             });
 
-          case 6:
-            leg_list = _context2.sent;
-            _context2.next = 9;
-            return _mysqlSequelize["default"].query({
-              sql: sql_belly,
-              queryType: "select"
-            });
-
-          case 9:
-            belly_list = _context2.sent;
-            _context2.next = 12;
-            return _mysqlSequelize["default"].query({
-              sql: sql_chest,
-              queryType: "select"
-            });
-
-          case 12:
-            chest_list = _context2.sent;
+          case 7:
+            daily_list = _context2.sent;
             // map() create a new array
-            leg_list = leg_list.map(function (item) {
-              return {
-                type: 'leg',
-                date: item.date,
-                number: item.leg
-              };
-            });
-            belly_list = belly_list.map(function (item) {
-              return {
-                type: 'belly',
-                date: item.date,
-                number: item.belly
-              };
-            });
-            chest_list = chest_list.map(function (item) {
-              return {
-                type: 'chest',
-                date: item.date,
-                number: item.chest
-              };
-            });
-            list = list.concat(leg_list, belly_list, chest_list);
+            // leg_list = leg_list.map(item => {
+            //     return {
+            //         type: 'leg',
+            //         date: item.date,
+            //         number: item.leg
+            //     }
+            // })
+            // belly_list = belly_list.map(item => {
+            //     return {
+            //         type: 'belly',
+            //         date: item.date,
+            //         number: item.belly
+            //     }
+            // })
+            // chest_list = chest_list.map(item => {
+            //     return {
+            //         type: 'chest',
+            //         date: item.date,
+            //         number: item.chest
+            //     }
+            // })
+            list = daily_list;
             return _context2.abrupt("return", list);
 
-          case 18:
+          case 10:
           case "end":
             return _context2.stop();
         }

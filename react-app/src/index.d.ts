@@ -6,6 +6,20 @@ export interface StoreState{
     sumMap?: {};
 }
 
+/**
+ * chart
+ */
+export interface PolylineData {
+    type: string,
+    date: string,
+    number: string
+}
+
+export interface PieData {
+    type: string,
+    date: string,
+    number: string
+}
 
 /**
  * DashBoard module declare
@@ -13,7 +27,13 @@ export interface StoreState{
 
 export interface ExerciseData {
     sumMap?: {};
-    dailyList?: {}[];
+    dailyList?: {
+        id: number,
+        date: string,
+        leg: string,
+        belly: string,
+        chest: string
+    }[];
 }
 
 export interface ExerciseChartAction extends ExerciseData {
@@ -21,8 +41,20 @@ export interface ExerciseChartAction extends ExerciseData {
 }
 
 export type ExerciseProps = {
-    changeChart: (...DashBoardData) => ExerciseChartAction;
+    changeChart: (...ExerciseData) => ExerciseChartAction;
     exerciseData: ExerciseData;
+}
+
+export type ExerciseState = {
+    showChart: boolean
+}
+
+export interface ExerciseTableData {
+    key: string,
+    date: string,
+    leg: number,
+    belly: number,
+    chest: number
 }
 
 // 用于各个模块的action.type类型检查

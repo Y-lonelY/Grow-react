@@ -3,10 +3,14 @@ import { G2, Chart, Geom, Axis, Tooltip, Legend, Coord, View, Label } from 'bizc
 import DataSet from "@antv/data-set";
 import { ExercisePolyline, ExercisePie } from './config';
 import SystemConfig from '@/config/sysConfig';
-import { ExerciseData } from '@/index.d.ts';
+import { ExerciseData, PolylineData } from '@/index.d.ts';
 
-interface ExerciseProps {
-    data: ExerciseData
+interface PolylineProps {
+    data: PolylineData[]
+}
+
+interface PieProps {
+    data: {}
 }
 
 // 数据集视图构造函数
@@ -15,14 +19,14 @@ const { DataView } = DataSet;
 /**
  * 折线图
  */
-class Polyline extends React.Component<ExerciseProps, {}> {
+class Polyline extends React.Component<PolylineProps, {}> {
     public render() {
         return (
             <Chart
                 className='dailyChartBox'
                 padding="auto"
                 height={460}
-                data={this.props.data ? this.props.data.dailyList : []}
+                data={this.props.data}
                 scale={ExercisePolyline.scale}
                 forceFit>
                 {/* 图例 */}
@@ -56,9 +60,9 @@ class Polyline extends React.Component<ExerciseProps, {}> {
 /**
  * 饼图
  */
-class Pie extends React.Component<ExerciseProps, {}> {
+class Pie extends React.Component<PieProps, {}> {
     public render() {
-        const sumMap = this.props.data ? this.props.data.sumMap : {};
+        const sumMap = this.props.data;
         let sumChartData = [];
 
         Object.entries(sumMap).forEach(item => {

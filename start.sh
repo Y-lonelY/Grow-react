@@ -25,7 +25,7 @@ function READ_USER_INPUT() {
     else
       echo -n "Input Error: Out Of Range!"
       READ_USER_INPUT "$title" "${options[*]}" $maxValue
-    # fi 用来标示语句快结束
+    # fi 用来标示语句结束
     fi
   # 不为数字则直接进行提示
   else
@@ -50,10 +50,10 @@ if [[ $option_select -eq 1 ]]; then
     cd ~
     nginx
     # compile react
-    cd /Users/yango/YlonelY-GrowingUp/react-app
+    cd /Users/yango/Growup/YlonelY-GrowingUp/react-app
     npm run build
     # node category
-    cd /Users/yango/YlonelY-GrowingUp/koa-app
+    cd /Users/yango/Growup/YlonelY-GrowingUp/koa-app
     npm run server
 elif [[ $option_select -eq 2 ]]; then
     cd ~
@@ -77,6 +77,6 @@ elif [[ $option_select -eq 4 ]]; then
     echo -n "Input PID to kill the node process: "
     read pid
     kill -9 ${pid}
-    cd /Users/yango/YlonelY-GrowingUp/koa-app
+    cd /Users/yango/Growup/YlonelY-GrowingUp/koa-app
     npm run server
 fi
