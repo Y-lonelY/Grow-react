@@ -46,7 +46,9 @@ export type ExerciseProps = {
 }
 
 export type ExerciseState = {
-    showChart: boolean
+    showChart: boolean,
+    chart: PolylineData[],
+    table: ExerciseTableData[]
 }
 
 export interface ExerciseTableData {

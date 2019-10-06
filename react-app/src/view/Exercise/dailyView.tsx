@@ -13,7 +13,9 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
     constructor(props) {
         super(props)
         this.state = {
-            showChart: false
+            showChart: true,
+            chart: [],
+            table: []
         }
     }
 
@@ -29,6 +31,23 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
             );
         });
 
+        const columns: ColumnProps<ExerciseTableData>[] = [{
+            key: 'date',
+            title: '日期',
+            dataIndex: 'date'
+        }, {
+            key: 'leg',
+            title: 'Leg',
+            dataIndex: 'leg'
+        }, {
+            key: 'belly',
+            title: 'Belly',
+            dataIndex: 'belly'
+        }, {
+            key: 'chest',
+            title: 'Chest',
+            dataIndex: 'chest'
+        }];
 
         return (
             <div className='dailyChartView'>
@@ -37,10 +56,10 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                         <ChartBar
                             title='最近30次锻炼记录'
                             switchChange={this.switchChange}
-                            tableSwitch></ChartBar>
+                            tableSwitch />
                         {this.state.showChart ?
-                            <Polyline data={this.handlePolylineData()}></Polyline> :
-                            <Table dataSource={dataSource} columns={columns} />
+                            <Polyline data={this.state.chart}></Polyline> :
+                            <Table<ExerciseTableData> className='dailyTableBox' size='middle' dataSource={this.state.table} columns={columns} />
                         }
                     </Col>
                     <Col className='dailySumView' span={6}>
@@ -64,6 +83,8 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
             if (res.success) {
                 // 更新 redux store
                 this.props.changeChart(res.list, res.sum);
+                const polyData = this.handlePolylineData()
+                this.setState(polyData)
             }
         } catch (e) {
             throw e;
@@ -71,12 +92,13 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
     }
 
     // 处理折线图数据
-    handlePolylineData:() => PolylineData[] = () => {
-        let list = [];
+    handlePolylineData:() => {chart: PolylineData[], table: ExerciseTableData[]} = () => {
+        let chartList: PolylineData[] = [];
+        let tableList: ExerciseTableData[] = [];
 
         if (this.props.exerciseData && this.props.exerciseData.dailyList && this.props.exerciseData.dailyList.length > 0) {
             this.props.exerciseData.dailyList.forEach(item => {
-                list.push({
+                chartList.push({
                     type: 'leg',
                     date: item.date,
                     number: item.leg,
@@ -88,31 +110,42 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                     type: 'chest',
                     date: item.date,
                     number: item.chest, 
-                })
-            });
-        }
+                });
 
-        return list;
-    }
-
-    // 处理表格数据
-    handleTableData:() => ExerciseTableData[] = () => {
-        let list = [];
-
-        if (this.props.exerciseData && this.props.exerciseData.dailyList && this.props.exerciseData.dailyList.length > 0) {
-            this.props.exerciseData.dailyList.map((item,index) => {
-                return {
+                tableList.push({
                     key: String(item.id),
                     date: item.date,
                     leg: Number(item.leg),
                     belly: Number(item.belly),
                     chest: Number(item.chest)
-                };
-            })
+                });
+            });
         }
 
-        return list;
+        return {
+            chart: chartList,
+            table: tableList
+        };
     }
+
+    // 处理表格数据
+    // handleTableData:() => ExerciseTableData[] = () => {
+    //     let list = [];
+
+    //     if (this.props.exerciseData && this.props.exerciseData.dailyList && this.props.exerciseData.dailyList.length > 0) {
+    //         this.props.exerciseData.dailyList.map((item) => {
+    //             return {
+    //                 key: String(item.id),
+    //                 date: item.date,
+    //                 leg: Number(item.leg),
+    //                 belly: Number(item.belly),
+    //                 chest: Number(item.chest)
+    //             };
+    //         })
+    //     }
+
+    //     return list;
+    // }
 
     switchChange = (checked) => {
         this.setState({

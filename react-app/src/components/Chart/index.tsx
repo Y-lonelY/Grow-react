@@ -18,6 +18,8 @@ const { DataView } = DataSet;
 
 /**
  * 折线图
+ * width 根据dom结构计算，防止其渲染有闪动
+ * forceFit 根据父节点的宽度进行定位
  */
 class Polyline extends React.Component<PolylineProps, {}> {
     public render() {
@@ -25,7 +27,8 @@ class Polyline extends React.Component<PolylineProps, {}> {
             <Chart
                 className='dailyChartBox'
                 padding="auto"
-                height={460}
+                height={500}
+                width={window.innerWidth * 0.9 * 0.75}
                 data={this.props.data}
                 scale={ExercisePolyline.scale}
                 forceFit>
