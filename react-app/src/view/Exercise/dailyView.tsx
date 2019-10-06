@@ -58,7 +58,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                             switchChange={this.switchChange}
                             tableSwitch />
                         {this.state.showChart ?
-                            <Polyline data={this.state.chart}></Polyline> :
+                            <Polyline className='dailyChartBox' data={this.state.chart}></Polyline> :
                             <Table<ExerciseTableData> className='dailyTableBox' size='middle' dataSource={this.state.table} columns={columns} />
                         }
                     </Col>
@@ -128,30 +128,10 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
         };
     }
 
-    // 处理表格数据
-    // handleTableData:() => ExerciseTableData[] = () => {
-    //     let list = [];
-
-    //     if (this.props.exerciseData && this.props.exerciseData.dailyList && this.props.exerciseData.dailyList.length > 0) {
-    //         this.props.exerciseData.dailyList.map((item) => {
-    //             return {
-    //                 key: String(item.id),
-    //                 date: item.date,
-    //                 leg: Number(item.leg),
-    //                 belly: Number(item.belly),
-    //                 chest: Number(item.chest)
-    //             };
-    //         })
-    //     }
-
-    //     return list;
-    // }
-
     switchChange = (checked) => {
         this.setState({
             showChart: checked
         });
-        console.log(this.props.exerciseData)
     }
 }
 

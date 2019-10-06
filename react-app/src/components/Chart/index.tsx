@@ -6,7 +6,8 @@ import SystemConfig from '@/config/sysConfig';
 import { ExerciseData, PolylineData } from '@/index.d.ts';
 
 interface PolylineProps {
-    data: PolylineData[]
+    data: PolylineData[],
+    className: string
 }
 
 interface PieProps {
@@ -25,7 +26,7 @@ class Polyline extends React.Component<PolylineProps, {}> {
     public render() {
         return (
             <Chart
-                className='dailyChartBox'
+                className={this.props.className}
                 padding="auto"
                 height={500}
                 width={window.innerWidth * 0.9 * 0.75}
