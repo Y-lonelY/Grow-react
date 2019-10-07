@@ -128,6 +128,19 @@ server {
 5. mock data 集成
 	- 目前直接引入 json 文件作为假数据
 
+### 2019-10-07
+
+ChartBar 添加时间范围选择插件
+
+```js
+// typescript 结合 moment.js
+import moment from 'moment';
+
+// 一个 moment 对象的数组
+interface ChartBarProps {
+    defaultDateRange?: moment.Moment[]
+}
+```
 
 ### 2019-10-06
 

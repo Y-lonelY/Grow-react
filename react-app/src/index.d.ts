@@ -16,9 +16,9 @@ export interface PolylineData {
 }
 
 export interface PieData {
-    type: string,
-    date: string,
-    number: string
+    leg?: string,
+    belly?: string,
+    chest?: string
 }
 
 /**

@@ -56,6 +56,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                         <ChartBar
                             title='最近30次锻炼记录'
                             switchChange={this.switchChange}
+                            datePicker
                             tableSwitch />
                         {this.state.showChart ?
                             <Polyline className='dailyChartBox' data={this.state.chart}></Polyline> :

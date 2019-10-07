@@ -14,5 +14,13 @@ $text: rgba(0, 0, 0, .85);
         flex-wrap: nowrap;
         justify-content: flex-end;
 
+        .rangePiacker {
+            margin: 0 20px 0 0;
+
+            // antd
+            .ant-calendar-range-picker-input {
+                font-size: 12px;
+            }
+        }
     }
 }

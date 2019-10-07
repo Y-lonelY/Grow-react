@@ -3,7 +3,7 @@ import { G2, Chart, Geom, Axis, Tooltip, Legend, Coord, View, Label } from 'bizc
 import DataSet from "@antv/data-set";
 import { ExercisePolyline, ExercisePie } from './config';
 import SystemConfig from '@/config/sysConfig';
-import { ExerciseData, PolylineData } from '@/index.d.ts';
+import { PieData, PolylineData } from '@/index.d.ts';
 
 interface PolylineProps {
     data: PolylineData[],
@@ -11,7 +11,7 @@ interface PolylineProps {
 }
 
 interface PieProps {
-    data: {}
+    data: PieData
 }
 
 // 数据集视图构造函数
