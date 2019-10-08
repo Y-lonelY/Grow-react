@@ -102,13 +102,13 @@ function () {
 
 
 var daily = new _koaRouter["default"]();
-daily.get('/daily',
+daily.post('/daily',
 /*#__PURE__*/
 function () {
   var _ref3 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee3(ctx) {
-    var results, sum;
+    var results, params;
     return _regenerator["default"].wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -118,19 +118,19 @@ function () {
               list: [],
               sum: []
             };
+            params = ctx.request.body;
             ctx.response.type = 'json';
-            _context3.prev = 2;
-            _context3.next = 5;
+            _context3.prev = 3;
+            _context3.next = 6;
+            return daliyController.getDailyLists(params);
+
+          case 6:
+            results['list'] = _context3.sent;
+            _context3.next = 9;
             return daliyController.getDailySum();
 
-          case 5:
-            sum = _context3.sent;
-            _context3.next = 8;
-            return daliyController.getDailyLists();
-
-          case 8:
-            results['list'] = _context3.sent;
-            results['sum'] = sum[0];
+          case 9:
+            results['sum'] = _context3.sent;
             results['success'] = true;
             ctx.body = results; // catch await error
 
@@ -139,7 +139,7 @@ function () {
 
           case 14:
             _context3.prev = 14;
-            _context3.t0 = _context3["catch"](2);
+            _context3.t0 = _context3["catch"](3);
             ctx.body = results;
 
           case 17:
@@ -147,7 +147,7 @@ function () {
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[2, 14]]);
+    }, _callee3, null, [[3, 14]]);
   }));
 
   return function (_x5) {

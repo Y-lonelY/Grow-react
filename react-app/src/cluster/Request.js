@@ -46,6 +46,10 @@ service.interceptors.response.use(response => {
     return Promise.reject(error);
 })
 
+
+/**
+ * config.params 用来接受查询参数
+ */
 async function get(url, config = {}) {
     try {
         const response =  await service.get(url, config);
@@ -56,5 +60,17 @@ async function get(url, config = {}) {
     }
 }
 
+/**
+ * params 用来接收查询参数
+ */
+async function post(url, params, config={}) {
+    try {
+        const response =  await service.post(url, params, config);
+        // 返回服务器传值
+        return response.data;
+    } catch (e) {
+        console.log(e);
+    }
+}
 
-export { get };
+export { get, post };

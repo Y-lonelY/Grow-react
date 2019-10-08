@@ -7,8 +7,15 @@ import { changeChart } from '@/store/Exercise/action';
 import ChartBar from "@/components/ChartBar";
 import { getDailyExerciseList } from "@/service/dailyService";
 import { ExerciseProps, ExerciseState, PolylineData, ExerciseTableData } from '@/index.d.ts';
+import moment from "moment";
 
 class DailyView extends React.Component<ExerciseProps, ExerciseState> {
+
+    // 查询参数
+    params = {
+        start: moment().subtract(30, 'days').format('YYYY-MM-DD'),
+        end: moment().format('YYYY-MM-DD')
+    }
 
     constructor(props) {
         super(props)
@@ -56,6 +63,8 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                         <ChartBar
                             title='最近30次锻炼记录'
                             switchChange={this.switchChange}
+                            defaultDateRange={[moment(this.params.start), moment(this.params.end)]}
+                            rangeDateChange={this.rangeDateChange}
                             datePicker
                             tableSwitch />
                         {this.state.showChart ?
@@ -80,7 +89,21 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
     // api request
     async componentDidMount() {
         try {
-            const res = await getDailyExerciseList();
+            const res = await getDailyExerciseList(this.params);
+            if (res.success) {
+                // 更新 redux store
+                this.props.changeChart(res.list, res.sum);
+                const polyData = this.handlePolylineData()
+                this.setState(polyData)
+            }
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    async update() {
+        try {
+            const res = await getDailyExerciseList(this.params);
             if (res.success) {
                 // 更新 redux store
                 this.props.changeChart(res.list, res.sum);
@@ -129,14 +152,23 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
         };
     }
 
+    // chart/table switch
     switchChange = (checked) => {
         this.setState({
             showChart: checked
         });
     }
+
+    // range date selected
+    rangeDateChange = (dates, dateStrings) => {
+        console.log(dates, dateStrings);
+        this.params.start = dateStrings[0];
+        this.params.end = dateStrings[1];
+        this.update();
+    }
 }
 
-// 建立 this.state.dashBoardData 和 this.props.dashBoardData 的对应关系
+// 建立 this.state.exerciseData 和 this.props.exerciseData 的对应关系
 function mapStateToProps({ exerciseData }: any) {
     return {
         exerciseData,

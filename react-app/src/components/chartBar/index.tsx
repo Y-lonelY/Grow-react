@@ -10,7 +10,7 @@ interface ChartBarProps {
     tableSwitch?: boolean;
     switchChange?: (boolean) => void;
     datePicker?: boolean;
-    defaultDateRange?: moment.Moment[];
+    defaultDateRange?: [moment.Moment, moment.Moment];
     rangeDateChange?: (dates: [moment.Moment, moment.Moment], dateStrings: [string, string]) => void
 }
 
@@ -31,7 +31,7 @@ class ChartBar extends React.Component<ChartBarProps> {
                         {this.props.datePicker &&
                             <RangePicker
                                 className = 'rangePiacker'
-                                defaultValue = {[moment().startOf('month'), moment().endOf('month')]}
+                                defaultValue = {this.props.defaultDateRange}
                                 ranges={{
                                     '今天': [moment(), moment()],
                                     '当月': [moment().startOf('month'), moment().endOf('month')]

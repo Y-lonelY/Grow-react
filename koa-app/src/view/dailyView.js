@@ -39,17 +39,18 @@ const rrtime = async (ctx, next) => {
 
 // 声明一个 router 实例
 const daily = new Router();
-daily.get('/daily', async ctx => {
+daily.post('/daily', async ctx => {
     let results = {
         success: false,
         list: [],
         sum: [],
     };
+    const params = ctx.request.body;
+
     ctx.response.type = 'json';
     try {
-        const sum = await daliyController.getDailySum();
-        results['list'] = await daliyController.getDailyLists();
-        results['sum'] = sum[0];
+        results['list'] = await daliyController.getDailyLists(params);
+        results['sum'] = await daliyController.getDailySum();
         results['success'] = true;
         ctx.body = results;
     // catch await error
