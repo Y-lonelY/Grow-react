@@ -128,6 +128,30 @@ server {
 5. mock data 集成
 	- 目前直接引入 json 文件作为假数据
 
+
+### 2019-10-09
+
+在引入代码块时，忽略 ts 类型检测
+
+```js
+// @ts-ignore
+import { setTheme } from 'bizcharts';
+```
+
+配置 bizcharts 主题配色，保持饼图和其他图配色一致
+
+bizcharts 无数据时展示“暂无数据”提示
+
+### 2019-10-08
+
+修改 koa daily 接口，支持 日期范围筛选
+
+koa 添加 post 方法，添加 body-parser，从 body 内获取 post 查询数据
+
+完善 rangeDatePicker 组件
+
+模版字符串内有 ` ，使用 `\`` 来对其进行转义
+
 ### 2019-10-07
 
 ChartBar 添加时间范围选择插件

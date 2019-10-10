@@ -16,7 +16,7 @@ var _mysqlSequelize = _interopRequireDefault(require("../components/mysqlSequeli
 
 // 引入 mysql
 // sum(leg/belly/chest)
-function getDailySum() {
+function getDailySum(_x) {
   return _getDailySum.apply(this, arguments);
 } // everyday lists of (leg/belly/chest)
 
@@ -24,43 +24,54 @@ function getDailySum() {
 function _getDailySum() {
   _getDailySum = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
-  _regenerator["default"].mark(function _callee() {
+  _regenerator["default"].mark(function _callee(params) {
     var sql, sumList;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            sql = "SELECT SUM(`leg-nums`) AS leg, SUM(`belly-nums`) AS belly, SUM(`chest-nums`) AS chest " + "FROM `gro-up`.`exc_daily`";
-            _context.next = 3;
+            sql = "SELECT SUM(`leg-nums`) AS leg, SUM(`belly-nums`) AS belly, SUM(`chest-nums`) AS chest" + " FROM `gro-up`.`exc_daily`" + " WHERE date BETWEEN '".concat(params.start, "' AND '").concat(params.end, "'");
+            _context.prev = 1;
+            _context.next = 4;
             return _mysqlSequelize["default"].query({
               sql: sql,
               queryType: "select"
             });
 
-          case 3:
+          case 4:
             sumList = _context.sent;
 
             if (!(sumList.length > 0)) {
-              _context.next = 8;
+              _context.next = 10;
               break;
             }
 
+            console.log(sumList[0]);
             return _context.abrupt("return", sumList[0]);
 
-          case 8:
+          case 10:
             return _context.abrupt("return", {});
 
-          case 9:
+          case 11:
+            _context.next = 16;
+            break;
+
+          case 13:
+            _context.prev = 13;
+            _context.t0 = _context["catch"](1);
+            console.log(_context.t0);
+
+          case 16:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee);
+    }, _callee, null, [[1, 13]]);
   }));
   return _getDailySum.apply(this, arguments);
 }
 
-function getDailyLists(_x) {
+function getDailyLists(_x2) {
   return _getDailyLists.apply(this, arguments);
 }
 

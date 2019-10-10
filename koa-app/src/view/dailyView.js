@@ -50,7 +50,7 @@ daily.post('/daily', async ctx => {
     ctx.response.type = 'json';
     try {
         results['list'] = await daliyController.getDailyLists(params);
-        results['sum'] = await daliyController.getDailySum();
+        results['sum'] = await daliyController.getDailySum(params);
         results['success'] = true;
         ctx.body = results;
     // catch await error

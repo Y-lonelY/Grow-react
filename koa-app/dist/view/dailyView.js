@@ -127,7 +127,7 @@ function () {
           case 6:
             results['list'] = _context3.sent;
             _context3.next = 9;
-            return daliyController.getDailySum();
+            return daliyController.getDailySum(params);
 
           case 9:
             results['sum'] = _context3.sent;

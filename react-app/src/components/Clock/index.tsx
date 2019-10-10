@@ -14,7 +14,7 @@ class Clock extends React.Component<{}, ClockState> {
     constructor(props) {
         super(props);
         this.state = {
-            date: moment().format('YYYY-MM-DD H:m:ss A'),
+            date: moment().format('YYYY-MM-DD H:mm:ss A'),
         };
     }
 

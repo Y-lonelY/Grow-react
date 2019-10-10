@@ -6,6 +6,7 @@ import { Polyline, Pie } from '@/components/Chart';
 import { changeChart } from '@/store/Exercise/action';
 import ChartBar from "@/components/ChartBar";
 import { getDailyExerciseList } from "@/service/dailyService";
+import { colors } from '@/config/bizchartTheme';
 import { ExerciseProps, ExerciseState, PolylineData, ExerciseTableData } from '@/index.d.ts';
 import moment from "moment";
 
@@ -32,7 +33,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
         const sumListView = Object.entries(sumMap).map((item, index) => {
             return (
                 <Row className='dailySumItem' key={index}>
-                    <Col className='dailySumTitle' span={8}>{String(item[0]).toUpperCase()}</Col>
+                    <Col className='dailySumTitle' span={8} style={{color: colors[index]}}>{String(item[0]).toUpperCase()}</Col>
                     <Col className='dailySumLabel' span={16}>{item[1]}</Col>
                 </Row>
             );
@@ -61,7 +62,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                 <Row>
                     <Col className='dailyListView' span={18}>
                         <ChartBar
-                            title='最近30次锻炼记录'
+                            title={this.state.chart.length > 0 ?`共${this.state.chart.length}条锻炼记录` : ''}
                             switchChange={this.switchChange}
                             defaultDateRange={[moment(this.params.start), moment(this.params.end)]}
                             rangeDateChange={this.rangeDateChange}
