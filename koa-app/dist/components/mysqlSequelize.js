@@ -65,7 +65,8 @@ function () {
 
       var sql = _ref.sql,
           queryType = _ref.queryType;
-      var sequelizeCase = this.createConnection();
+      var sequelizeCase = this.createConnection(); // 默认为 select
+
       var type = _sequelize["default"].QueryTypes.SELECT;
 
       if (queryType && _sequelize["default"].QueryTypes[queryType.toUpperCase()]) {

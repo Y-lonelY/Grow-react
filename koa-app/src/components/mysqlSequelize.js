@@ -49,7 +49,8 @@ class Mysql {
 
     // raw query
     query({sql: sql, queryType: queryType}) {
-        const sequelizeCase = this.createConnection()
+        const sequelizeCase = this.createConnection();
+        // 默认为 select
         let type = Sequelize.QueryTypes.SELECT
 
         if (queryType && Sequelize.QueryTypes[queryType.toUpperCase()]) {

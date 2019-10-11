@@ -1,6 +1,5 @@
 // 引入 mysql
-import sequelizeCase from "../components/mysqlSequelize"
-import { mapOptionFieldNames } from "sequelize/types/lib/utils";
+import sequelizeCase from "../components/mysqlSequelize";
 
 // sum(leg/belly/chest)
 async function getDailySum(params) {
@@ -32,7 +31,7 @@ async function getDailyLists(params) {
                          + ` ORDER BY date DESC`;
 
     try {
-        let daily_list = await sequelizeCase.query({ sql: sql_daily_list, queryType: "select"});
+        const daily_list = await sequelizeCase.query({ sql: sql_daily_list, queryType: "select"});
         list = daily_list;
         return list;
     } catch (e) {
@@ -40,4 +39,21 @@ async function getDailyLists(params) {
     }
 }
 
-export { getDailySum, getDailyLists }
+/**
+ * add exercise list
+ * 对于类型为 date 的必须以 ‘’ 包裹
+ * 返回值为一个数组 - (当前所有记录数，受影响的行数)
+ */
+async function addExerciseList(params) {
+    const sql_add_list = `INSERT INTO exc_daily ( date, \`leg-nums\`, \`belly-nums\`, \`chest-nums\` )`
+                       + ` VALUES  ( '${params.date}', '${params.leg}', '${params.belly}', '${params.chest}' )`;
+    
+        try {
+            const add_list = await sequelizeCase.query({ sql: sql_add_list, queryType: 'insert'});
+            return add_list;
+        } catch (e) {
+            console.log(e);
+        }
+}
+
+export { getDailySum, getDailyLists, addExerciseList}

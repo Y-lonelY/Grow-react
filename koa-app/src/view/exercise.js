@@ -2,7 +2,8 @@
 import Router from "koa-router"
 // 引入 koa-compose
 import Compose from "koa-compose"
-import * as daliyController from "../service/daliyController"
+import * as daliyController from "../service/daliyController";
+import { logger, rrtime } from '../components/logger';
 
 // data handle
 function dataHandle(data, ctx) {
@@ -19,27 +20,16 @@ function dataHandle(data, ctx) {
     ctx.body = results;
 }
 
-// 中间件栈
-// 打印接口返回时间
-const logger = async (ctx, next) => {
-    await next();
-    const rt = ctx.response.get('x-response-time');
-    console.log(`${ctx.method} ${ctx.url} = ${rt}`);
-}
-
-// 计算接口返回所用时间
-const rrtime = async (ctx, next) => {
-    // 当前时间的时间戳
-    const start = Date.now();
-    await next();
-    const ms = Date.now() - start;
-    // 设置 x-response-time
-    ctx.set('x-response-time', `${ms}ms`);
-}
 
 // 声明一个 router 实例
-const daily = new Router();
-daily.post('/daily', async ctx => {
+const exerciseRouter = new Router();
+
+/**
+ * exercise/list
+ * 用来查询锻炼记录
+ * body-parser 将 params 挂载至 ctx.request.body
+ */
+exerciseRouter.post('/exercise/list', async ctx => {
     let results = {
         success: false,
         list: [],
@@ -56,18 +46,42 @@ daily.post('/daily', async ctx => {
     // catch await error
     } catch (e) {
         ctx.body = results;
+        console.log(e);
     }
 });
 
+/**
+ * exercise/add
+ * 添加记录
+ */
+exerciseRouter.post('/exercise/add', async ctx => {
+    const params = ctx.request.body;
+    let results = {
+        success: false
+    };
+
+    ctx.response.type = 'json';
+
+    try {
+        const addList = await daliyController.addExerciseList(params);
+
+        results['success'] = Array.isArray(addList) && addList.length > 0 ? true : false;
+        ctx.body = results;
+    } catch (e) {
+        throw e;
+    }
+});
+
+
 // 装载所有路由
 const router = new Router;
-router.use('/service', daily.routes(), daily.allowedMethods());
+router.use('/service', exerciseRouter.routes(), exerciseRouter.allowedMethods());
 
 // 生成路由中间件
 const router_middle = router.routes();
 const router_allow_methods = router.allowedMethods();
 
 // 合并中间件
-const dailyCompose = Compose([logger, rrtime, router_middle, router_allow_methods]);
+const exerciseCompose = Compose([logger, rrtime, router_middle, router_allow_methods]);
 
-module.exports = dailyCompose
+module.exports = exerciseCompose;
