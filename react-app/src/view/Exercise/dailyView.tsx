@@ -1,14 +1,15 @@
 import React from "react";
-import { Row, Col, Table } from "antd";
+import { Row, Col, Table, message } from "antd";
 import { ColumnProps } from 'antd/es/table';
 import { connect } from 'react-redux';
 import { Polyline, Pie } from '@/components/Chart';
 import { changeChart } from '@/store/Exercise/action';
 import ChartBar from "@/components/ChartBar";
-import { getDailyExerciseList } from "@/service/dailyService";
+import { getDailyExerciseList, addExerciseList } from "@/service/dailyService";
 import { colors } from '@/config/bizchartTheme';
 import { ExerciseProps, ExerciseState, PolylineData, ExerciseTableData } from '@/index.d.ts';
 import moment from "moment";
+import { normalize } from "path";
 
 class DailyView extends React.Component<ExerciseProps, ExerciseState> {
 
@@ -34,7 +35,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
             return (
                 <Row className='dailySumItem' key={index}>
                     <Col className='dailySumTitle' span={8} style={{color: colors[index]}}>{String(item[0]).toUpperCase()}</Col>
-                    <Col className='dailySumLabel' span={16}>{item[1]}</Col>
+                    <Col className='dailySumLabel' span={16}>{item[1] ? item[1] : '-'}</Col>
                 </Row>
             );
         });
@@ -66,6 +67,10 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                             switchChange={this.switchChange}
                             defaultDateRange={[moment(this.params.start), moment(this.params.end)]}
                             rangeDateChange={this.rangeDateChange}
+                            addSubmit={this.addExercise}
+                            normalizeEvent={this.chartNormalize}
+                            showNormalize
+                            showAddButton
                             datePicker
                             tableSwitch />
                         {this.state.showChart ?
@@ -102,13 +107,14 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
         }
     }
 
+    // 更新数据，在添加/筛选后执行
     async update() {
         try {
             const res = await getDailyExerciseList(this.params);
             if (res.success) {
                 // 更新 redux store
                 this.props.changeChart(res.list, res.sum);
-                const polyData = this.handlePolylineData()
+                const polyData = this.handlePolylineData();
                 this.setState(polyData)
             }
         } catch (e) {
@@ -162,10 +168,35 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
 
     // range date selected
     rangeDateChange = (dates, dateStrings) => {
-        console.log(dates, dateStrings);
         this.params.start = dateStrings[0];
         this.params.end = dateStrings[1];
         this.update();
+    }
+
+    // add exercise record
+    addExercise = async (date, leg, chest, belly) => {
+        let params = {
+            date: date,
+            leg: leg,
+            belly: belly,
+            chest: chest
+        };
+        try {
+            const res = await addExerciseList(params);
+
+            if (res.success) {
+                message.success('添加成功', 2, () => {this.update()});
+            } else {
+                message.error('添加失败');
+            }
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    // 归一化处理
+    chartNormalize = (normalize) => {
+        console.log(normalize);
     }
 }
 

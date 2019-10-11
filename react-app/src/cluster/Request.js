@@ -65,7 +65,7 @@ async function get(url, config = {}) {
  */
 async function post(url, params, config={}) {
     try {
-        const response =  await service.post(url, params, config);
+        const response = await service.post(url, params, config);
         // 返回服务器传值
         return response.data;
     } catch (e) {

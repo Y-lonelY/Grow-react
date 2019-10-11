@@ -65,16 +65,26 @@ class Polyline extends React.Component<PolylineProps, {}> {
 
 /**
  * 饼图
+ * sumItem 用于判断每项是否全为 null
  */
 class Pie extends React.Component<PieProps, {}> {
     public render() {
         const sumMap = this.props.data;
         let sumChartData = [];
+        let sumItem:number = 0;
 
         Object.entries(sumMap).forEach(item => {
             let currentObj = {};
             currentObj['item'] = item[0].toUpperCase();
-            currentObj['count'] = item[1];
+
+            if (item[1] !== null) {
+                currentObj['count'] = item[1];
+            } else {
+                currentObj['count'] = 0;
+            }
+
+            sumItem += Number(currentObj['count']);
+
             sumChartData.push(currentObj);
         });
 
@@ -98,7 +108,7 @@ class Pie extends React.Component<PieProps, {}> {
 
         return (
             <Chart
-                data={dv}
+                data={sumItem === 0 ? {} : dv}
                 scale={ExercisePie.scale}
                 height={320}
                 width={window.innerWidth * 0.9 * 0.25}

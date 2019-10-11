@@ -1,7 +1,7 @@
 $text: rgba(0, 0, 0, .85);
 
 .chartBar {
-    padding: 10px 30px 10px 0;
+    padding: 10px 10px 10px 0;
     .charBarTitle {
         padding-left: 20px;
         font-weight: 600;
@@ -14,6 +14,7 @@ $text: rgba(0, 0, 0, .85);
         flex-wrap: nowrap;
         justify-content: flex-end;
 
+        // height 24
         .addRecordBtn {
             margin: 0 10px 0 0;
 
@@ -22,13 +23,22 @@ $text: rgba(0, 0, 0, .85);
             }
         }
 
+        .normalizeBtn {
+            margin: 0 10px 0 0;
+        }
+
         .rangePiacker {
-            margin: 0 20px 0 0;
+            margin: 0 10px 0 0;
 
             // antd
             .ant-calendar-range-picker-input {
                 font-size: 12px;
             }
+        }
+
+        // height 22
+        .chartSwitch {
+            margin: 1px 10px 0 0;
         }
     }
 }

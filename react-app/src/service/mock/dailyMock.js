@@ -1,4 +1,4 @@
-const daily = {
+const exerciseList = {
     "success": true,
     "list": [
         {
@@ -217,6 +217,10 @@ const daily = {
         "belly": 2090,
         "chest": 2370
     }
-}
+};
 
-export { daily }
+const addList = {
+    "success": true
+};
+
+export { exerciseList, addList }
