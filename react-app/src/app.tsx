@@ -24,7 +24,7 @@ class App extends React.Component {
                             <Router defaultConfig={config.routeConfig}></Router>
                         {/* 路由主体 */}
                     </Content>
-                    <Footer>"hell is other people!"</Footer>
+                    {/* <Footer>"hell is other people!"</Footer> */}
                 </Layout>
             </div>
             </BrowserRouter>

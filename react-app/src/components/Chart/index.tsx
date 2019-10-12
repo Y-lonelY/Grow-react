@@ -6,12 +6,14 @@ import SystemConfig from '@/config/sysConfig';
 import { PieData, PolylineData } from '@/index.d.ts';
 
 interface PolylineProps {
-    data: PolylineData[],
-    className: string
+    data: PolylineData[];
+    avgData: PieData;
+    className: string;
+    normalize?: boolean;
 }
 
 interface PieProps {
-    data: PieData
+    data: PieData;
 }
 
 // 数据集视图构造函数
@@ -31,7 +33,7 @@ class Polyline extends React.Component<PolylineProps, {}> {
                 padding="auto"
                 height={500}
                 width={window.innerWidth * 0.9 * 0.75}
-                data={this.props.data}
+                data={this.props.normalize ? this.normalize(this.props.data) : this.props.data}
                 scale={ExercisePolyline.scale}
                 forceFit
                 placeholder>
@@ -60,6 +62,19 @@ class Polyline extends React.Component<PolylineProps, {}> {
                 <Tooltip crosshairs={{ type: 'y' }} />
             </Chart>
         )
+    }
+
+    normalize = (data) => {
+        let list = [];
+        data.forEach(item => {
+            const avgValue = this.props.avgData[item.type];
+            let currentItem = {};
+            currentItem["type"] = item.type;
+            currentItem["date"] = item.date;
+            currentItem["number"] = (item.number / avgValue).toFixed(2);
+            list.push(currentItem);
+        });
+        return list;
     }
 }
 

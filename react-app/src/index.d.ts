@@ -16,9 +16,9 @@ export interface PolylineData {
 }
 
 export interface PieData {
-    leg?: string,
-    belly?: string,
-    chest?: string
+    leg?: string | number;
+    belly?: string | number;
+    chest?: string | number;
 }
 
 /**
@@ -26,7 +26,7 @@ export interface PieData {
  */
 
 export interface ExerciseData {
-    sumMap?: {};
+    sumMap?: PieData;
     dailyList?: {
         id: number,
         date: string,
@@ -45,10 +45,12 @@ export type ExerciseProps = {
     exerciseData: ExerciseData;
 }
 
-export type ExerciseState = {
-    showChart: boolean,
-    chart: PolylineData[],
-    table: ExerciseTableData[]
+export interface ExerciseState {
+    showChart: boolean;
+    normalize: boolean;
+    chart: PolylineData[];
+    table: ExerciseTableData[];
+    avgData: PieData;
 }
 
 export interface ExerciseTableData {

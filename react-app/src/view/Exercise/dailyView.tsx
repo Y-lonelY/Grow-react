@@ -7,9 +7,8 @@ import { changeChart } from '@/store/Exercise/action';
 import ChartBar from "@/components/ChartBar";
 import { getDailyExerciseList, addExerciseList } from "@/service/dailyService";
 import { colors } from '@/config/bizchartTheme';
-import { ExerciseProps, ExerciseState, PolylineData, ExerciseTableData } from '@/index.d.ts';
+import { ExerciseProps, ExerciseState, PolylineData, ExerciseTableData, PieData } from '@/index.d.ts';
 import moment from "moment";
-import { normalize } from "path";
 
 class DailyView extends React.Component<ExerciseProps, ExerciseState> {
 
@@ -23,8 +22,10 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
         super(props)
         this.state = {
             showChart: true,
+            normalize: false,
             chart: [],
-            table: []
+            table: [],
+            avgData: {}
         }
     }
 
@@ -74,7 +75,11 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                             datePicker
                             tableSwitch />
                         {this.state.showChart ?
-                            <Polyline className='dailyChartBox' data={this.state.chart}></Polyline> :
+                            <Polyline
+                                className='dailyChartBox'
+                                data={this.state.chart}
+                                avgData={this.state.avgData}
+                                normalize={this.state.normalize}></Polyline> :
                             <Table<ExerciseTableData> className='dailyTableBox' size='middle' dataSource={this.state.table} columns={columns} />
                         }
                     </Col>
@@ -126,8 +131,12 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
     handlePolylineData:() => {chart: PolylineData[], table: ExerciseTableData[]} = () => {
         let chartList: PolylineData[] = [];
         let tableList: ExerciseTableData[] = [];
+        let avgData: PieData = {};
 
+        // 处理列表数据
         if (this.props.exerciseData && this.props.exerciseData.dailyList && this.props.exerciseData.dailyList.length > 0) {
+            const len = this.props.exerciseData.dailyList.length;
+
             this.props.exerciseData.dailyList.forEach(item => {
                 chartList.push({
                     type: 'leg',
@@ -151,11 +160,18 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                     chest: Number(item.chest)
                 });
             });
+
+            // 平均值获取
+            avgData['leg'] = this.props.exerciseData.sumMap.leg ? Number(this.props.exerciseData.sumMap.leg) / len : 0;
+            avgData['belly'] = this.props.exerciseData.sumMap.belly ? Number(this.props.exerciseData.sumMap.belly) / len : 0;
+            avgData['chest'] = this.props.exerciseData.sumMap.chest ? Number(this.props.exerciseData.sumMap.chest) / len : 0;
         }
+
 
         return {
             chart: chartList,
-            table: tableList
+            table: tableList,
+            avgData: avgData
         };
     }
 
@@ -195,8 +211,10 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
     }
 
     // 归一化处理
-    chartNormalize = (normalize) => {
-        console.log(normalize);
+    chartNormalize = (value) => {
+        this.setState({
+            normalize: value
+        });
     }
 }
 
