@@ -12,7 +12,9 @@ var _koaRouter = _interopRequireDefault(require("koa-router"));
 
 var _koaCompose = _interopRequireDefault(require("koa-compose"));
 
-var daliyController = _interopRequireWildcard(require("../service/daliyController"));
+var daliyController = _interopRequireWildcard(require("../service/exerciseDaliyController"));
+
+var goalController = _interopRequireWildcard(require("../service/exerciseGoalController"));
 
 var _logger = require("../components/logger");
 
@@ -142,6 +144,55 @@ function () {
 
   return function (_x2) {
     return _ref2.apply(this, arguments);
+  };
+}());
+/**
+ * exercise/goal/list
+ * 获取目标列表
+ */
+
+exerciseRouter.get('/exercise/goal/list',
+/*#__PURE__*/
+function () {
+  var _ref3 = (0, _asyncToGenerator2["default"])(
+  /*#__PURE__*/
+  _regenerator["default"].mark(function _callee3(ctx) {
+    var results;
+    return _regenerator["default"].wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            results = {
+              success: false
+            };
+            ctx.response.type = 'json';
+            _context3.prev = 2;
+            _context3.next = 5;
+            return goalController.getGoalList();
+
+          case 5:
+            results['list'] = _context3.sent;
+            results['success'] = true;
+            ctx.response.body = results;
+            _context3.next = 14;
+            break;
+
+          case 10:
+            _context3.prev = 10;
+            _context3.t0 = _context3["catch"](2);
+            ctx.response.body = results;
+            console.log(_context3.t0);
+
+          case 14:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, null, [[2, 10]]);
+  }));
+
+  return function (_x3) {
+    return _ref3.apply(this, arguments);
   };
 }()); // 装载所有路由
 

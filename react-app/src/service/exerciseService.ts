@@ -1,8 +1,8 @@
 import { post } from '../cluster/Request';
-import { exerciseList, addList } from './mock/dailyMock';
-import config from '../config/sysConfig';
+import { exerciseList, addList } from './mock/exerciseMock';
+import { config } from '@/config/sysConfig';
 
-const useMock = config.useMock;
+const useMock = config.useMock === 'false' ? false : true;
 
 async function getDailyExerciseList(params={}) {
     try {

@@ -2,7 +2,7 @@ import React from "react";
 import { G2, Chart, Geom, Axis, Tooltip, Legend, Coord, View, Label } from 'bizcharts';
 import DataSet from "@antv/data-set";
 import { ExercisePolyline, ExercisePie } from './config';
-import SystemConfig from '@/config/sysConfig';
+import { config as SystemConfig } from '@/config/sysConfig';
 import { PieData, PolylineData } from '@/index.d.ts';
 
 interface PolylineProps {

@@ -1,7 +1,11 @@
 // 引入 mysql
 import sequelizeCase from "../components/mysqlSequelize";
 
-// sum(leg/belly/chest)
+/**
+ * (leg/belly/chest) 数据总和
+ * @param {start} params 开始时间
+ * @param {end} params 结束时间
+ */
 async function getDailySum(params) {
     let dailyObj = {};
     const sql = `SELECT SUM(\`leg-nums\`) AS leg, SUM(\`belly-nums\`) AS belly, SUM(\`chest-nums\`) AS chest`  
@@ -14,15 +18,18 @@ async function getDailySum(params) {
         if (sumList.length > 0) {
             dailyObj = sumList[0];
         }
-
-        return dailyObj;
     } catch (e) {
         console.log(e);
     }
-    
+
+    return dailyObj;
 }
 
-// everyday lists of (leg/belly/chest)
+/**
+ * everyday lists of (leg/belly/chest)
+ * @param {start} params 开始时间
+ * @param {end} params 结束时间
+ */
 async function getDailyLists(params) {
     let list = [];
     const sql_daily_list = `SELECT id, date, \`leg-nums\` AS leg, \`belly-nums\` AS belly, \`chest-nums\` AS chest`
@@ -33,10 +40,11 @@ async function getDailyLists(params) {
     try {
         const daily_list = await sequelizeCase.query({ sql: sql_daily_list, queryType: "select"});
         list = daily_list;
-        return list;
     } catch (e) {
         console.log(e);
     }
+
+    return list;
 }
 
 /**
@@ -55,5 +63,7 @@ async function addExerciseList(params) {
             console.log(e);
         }
 }
+
+
 
 export { getDailySum, getDailyLists, addExerciseList}

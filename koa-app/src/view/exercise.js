@@ -2,7 +2,8 @@
 import Router from "koa-router"
 // 引入 koa-compose
 import Compose from "koa-compose"
-import * as daliyController from "../service/daliyController";
+import * as daliyController from "../service/exerciseDaliyController";
+import * as goalController from '../service/exerciseGoalController';
 import { logger, rrtime } from '../components/logger';
 
 // data handle
@@ -72,6 +73,25 @@ exerciseRouter.post('/exercise/add', async ctx => {
     }
 });
 
+/**
+ * exercise/goal/list
+ * 获取目标列表
+ */
+exerciseRouter.get('/exercise/goal/list', async ctx => {
+    let results = {
+        success: false
+    };
+
+    ctx.response.type = 'json';
+    try {
+        results['list'] = await goalController.getGoalList();
+        results['success'] = true;
+        ctx.response.body = results;
+    } catch (e) {
+        ctx.response.body = results;
+        console.log(e);
+    }
+});
 
 // 装载所有路由
 const router = new Router;

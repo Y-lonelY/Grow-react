@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Polyline, Pie } from '@/components/Chart';
 import { changeChart } from '@/store/Exercise/action';
 import ChartBar from "@/components/ChartBar";
-import { getDailyExerciseList, addExerciseList } from "@/service/dailyService";
+import { getDailyExerciseList, addExerciseList } from '@/service/exerciseService';
 import { colors } from '@/config/bizchartTheme';
 import { ExerciseProps, ExerciseState, PolylineData, ExerciseTableData, PieData } from '@/index.d.ts';
 import moment from "moment";

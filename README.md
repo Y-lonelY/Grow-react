@@ -154,6 +154,20 @@ server {
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
 
+### 2019-10-15
+
+学习 react hook，将其列入开发计划中
+
+预备学习 context，将其列入开发计划中，比如国际化/换肤
+
+添加 flowfooter 组件，用于展示底部
+
+添加是否使用虚拟数据开关，通过 sessionStorage 来进行控制
+
+koa 添加获取 goallist 的方法
+
+koa 准备接入 [joi](https://github.com/hapijs/joi/tree/v8.0.5) 用于必要的参数验证
+
 ### 2019-10-12
 
 添加归一化处理

@@ -3,7 +3,8 @@ import { Layout } from 'antd';
 import { BrowserRouter } from "react-router-dom";
 import config from '@/config/routerConfig';
 import Router from '@/cluster/Router';
-import FlowHeader from '@/components/Header';
+import FlowHeader from '@/view/Header';
+import FlowFooter from '@/view/Footer';
 import '@/app.scss';
 
 
@@ -20,11 +21,10 @@ class App extends React.Component {
                     <FlowHeader></FlowHeader>
                     <Content className='dash-content'>
                         {/* 路由主体 */}
-                        
                             <Router defaultConfig={config.routeConfig}></Router>
                         {/* 路由主体 */}
                     </Content>
-                    {/* <Footer>"hell is other people!"</Footer> */}
+                    <FlowFooter></FlowFooter>
                 </Layout>
             </div>
             </BrowserRouter>

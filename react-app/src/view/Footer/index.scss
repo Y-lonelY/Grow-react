@@ -1,0 +1,21 @@
+@import '@/common.scss';
+
+.flow-footer {
+    &.ant-layout-footer {
+        background: #ffffff;
+    }
+
+    .footer-seprator {
+        .ant-divider-inner-text {
+            color: $gray;
+            font-family: $robotFont;
+        }
+    }
+
+    .main-footer {
+        .footer-switch-label {
+            font-size: 12px;
+            color: $ftc-gray;
+        }
+    }
+}

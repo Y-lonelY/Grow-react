@@ -223,4 +223,43 @@ const addList = {
     "success": true
 };
 
-export { exerciseList, addList }
+const goalList = {
+    "success": true,
+    "list": [
+        {
+            "id": 3,
+            "start_date": "2019-09-02T09:48:45.000Z",
+            "end_date": null,
+            "reward": "AIR JORDAN 1 LOW 神秘绿",
+            "type": "shoes",
+            "total_price": "799",
+            "goal": "2000",
+            "summary": "1900",
+            "remark": null
+        },
+        {
+            "id": 2,
+            "start_date": "2019-07-13T18:06:19.000Z",
+            "end_date": "2019-09-02T18:41:06.000Z",
+            "reward": "Nike Air Max 97 OA GS Seoul",
+            "type": "shoes",
+            "total_price": "1299",
+            "goal": "2500",
+            "summary": "2500",
+            "remark": "有进步，可以更好"
+        },
+        {
+            "id": 1,
+            "start_date": "2019-04-12T22:11:08.000Z",
+            "end_date": "2019-07-13T19:22:12.000Z",
+            "reward": "小米空气净化器Pro",
+            "type": "airClear",
+            "total_price": "1199",
+            "goal": "2500",
+            "summary": "2500",
+            "remark": "跨时太久，不是很满意，继续加油"
+        }
+    ]
+}
+
+export { exerciseList, addList, goalList }
