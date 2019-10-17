@@ -12,31 +12,20 @@ var _koaRouter = _interopRequireDefault(require("koa-router"));
 
 var _koaCompose = _interopRequireDefault(require("koa-compose"));
 
+var _joi = _interopRequireDefault(require("@hapi/joi"));
+
 var daliyController = _interopRequireWildcard(require("../service/exerciseDaliyController"));
 
 var goalController = _interopRequireWildcard(require("../service/exerciseGoalController"));
+
+var _error = _interopRequireDefault(require("../../config/error"));
 
 var _logger = require("../components/logger");
 
 // 引入 koa-router
 // 引入 koa-compose
-// data handle
-function dataHandle(data, ctx) {
-  var results = {};
-
-  if (data && data !== null) {
-    results['results'] = data;
-    results['success'] = true;
-  } else {
-    results['results'] = null;
-    results['success'] = false;
-  }
-
-  ctx.response.type = 'json';
-  ctx.body = results;
-} // 声明一个 router 实例
-
-
+// 引入 joi，用来校验数据
+// 声明一个 router 实例
 var exerciseRouter = new _koaRouter["default"]();
 /**
  * exercise/list
@@ -50,47 +39,75 @@ function () {
   var _ref = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee(ctx) {
-    var results, params;
+    var scheme, results, params;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            /**
+             * 参数校验规则
+             * start "2019-10-17"
+             * end "2019-10-17"
+             */
+            scheme = _joi["default"].object({
+              start: _joi["default"].string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
+              end: _joi["default"].string().pattern(/^\d{4}-\d{2}-\d{2}$/).required()
+            });
             results = {
               success: false,
+              message: '',
               list: [],
               sum: []
             };
-            params = ctx.request.body;
+            _context.prev = 2;
+            _context.next = 5;
+            return scheme.validateAsync(ctx.request.body);
+
+          case 5:
+            params = _context.sent;
             ctx.response.type = 'json';
-            _context.prev = 3;
-            _context.next = 6;
+            _context.prev = 7;
+            _context.next = 10;
             return daliyController.getDailyLists(params);
 
-          case 6:
+          case 10:
             results['list'] = _context.sent;
-            _context.next = 9;
+            _context.next = 13;
             return daliyController.getDailySum(params);
 
-          case 9:
+          case 13:
             results['sum'] = _context.sent;
             results['success'] = true;
-            ctx.body = results; // catch await error
-
-            _context.next = 18;
+            ctx.body = results;
+            _context.next = 23;
             break;
 
-          case 14:
-            _context.prev = 14;
-            _context.t0 = _context["catch"](3);
-            ctx.body = results;
-            console.log(_context.t0);
-
           case 18:
+            _context.prev = 18;
+            _context.t0 = _context["catch"](7);
+            console.log(_context.t0);
+            results['message'] = _error["default"]["1002"];
+            ctx.body = results;
+
+          case 23:
+            _context.next = 32;
+            break;
+
+          case 25:
+            _context.prev = 25;
+            _context.t1 = _context["catch"](2);
+            console.log(_context.t1);
+            console.log(_error["default"][1001], _error["default"]['1001']);
+            results['message'] = _error["default"][1001];
+            console.log(results);
+            ctx.body = results;
+
+          case 32:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[3, 14]]);
+    }, _callee, null, [[2, 25], [7, 18]]);
   }));
 
   return function (_x) {

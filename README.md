@@ -154,6 +154,17 @@ server {
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
 
+### 2019-10-17
+
+koa 项目内引入 joi，用来校验 request 数据，修改 exercise/list && exercise/add 接口
+
+koa 添加错误信息map
+
+修改 react 内添加锻炼记录的数据格式校验
+
+
+
+
 ### 2019-10-15
 
 学习 react hook，将其列入开发计划中

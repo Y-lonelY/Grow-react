@@ -13,7 +13,7 @@ async function getDailyExerciseList(params={}) {
     }
 }
 
-async function addExerciseList(params) {
+async function addExerciseList(params: {date: string, leg: number, belly: number, chest: number}) {
     try {
         const request = useMock ? await addList : await post("exercise/add", params);
         return request;

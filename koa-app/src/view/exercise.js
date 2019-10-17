@@ -1,25 +1,13 @@
 // 引入 koa-router
-import Router from "koa-router"
+import Router from "koa-router";
 // 引入 koa-compose
-import Compose from "koa-compose"
+import Compose from "koa-compose";
+// 引入 joi，用来校验数据
+import Joi from "@hapi/joi";
 import * as daliyController from "../service/exerciseDaliyController";
 import * as goalController from '../service/exerciseGoalController';
+import ErrorMessage from '../../config/error';
 import { logger, rrtime } from '../components/logger';
-
-// data handle
-function dataHandle(data, ctx) {
-    let results = {};
-    if (data && data !== null) {
-        results['results'] = data;
-        results['success'] = true;
-    } else {
-        results['results'] = null;
-        results['success'] = false;
-    }
-
-    ctx.response.type = 'json';
-    ctx.body = results;
-}
 
 
 // 声明一个 router 实例
@@ -31,23 +19,41 @@ const exerciseRouter = new Router();
  * body-parser 将 params 挂载至 ctx.request.body
  */
 exerciseRouter.post('/exercise/list', async ctx => {
+    /**
+     * 参数校验规则
+     * start "2019-10-17"
+     * end "2019-10-17"
+     */
+    const scheme = Joi.object({
+        start: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
+        end: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
+    });
     let results = {
         success: false,
+        message: '',
         list: [],
         sum: [],
     };
-    const params = ctx.request.body;
 
-    ctx.response.type = 'json';
     try {
-        results['list'] = await daliyController.getDailyLists(params);
-        results['sum'] = await daliyController.getDailySum(params);
-        results['success'] = true;
-        ctx.body = results;
-    // catch await error
+        const params = await scheme.validateAsync(ctx.request.body);
+
+        ctx.response.type = 'json';
+
+        try {
+            results['list'] = await daliyController.getDailyLists(params);
+            results['sum'] = await daliyController.getDailySum(params);
+            results['success'] = true;
+            ctx.body = results;
+        } catch (e) {
+            console.log(e);
+            results['message'] = ErrorMessage[1002];
+            ctx.body = results;
+        }
     } catch (e) {
-        ctx.body = results;
         console.log(e);
+        results['message'] = ErrorMessage[1001];
+        ctx.body = results;
     }
 });
 
@@ -56,20 +62,37 @@ exerciseRouter.post('/exercise/list', async ctx => {
  * 添加记录
  */
 exerciseRouter.post('/exercise/add', async ctx => {
-    const params = ctx.request.body;
+    // 参数校验规则
+    const scheme = Joi.object({
+        date: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
+        leg: Joi.number().min(0).required(),
+        belly: Joi.number().min(0).required(),
+        chest: Joi.number().min(0).required()
+    });
     let results = {
-        success: false
+        success: false,
+        message: ''
     };
 
-    ctx.response.type = 'json';
-
     try {
-        const addList = await daliyController.addExerciseList(params);
+        const params = await scheme.validateAsync(ctx.request.body);
 
-        results['success'] = Array.isArray(addList) && addList.length > 0 ? true : false;
-        ctx.body = results;
+        ctx.response.type = 'json';
+
+        try {
+            const addList = await daliyController.addExerciseList(params);
+    
+            results['success'] = Array.isArray(addList) && addList.length > 0 ? true : false;
+            ctx.body = results;
+        } catch (e) {
+            console.log(e);
+            results['message'] = ErrorMessage[1002];
+            ctx.body = results;
+        }
     } catch (e) {
-        throw e;
+        console.log(e);
+        results['message'] = ErrorMessage[1001];
+        ctx.body = results;
     }
 });
 

@@ -4,6 +4,7 @@
   "description": "koa learning record, develop growing up background",
   "main": "index.js",
   "dependencies": {
+    "@hapi/joi": "^16.1.7",
     "concurrently": "^4.1.1",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",

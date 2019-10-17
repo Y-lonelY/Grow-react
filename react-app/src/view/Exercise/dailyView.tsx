@@ -193,9 +193,9 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
     addExercise = async (date, leg, chest, belly) => {
         let params = {
             date: date,
-            leg: leg,
-            belly: belly,
-            chest: chest
+            leg: Number(leg),
+            belly: Number(belly),
+            chest: Number(chest)
         };
         try {
             const res = await addExerciseList(params);
