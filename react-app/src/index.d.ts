@@ -22,7 +22,7 @@ export interface PieData {
 }
 
 /**
- * DashBoard module declare
+ * Exercise module declare
  */
 
 export interface ExerciseData {
@@ -54,15 +54,46 @@ export interface ExerciseState {
 }
 
 export interface ExerciseTableData {
-    key: string,
-    date: string,
-    leg: number,
-    belly: number,
-    chest: number
+    key: string;
+    date: string;
+    leg: number;
+    belly: number;
+    chest: number;
+}
+
+/**
+ * GoalList Module Declare
+ */
+
+export interface GoalListItem {
+    id: number;
+    start_date: string;
+    end_date: string | null;
+    reward: string;
+    type: string;
+    total_price: string;
+    goal: string;
+    summary: string;
+    remark: string | null;
+}
+
+export interface GoalListAction {
+    goalList: GoalListItem[];
+    type: string;
+}
+
+export interface GoalListProps {
+    goalListData: GoalListItem[];
+    changeGoalList: (goalList: GoalListItem[]) => GoalListAction;
+}
+
+export interface GoalListState {
+    expandIndex: string
 }
 
 // 用于各个模块的action.type类型检查
 
-export enum DailyChartTypes {
-    DAILYCHARTS = "dailycharts"
+export enum ExerciseTypes {
+    DAILYCHARTS = "dailycharts",
+    GOALLIST = 'goalList',
 }

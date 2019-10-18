@@ -5,6 +5,33 @@
         height: 540px;
         margin: 20px 0;
         box-sizing: border-box;
+        .goalListView {
+            .goalBox {
+                .goal-item {
+                    overflow: hidden;
+                    width: 96%;
+                    margin-bottom: 16px;
+                    border-radius: 6px;
+                    border: 1px solid #f5f5f5;
+                    font: {
+                        size: 12px;
+                    }
+                    background: #ffffff;
+
+                    &.active {
+                        font-weight: bold;
+                        box-shadow: $box-shadow
+                    }
+
+                    &.ow {
+                        .ant-collapse-header {
+                            @include ow-text;
+                        }
+                    }
+                }
+            }
+        }
+
         .dailyListView {
             .dailyChartBox {
                 width: 100%;

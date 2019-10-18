@@ -1,5 +1,5 @@
 const exerciseList = {
-    "success": false,
+    "success": true,
     "list": [
         {
             "id": 48,

@@ -1,4 +1,4 @@
-import {ExerciseChartAction, ExerciseData} from '@/index.d.ts';
+import { ExerciseChartAction, ExerciseData, GoalListAction, GoalListItem } from '@/index.d.ts';
 
 const changeChart: (...ExerciseData) => ExerciseChartAction  = (dailyList, sumMap) => {
     return {
@@ -8,4 +8,11 @@ const changeChart: (...ExerciseData) => ExerciseChartAction  = (dailyList, sumMa
     }
 }
 
-export { changeChart };
+const changeGoalList: (goalList: GoalListItem[]) => GoalListAction = (goalList) => {
+    return {
+        type: 'goalList',
+        goalList,
+    }
+}
+
+export { changeChart, changeGoalList };

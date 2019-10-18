@@ -1,19 +1,37 @@
-import { DailyChartTypes, ExerciseChartAction, StoreState, ExerciseData } from '@/index.d.ts';
+import { ExerciseTypes, ExerciseChartAction, StoreState, ExerciseData, GoalListAction, GoalListItem } from '@/index.d.ts';
 
-// default
-let defaultState: ExerciseData = {
+/**
+ * exercise daily module
+ */
+let defaultExerciseState: ExerciseData = {
     dailyList: [],
     sumMap: {},
 };
 
-export const exerciseData: (state: StoreState, action: ExerciseChartAction) => StoreState = (state = defaultState, action) => {
+const exerciseData: (state: ExerciseData, action: ExerciseChartAction) => ExerciseData = (state = defaultExerciseState, action) => {
     switch(action.type) {
-        case DailyChartTypes.DAILYCHARTS:
+        case ExerciseTypes.DAILYCHARTS:
             return {...state, ...{
                 dailyList: action.dailyList,
                 sumMap: action.sumMap
             }};
         default:
             return state;
-    }
+    };
 }
+
+/**
+ * goal list module
+ */
+let defaultGoalListState: GoalListItem[] = [];
+
+const goalListData: (state: GoalListItem[], action: GoalListAction) => GoalListItem[] = (state = defaultGoalListState, action) => {
+    switch(action.type) {
+        case ExerciseTypes.GOALLIST:
+            return action.goalList;
+        default:
+            return state;
+    };
+}
+
+export { exerciseData, goalListData }

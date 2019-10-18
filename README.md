@@ -153,6 +153,11 @@ server {
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
+### 2019-10-18
+
+总览模块空数据处理
+
+添加 goalList 模块和请求处理
 
 ### 2019-10-17
 
@@ -162,8 +167,11 @@ koa 添加错误信息map
 
 修改 react 内添加锻炼记录的数据格式校验
 
+解决 postman 内不能调用接口的问题，通过 code 的方式来修改 postman 请求
 
+通过 `window.location.reload()` 来刷新页面
 
+添加 antd Empty 组件的 override 封装
 
 ### 2019-10-15
 

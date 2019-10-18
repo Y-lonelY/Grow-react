@@ -3,6 +3,7 @@ import { Row, Col, Table, message} from "antd";
 import { SuperEmpty } from '@/components/Override';
 import { ColumnProps } from 'antd/es/table';
 import { connect } from 'react-redux';
+import GoalListView from './goalListView';
 import { Polyline, Pie } from '@/components/Chart';
 import { changeChart } from '@/store/Exercise/action';
 import ChartBar from "@/components/ChartBar";
@@ -63,7 +64,10 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
         return (
             <div className='dailyChartView'>
                 <Row>
-                    <Col className='dailyListView' span={18}>
+                    <Col className='goalListView' span={4}>
+                        <GoalListView />
+                    </Col>
+                    <Col className='dailyListView' span={14}>
                         <ChartBar
                             title={this.state.chart.length > 0 ?`共${this.state.chart.length}条锻炼记录` : ''}
                             switchChange={this.switchChange}
@@ -94,8 +98,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                             <div>
                                 <div className="dailySumBox">{sumListView}</div>
                                 <Pie data={this.props.exerciseData ? this.props.exerciseData.sumMap : {}}></Pie>
-                            </div> :
-                            <SuperEmpty mTop='294px' />
+                            </div> : <SuperEmpty mTop='294px' />
                         }
                     </Col>
                 </Row>
@@ -173,7 +176,6 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
             avgData['belly'] = this.props.exerciseData.sumMap.belly ? Number(this.props.exerciseData.sumMap.belly) / len : 0;
             avgData['chest'] = this.props.exerciseData.sumMap.chest ? Number(this.props.exerciseData.sumMap.chest) / len : 0;
         }
-
 
         return {
             chart: chartList,
