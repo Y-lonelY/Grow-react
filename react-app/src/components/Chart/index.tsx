@@ -1,4 +1,5 @@
 import React from "react";
+import { SuperEmpty } from '@/components/Override';
 import { G2, Chart, Geom, Axis, Tooltip, Legend, Coord, View, Label } from 'bizcharts';
 import DataSet from "@antv/data-set";
 import { ExercisePolyline, ExercisePie } from './config';
@@ -26,41 +27,46 @@ const { DataView } = DataSet;
  * placeholder 处理无数据时提示
  */
 class Polyline extends React.Component<PolylineProps, {}> {
-    public render() {
+    render() {
         return (
-            <Chart
-                className={this.props.className}
-                padding="auto"
-                height={500}
-                width={window.innerWidth * 0.9 * 0.75}
-                data={this.props.normalize ? this.normalize(this.props.data) : this.props.data}
-                scale={ExercisePolyline.scale}
-                forceFit
-                placeholder>
-                {/* 图例 */}
-                <Legend></Legend>
-                {/* Axis 通过 name 来指定坐标轴 */}
-                {/* position 控制当前坐标轴展示位置 */}
-                <Axis name="date" position="bottom"></Axis>
-                <Axis name="number" position="left"></Axis>
-                {/* 点，线，面几何图形 */}
-                {/* position 位置属性的映射，表示标记位置是由哪些数据控制，即（x,y） */}
-                {/* 对于 line 来说，size表示线的宽度 */}
-                <Geom type="line" position="date*number" size={2} color="type"></Geom>
-                {/* 'shapeType'，指定常量，将所有数据值映射到固定的 shape */}
-                {/* 对于 point 来说，size表示点的半径 */}
-                {/* style 作用于点样式 */}
-                <Geom
-                    type="point"
-                    position="date*number"
-                    size={4}
-                    shape={'circle'}
-                    color={"type"}
-                    style={{ stroke: '#fff', lineWidth: 1 }}
-                />
-                {/* 设置y:垂直辅助线 */}
-                <Tooltip crosshairs={{ type: 'y' }} />
-            </Chart>
+            <div>
+                {Array.isArray(this.props.data) && this.props.data.length > 0 ?
+                    <Chart
+                        className={this.props.className}
+                        padding="auto"
+                        height={500}
+                        width={window.innerWidth * 0.9 * 0.75}
+                        data={this.props.normalize ? this.normalize(this.props.data) : this.props.data}
+                        scale={ExercisePolyline.scale}
+                        forceFit
+                        placeholder>
+                        {/* 图例 */}
+                        <Legend></Legend>
+                        {/* Axis 通过 name 来指定坐标轴 */}
+                        {/* position 控制当前坐标轴展示位置 */}
+                        <Axis name="date" position="bottom"></Axis>
+                        <Axis name="number" position="left"></Axis>
+                        {/* 点，线，面几何图形 */}
+                        {/* position 位置属性的映射，表示标记位置是由哪些数据控制，即（x,y） */}
+                        {/* 对于 line 来说，size表示线的宽度 */}
+                        <Geom type="line" position="date*number" size={2} color="type"></Geom>
+                        {/* 'shapeType'，指定常量，将所有数据值映射到固定的 shape */}
+                        {/* 对于 point 来说，size表示点的半径 */}
+                        {/* style 作用于点样式 */}
+                        <Geom
+                            type="point"
+                            position="date*number"
+                            size={4}
+                            shape={'circle'}
+                            color={"type"}
+                            style={{ stroke: '#fff', lineWidth: 1 }}
+                        />
+                        {/* 设置y:垂直辅助线 */}
+                        <Tooltip crosshairs={{ type: 'y' }} />
+                    </Chart> : 
+                    <SuperEmpty mTop='250px'/>
+                }
+            </div>
         )
     }
 

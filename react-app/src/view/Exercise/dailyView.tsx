@@ -1,5 +1,6 @@
 import React from "react";
-import { Row, Col, Table, message } from "antd";
+import { Row, Col, Table, message} from "antd";
+import { SuperEmpty } from '@/components/Override';
 import { ColumnProps } from 'antd/es/table';
 import { connect } from 'react-redux';
 import { Polyline, Pie } from '@/components/Chart';
@@ -80,15 +81,21 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                                 data={this.state.chart}
                                 avgData={this.state.avgData}
                                 normalize={this.state.normalize}></Polyline> :
-                            <Table<ExerciseTableData> className='dailyTableBox' size='middle' dataSource={this.state.table} columns={columns} />
+                            <Table<ExerciseTableData>
+                                className='dailyTableBox'
+                                size='middle'
+                                dataSource={this.state.table}
+                                locale={{emptyText: <SuperEmpty />}}
+                                columns={columns} />
                         }
                     </Col>
                     <Col className='dailySumView' span={6}>
-                        {Object.keys(sumMap).length &&
+                        {Object.keys(sumMap).length > 0 ?
                             <div>
                                 <div className="dailySumBox">{sumListView}</div>
                                 <Pie data={this.props.exerciseData ? this.props.exerciseData.sumMap : {}}></Pie>
-                            </div>
+                            </div> :
+                            <SuperEmpty mTop='294px' />
                         }
                     </Col>
                 </Row>
