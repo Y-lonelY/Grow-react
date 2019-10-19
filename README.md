@@ -153,6 +153,12 @@ server {
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
+### 2019-10-19
+
+完善 goalList 模块，添加快速选择时间功能
+
+添加全局 className，用来判断 hugeScreen
+
 ### 2019-10-18
 
 总览模块空数据处理
