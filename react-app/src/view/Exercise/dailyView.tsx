@@ -12,10 +12,15 @@ import { colors } from '@/config/bizchartTheme';
 import { ExerciseProps, ExerciseState, PolylineData, ExerciseTableData, PieData } from '@/index.d.ts';
 import moment from "moment";
 
+interface queryInterface {
+    start: string;
+    end: string;
+}
+
 class DailyView extends React.Component<ExerciseProps, ExerciseState> {
 
     // 查询参数
-    params = {
+    params: queryInterface = {
         start: moment().subtract(30, 'days').format('YYYY-MM-DD'),
         end: moment().format('YYYY-MM-DD')
     }
@@ -27,7 +32,8 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
             normalize: false,
             chart: [],
             table: [],
-            avgData: {}
+            avgData: {},
+            defaultDateRange: [moment(this.params.start), moment(this.params.end)],
         }
     }
 
@@ -65,13 +71,13 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
             <div className='dailyChartView'>
                 <Row>
                     <Col className='goalListView' span={4}>
-                        <GoalListView />
+                        <GoalListView updateDate={this.update.bind(this)} />
                     </Col>
                     <Col className='dailyListView' span={14}>
                         <ChartBar
                             title={this.state.chart.length > 0 ?`共${this.state.chart.length}条锻炼记录` : ''}
                             switchChange={this.switchChange}
-                            defaultDateRange={[moment(this.params.start), moment(this.params.end)]}
+                            defaultDateRange={this.state.defaultDateRange}
                             rangeDateChange={this.rangeDateChange}
                             addSubmit={this.addExercise}
                             normalizeEvent={this.chartNormalize}
@@ -123,14 +129,20 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
     }
 
     // 更新数据，在添加/筛选后执行
-    async update() {
+    public async update(params: queryInterface = this.params, changeDateLabel?: boolean) {
         try {
-            const res = await getDailyExerciseList(this.params);
+            const res = await getDailyExerciseList(params);
             if (res.success) {
                 // 更新 redux store
                 this.props.changeChart(res.list, res.sum);
                 const polyData = this.handlePolylineData();
-                this.setState(polyData)
+                this.setState(polyData);
+
+                if (changeDateLabel === true) {
+                    this.setState({
+                        defaultDateRange: [moment(params.start), moment(params.end)]
+                    });
+                }
             }
         } catch (e) {
             throw e;

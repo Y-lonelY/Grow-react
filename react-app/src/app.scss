@@ -15,3 +15,15 @@
         }
     }
 }
+
+// 适配 mac 11 寸分辨率 antd
+.mac {
+    // statistics currnet
+    .ant-statistic-content-value-int {
+        font-size: 16px;
+    }
+    // statistics suffix 后缀
+    .ant-statistic-content-suffix {
+        font-size: 12px;
+    }
+}

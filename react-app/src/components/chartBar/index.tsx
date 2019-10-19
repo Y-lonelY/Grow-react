@@ -83,6 +83,7 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
                             <RangePicker
                                 className = 'rangePiacker'
                                 defaultValue = {this.props.defaultDateRange}
+                                value={this.props.defaultDateRange}
                                 ranges={{
                                     '当月': [moment().startOf('month'), moment().endOf('month')],
                                     '近7天': [moment().subtract(7, 'days'), moment()],

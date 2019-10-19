@@ -12,7 +12,6 @@ const config: systemConfig = {
 };
 
 function setUseMock(value: boolean) {
-    console.log(value);
     window.sessionStorage.setItem("useMock", String(value));
     window.location.reload();
 }

@@ -1,4 +1,4 @@
-import { post } from '../cluster/Request';
+import { post, get } from '../cluster/Request';
 import { exerciseList, addList, goalList } from './mock/exerciseMock';
 import { config } from '@/config/sysConfig';
 
@@ -24,7 +24,7 @@ async function addExerciseList(params: {date: string, leg: number, belly: number
 
 const getGoalList = async () => {
     try {
-        const request = useMock ? await goalList : await post("exercise/goal/list");
+        const request = useMock ? await goalList : await get("exercise/goal/list");
         return request;
     } catch (e) {
         throw(e);

@@ -86,23 +86,21 @@ function () {
             _context.prev = 18;
             _context.t0 = _context["catch"](7);
             console.log(_context.t0);
-            results['message'] = _error["default"]["1002"];
+            results['message'] = _error["default"][1002];
             ctx.body = results;
 
           case 23:
-            _context.next = 32;
+            _context.next = 30;
             break;
 
           case 25:
             _context.prev = 25;
             _context.t1 = _context["catch"](2);
             console.log(_context.t1);
-            console.log(_error["default"][1001], _error["default"]['1001']);
             results['message'] = _error["default"][1001];
-            console.log(results);
             ctx.body = results;
 
-          case 32:
+          case 30:
           case "end":
             return _context.stop();
         }
@@ -125,38 +123,64 @@ function () {
   var _ref2 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee2(ctx) {
-    var params, results, addList;
+    var scheme, results, params, addList;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            params = ctx.request.body;
+            // 参数校验规则
+            scheme = _joi["default"].object({
+              date: _joi["default"].string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
+              leg: _joi["default"].number().min(0).required(),
+              belly: _joi["default"].number().min(0).required(),
+              chest: _joi["default"].number().min(0).required()
+            });
             results = {
-              success: false
+              success: false,
+              message: ''
             };
+            _context2.prev = 2;
+            _context2.next = 5;
+            return scheme.validateAsync(ctx.request.body);
+
+          case 5:
+            params = _context2.sent;
             ctx.response.type = 'json';
-            _context2.prev = 3;
-            _context2.next = 6;
+            _context2.prev = 7;
+            _context2.next = 10;
             return daliyController.addExerciseList(params);
 
-          case 6:
+          case 10:
             addList = _context2.sent;
             results['success'] = Array.isArray(addList) && addList.length > 0 ? true : false;
             ctx.body = results;
-            _context2.next = 14;
+            _context2.next = 20;
             break;
 
-          case 11:
-            _context2.prev = 11;
-            _context2.t0 = _context2["catch"](3);
-            throw _context2.t0;
+          case 15:
+            _context2.prev = 15;
+            _context2.t0 = _context2["catch"](7);
+            console.log(_context2.t0);
+            results['message'] = _error["default"][1002];
+            ctx.body = results;
 
-          case 14:
+          case 20:
+            _context2.next = 27;
+            break;
+
+          case 22:
+            _context2.prev = 22;
+            _context2.t1 = _context2["catch"](2);
+            console.log(_context2.t1);
+            results['message'] = _error["default"][1001];
+            ctx.body = results;
+
+          case 27:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[3, 11]]);
+    }, _callee2, null, [[2, 22], [7, 15]]);
   }));
 
   return function (_x2) {

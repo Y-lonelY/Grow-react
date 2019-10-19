@@ -35,7 +35,7 @@ class Polyline extends React.Component<PolylineProps, {}> {
                         className={this.props.className}
                         padding="auto"
                         height={500}
-                        width={window.innerWidth * 0.9 * 0.75}
+                        width={(window.innerWidth - 100) * 14 / 24}
                         data={this.props.normalize ? this.normalize(this.props.data) : this.props.data}
                         scale={ExercisePolyline.scale}
                         forceFit
@@ -132,7 +132,7 @@ class Pie extends React.Component<PieProps, {}> {
                 data={sumItem === 0 ? {} : dv}
                 scale={ExercisePie.scale}
                 height={320}
-                width={window.innerWidth * 0.9 * 0.25}
+                width={(window.innerWidth - 100) * 6 / 24}
                 padding="auto"
                 forceFit
                 placeholder>

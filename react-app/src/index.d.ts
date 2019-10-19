@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 /**
  * redux
  */
@@ -51,6 +53,7 @@ export interface ExerciseState {
     chart: PolylineData[];
     table: ExerciseTableData[];
     avgData: PieData;
+    defaultDateRange: [moment.Moment, moment.Moment]
 }
 
 export interface ExerciseTableData {
@@ -85,6 +88,7 @@ export interface GoalListAction {
 export interface GoalListProps {
     goalListData: GoalListItem[];
     changeGoalList: (goalList: GoalListItem[]) => GoalListAction;
+    updateDate: (params: { start: string, end: string}, changeDateLabel?: boolean) => void
 }
 
 export interface GoalListState {

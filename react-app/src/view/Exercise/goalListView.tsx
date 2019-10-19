@@ -1,20 +1,13 @@
 import React from 'react';
-import { Collapse, Icon } from 'antd';
+import { Collapse, Icon, Col, Row, Progress, Statistic, Button } from 'antd';
 import { SuperEmpty } from '@/components/Override';
 import { connect } from 'react-redux';
 import { changeGoalList } from '@/store/Exercise/action';
 import { getGoalList } from '@/service/exerciseService';
+import moment from 'moment';
 import { GoalListProps, GoalListState } from '@/index.d.ts';
 
 const { Panel } = Collapse;
-
-const customPanelStyle = {
-    background: '#f7f7f7',
-    borderRadius: 4,
-    marginBottom: 24,
-    border: 0,
-    overflow: 'hidden',
-};
 
 /**
  * 业务和业务耦合，复用性较低，所以放在 view layer
@@ -28,11 +21,56 @@ class GoalListView extends React.Component<GoalListProps, GoalListState> {
     }
     render() {
         const panelList = this.props.goalListData.map((item, index) => {
+            const hasAchived = Number(item.summary) < Number(item.goal) ? false : true;
+            const percent = Math.round(Number(item.summary) / Number(item.goal) * 100);
             return (
                 <Panel
-                    className={`goal-item ${String(index) === this.state.expandIndex ? 'active' : 'ow'}`}
+                    className={`goal-item ${hasAchived ? 'isOff' : 'isOn'} ${String(index) === this.state.expandIndex ? 'active' : 'ow'}`}
                     key={String(index)}
                     header={item.reward}>
+                        
+                        <Row className='progeress'>
+                            <Col span={4}>
+                                <i className={`icon ${item.type}`}></i>
+                            </Col>
+                            <Col className='value' span={20}>
+                                <Progress size='small' percent={percent} />
+                            </Col>
+                        </Row>
+                        <Row className='price'>
+                            <Col span={12}>
+                                <Statistic title='Counts' value={Number(item.summary)} suffix={` / ${item.goal}`} />
+                            </Col>
+                            <Col className='end' span={12}>
+                                <Statistic title='Price(CNY)' value={item.total_price} suffix={<Icon type='¥' />} />
+                            </Col>
+                        </Row>
+                        <Row className='date'>
+                            <Col className='label' span={4}>From</Col>
+                            <Col className='value' span={20}>{moment(item.start_date).format('YYYY-MM-DD HH:mm:ss')}</Col>
+                        </Row>
+                        {/* 结束时间 */}
+                        {item.end_date && 
+                            <Row className='date'>
+                                <Col className='label' span={4}>To</Col>
+                                <Col className='value' span={20}>{moment(item.end_date).format('YYYY-MM-DD HH:mm:ss')}</Col>
+                            </Row>
+                        }
+                        {/* 评论 */}
+                        {item.remark && item.remark.length > 0 &&
+                            <p>{item.remark}</p>
+                        }
+                        {/* 功能行 */}
+                        <Row className='funcBox'>
+                            {item.start_date && item.end_date &&
+                                <Col className='link' span={4} offset={20}>
+                                    <Button
+                                        icon='double-right' 
+                                        size='small'
+                                        onClick={this.updateDate.bind(this, item.start_date, item.end_date)}></Button>
+                                </Col>
+                            }
+                        </Row>
                 </Panel>
             );
         });
@@ -72,6 +110,12 @@ class GoalListView extends React.Component<GoalListProps, GoalListState> {
         this.setState({
             expandIndex: data
         });
+    }
+
+    updateDate = (start_date, end_date) => {
+        const start = moment(start_date).format('YYYY-MM-DD');
+        const end = moment(end_date).format('YYYY-MM-DD');
+        this.props.updateDate({start: start, end: end}, true);
     }
 }
 

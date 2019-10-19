@@ -11,10 +11,12 @@ $border-color: rgba(0, 0, 0, .15);
 // robot-font
 $robotFont: "Roboto Mono",monospace;
 
+// font-color
 $bck-color: #202124;
 $gray: #bdc1c6;
 $ftc-gray: rgba(0, 0, 0, .85);
 $vlone: #ef613e;
+$blue: #1890ff;
 
 @mixin ow-text {
     overflow: hidden;

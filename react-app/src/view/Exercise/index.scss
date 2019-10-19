@@ -18,14 +18,75 @@
                     }
                     background: #ffffff;
 
+                    &.isOn {
+                        .ant-collapse-header {
+                            color: $blue;
+                        } 
+                    }
+
                     &.active {
-                        font-weight: bold;
-                        box-shadow: $box-shadow
+                        box-shadow: $box-shadow;
+
+                        .ant-collapse-header {
+                            font-weight: bold;
+                        }
                     }
 
                     &.ow {
                         .ant-collapse-header {
                             @include ow-text;
+                        }
+                    }
+                    // 进度条信息
+                    .progeress {
+                        .icon {
+                            display: inline-block;
+                            height: 24px;
+                            width: 24px;
+                            &.shoes {
+                                background: {
+                                    image: url(../../assets/shoes.png);
+                                };
+                            }
+                            &.airClear {
+                                background: {
+                                    image: url(../../assets/air-clear.png);
+                                };
+                            }
+
+                            &.T-shirt {
+                                background: {
+                                    image: url(../../assets/shirts.png);
+                                };
+                            }
+                        }
+
+                        .value {
+                            line-height: 24px;
+                        }
+                    }
+
+                    .price {
+                        .end {
+                            text-align: end;
+                        }
+                    }
+                    
+                    .date {
+                        margin: 10px 0;
+                        .label {
+                            font-weight: bold;
+                            color:raba(0,0,0,.85);
+                        }
+
+                        .value {
+                            text-align: end;
+                        }
+                    }
+
+                    .funcBox {
+                        .link {
+                            text-align: end;
                         }
                     }
                 }
