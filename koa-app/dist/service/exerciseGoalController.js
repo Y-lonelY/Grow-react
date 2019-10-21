@@ -13,6 +13,8 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 var _mysqlSequelize = _interopRequireDefault(require("../components/mysqlSequelize"));
 
+var _moment = _interopRequireDefault(require("moment"));
+
 /**
  * 获取 goal 列表
  */
@@ -40,7 +42,20 @@ function _getGoalList() {
 
           case 5:
             goal_list = _context.sent;
-            list = goal_list.concat();
+            list = goal_list.map(function (item) {
+              console.log(item);
+
+              if (item.start_date !== null) {
+                item.start_date = _moment["default"].utc(item.start_date).format('YYYY-MM-DD HH:mm:ss');
+              }
+
+              if (item.end_date !== null) {
+                item.end_date = _moment["default"].utc(item.end_date).format('YYYY-MM-DD HH:mm:ss');
+              }
+
+              console.log(item);
+              return item;
+            });
             _context.next = 12;
             break;
 
@@ -50,9 +65,10 @@ function _getGoalList() {
             console.log(_context.t0);
 
           case 12:
+            console.log(list);
             return _context.abrupt("return", list);
 
-          case 13:
+          case 14:
           case "end":
             return _context.stop();
         }
