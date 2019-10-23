@@ -43,8 +43,7 @@ function _getGoalList() {
           case 5:
             goal_list = _context.sent;
             list = goal_list.map(function (item) {
-              console.log(item);
-
+              // 处理 DATETIME 类型数据
               if (item.start_date !== null) {
                 item.start_date = _moment["default"].utc(item.start_date).format('YYYY-MM-DD HH:mm:ss');
               }
@@ -53,7 +52,6 @@ function _getGoalList() {
                 item.end_date = _moment["default"].utc(item.end_date).format('YYYY-MM-DD HH:mm:ss');
               }
 
-              console.log(item);
               return item;
             });
             _context.next = 12;
@@ -65,10 +63,9 @@ function _getGoalList() {
             console.log(_context.t0);
 
           case 12:
-            console.log(list);
             return _context.abrupt("return", list);
 
-          case 14:
+          case 13:
           case "end":
             return _context.stop();
         }

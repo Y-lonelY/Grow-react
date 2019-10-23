@@ -153,11 +153,17 @@ server {
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
+### 2019-10-23
+
+编写 python script ，用于获取 wakatime 编程记录，并存入数据库内
+
+exercise 添加分割线
+
+调研 programming records 展示方式，暂定为堆叠柱状图和雷达图
+
 ### 2019-10-21
 
 解决从数据获取 dateTime 类型的数据，在 js 转换时，会默认加八个小时的问题，通过 `moment.utc()` 来解析 UTC 时间，将这个逻辑放在服务端更合理
-
-
 
 ### 2019-10-19
 
