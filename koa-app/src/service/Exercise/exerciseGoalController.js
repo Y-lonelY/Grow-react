@@ -1,4 +1,4 @@
-import sequelizeCase from "../components/mysqlSequelize";
+import sequelizeCase from "C/mysqlSequelize";
 import moment from 'moment';
 /**
  * 获取 goal 列表

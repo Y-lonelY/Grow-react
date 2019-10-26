@@ -4,10 +4,10 @@ import Router from "koa-router";
 import Compose from "koa-compose";
 // 引入 joi，用来校验数据
 import Joi from "@hapi/joi";
-import * as daliyController from "../service/exerciseDaliyController";
-import * as goalController from '../service/exerciseGoalController';
-import ErrorMessage from '../../config/error';
-import { logger, rrtime } from '../components/logger';
+import * as daliyController from "S/Exercise/exerciseDaliyController";
+import * as goalController from 'S/Exercise/exerciseGoalController';
+import ErrorMessage from 'config/error';
+import { logger, rrtime } from 'C/logger';
 
 
 // 声明一个 router 实例

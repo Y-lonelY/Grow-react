@@ -1,7 +1,8 @@
 import React from "react";
 import { Divider } from 'antd';
-import DailyView from "./dailyView"
-import './index.scss'
+import DailyView from "./dailyView";
+import ProgramView from './progarmView';
+import './index.scss';
 
 class DashBoard extends React.Component {
     render() {
@@ -14,6 +15,7 @@ class DashBoard extends React.Component {
                 <Divider orientation='left'>
                     Programming Records
                 </Divider>
+                <ProgramView />
             </div>
         );
     }

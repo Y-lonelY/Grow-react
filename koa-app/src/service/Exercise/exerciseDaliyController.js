@@ -1,5 +1,5 @@
 // 引入 mysql
-import sequelizeCase from "../components/mysqlSequelize";
+import sequelizeCase from "C/mysqlSequelize";
 
 /**
  * (leg/belly/chest) 数据总和

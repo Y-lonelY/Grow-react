@@ -3,6 +3,15 @@
         "@babel/preset-env"
     ],
     "plugins": [
-        ["@babel/transform-runtime"]
+        ["@babel/transform-runtime"],
+        ["module-resolver", {
+            "root": "./",
+            "alias": {
+                "@": "./src",
+                "S": "./src/service",
+                "V": "./src/view",
+                "C": "./src/components"
+            }
+        }]
     ]
 }

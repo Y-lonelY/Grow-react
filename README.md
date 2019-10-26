@@ -153,6 +153,25 @@ server {
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
+### 2019-10-26
+
+
+
+### 2019-10-25
+
+Chart 由 class 改写为 function 类型组件
+
+修改 koa exercise 模块结构
+
+添加 program overview api
+
+koa 添加 babel-plugin-module-resolver 用来配置模块别名
+
+
+### 2019-10-24
+
+考虑到图表实际是一个纯函数，输入数据和输出保持一致，所以将 class 写法改写为 function
+
 ### 2019-10-23
 
 编写 python script ，用于获取 wakatime 编程记录，并存入数据库内

@@ -10,13 +10,17 @@ import ChartBar from "@/components/ChartBar";
 import { getDailyExerciseList, addExerciseList } from '@/service/exerciseService';
 import { colors } from '@/config/bizchartTheme';
 import { ExerciseProps, ExerciseState, PolylineData, ExerciseTableData, PieData } from '@/index.d.ts';
-import moment from "moment";
+import moment from 'moment';
 
 interface queryInterface {
     start: string;
     end: string;
 }
 
+/**
+ * Exercise daily Component
+ * 通过 redux 来实现通信
+ */
 class DailyView extends React.Component<ExerciseProps, ExerciseState> {
 
     // 查询参数
