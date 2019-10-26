@@ -1,6 +1,10 @@
-import { ExerciseChartAction, ExerciseData, GoalListAction, GoalListItem } from '@/index.d.ts';
+import { 
+    ExerciseChartAction, 
+    ExerciseData, 
+    GoalListAction, 
+    GoalListItem } from '@/index.d.ts';
 
-const changeChart: (...ExerciseData) => ExerciseChartAction  = (dailyList, sumMap) => {
+const changeChart: (...ExerciseData) => ExerciseChartAction = (dailyList, sumMap) => {
     return {
         type: 'dailycharts',
         dailyList,

@@ -42,7 +42,7 @@ function _getProgramName() {
         switch (_context.prev = _context.next) {
           case 0:
             list = [];
-            sql = "SELECT DISTINCT `name` FROM `gro-up`." + "".concat(params.type === 'project' ? 'waka_project' : 'waka_lang') + " WHERE date BETWEEN '".concat(params.start, "' AND '").concat(params.end, "'");
+            sql = "SELECT DISTINCT `name` FROM `gro-up`." + "".concat(params.type === 'project' ? 'waka_project' : 'waka_lang') + " WHERE date BETWEEN '".concat(params.start, "' AND '").concat(params.end, "'") + " ORDER BY name";
             _context.prev = 2;
             _context.next = 5;
             return _mysqlSequelize["default"].query({
@@ -82,40 +82,41 @@ function _getProgramList() {
   _getProgramList = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee2(params) {
-    var list, sql, recordList;
+    var list, name_sql, sql, recordList;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             list = [];
-            sql = "SELECT id, date, `name`, total_seconds" + " FROM `gro-up`.".concat(params.type === 'project' ? 'waka_project' : 'waka_lang') + " WHERE" + " date BETWEEN '".concat(params.start, "' AND '").concat(params.end, "'") + " AND `name` LIKE '".concat(params.name, "'");
-            _context2.prev = 2;
-            _context2.next = 5;
+            name_sql = params.name === '-127' ? '' : " AND `name` LIKE '".concat(params.name, "'");
+            sql = "SELECT id, date, `name`, total_seconds AS value" + " FROM `gro-up`.".concat(params.type === 'project' ? 'waka_project' : 'waka_lang') + " WHERE" + " date BETWEEN '".concat(params.start, "' AND '").concat(params.end, "'") + name_sql + " ORDER BY date";
+            _context2.prev = 3;
+            _context2.next = 6;
             return _mysqlSequelize["default"].query({
               sql: sql,
               queryType: 'select'
             });
 
-          case 5:
+          case 6:
             recordList = _context2.sent;
             list = recordList;
-            _context2.next = 12;
+            _context2.next = 13;
             break;
 
-          case 9:
-            _context2.prev = 9;
-            _context2.t0 = _context2["catch"](2);
+          case 10:
+            _context2.prev = 10;
+            _context2.t0 = _context2["catch"](3);
             console.log(_context2.t0);
 
-          case 12:
+          case 13:
             return _context2.abrupt("return", list);
 
-          case 13:
+          case 14:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[2, 9]]);
+    }, _callee2, null, [[3, 10]]);
   }));
   return _getProgramList.apply(this, arguments);
 }

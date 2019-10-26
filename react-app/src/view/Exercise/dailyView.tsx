@@ -3,9 +3,9 @@ import { Row, Col, Table, message} from "antd";
 import { SuperEmpty } from '@/components/Override';
 import { ColumnProps } from 'antd/es/table';
 import { connect } from 'react-redux';
+import { changeChart } from '@/store/Exercise/action';
 import GoalListView from './goalListView';
 import { Polyline, Pie } from '@/components/Chart';
-import { changeChart } from '@/store/Exercise/action';
 import ChartBar from "@/components/ChartBar";
 import { getDailyExerciseList, addExerciseList } from '@/service/exerciseService';
 import { colors } from '@/config/bizchartTheme';
@@ -132,7 +132,11 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
         }
     }
 
-    // 更新数据，在添加/筛选后执行
+    /**
+     * 更新数据，在添加/筛选后执行
+     * @param params 筛选参数
+     * @param changeDateLabel 标记是否需要更新时间空间范围
+     */
     public async update(params: queryInterface = this.params, changeDateLabel?: boolean) {
         try {
             const res = await getDailyExerciseList(params);

@@ -95,9 +95,38 @@ export interface GoalListState {
     expandIndex: string
 }
 
+/**
+ * program module
+ */
+export interface ProgramItem {
+    id: number;
+    date: string;
+    name: string;
+    value: number;
+}
+
+export interface programOverviewAction {
+    list: ProgramItem[];
+    nameList: {name: string}[];
+    type: string;
+}
+
+export interface programOverviewProps {
+    list: ProgramItem[];
+    nameList: {name: string}[];
+    changeProgramOverview: (param: {list: ProgramItem[], nameList: {name: string}[]}) => programOverviewAction;
+}
+
+export interface programOverviewState {
+    
+}
+
+
+
 // 用于各个模块的action.type类型检查
 
 export enum ExerciseTypes {
-    DAILYCHARTS = "dailycharts",
+    DAILYCHARTS = 'dailycharts',
     GOALLIST = 'goalList',
+    PROGRAMOVERVIEW = 'program-overview',
 }

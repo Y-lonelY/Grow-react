@@ -1,5 +1,5 @@
 import { post, get } from '../cluster/Request';
-import { exerciseList, addList, goalList } from './mock/exerciseMock';
+import { exerciseList, addList, goalList, programOverview } from './mock/exerciseMock';
 import { config } from '@/config/sysConfig';
 
 const useMock = config.useMock === 'false' ? false : true;
@@ -31,4 +31,13 @@ const getGoalList = async () => {
     }
 }
 
-export { getDailyExerciseList, addExerciseList, getGoalList }
+const getProgramOverview = async (params) => {
+    try {
+        const request = useMock ? await programOverview : await post("program/overview", params);
+        return request;
+    } catch (e) {
+        throw(e);
+    }
+}
+
+export { getDailyExerciseList, addExerciseList, getGoalList, getProgramOverview }

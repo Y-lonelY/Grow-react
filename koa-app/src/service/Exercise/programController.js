@@ -30,11 +30,12 @@ async function getProgramName(params) {
  */
 async function getProgramList(params) {
     let list = [];
-    const sql = `SELECT id, date, \`name\`, total_seconds`
+    const name_sql = params.name === '-127' ? '' : ` AND \`name\` LIKE '${params.name}'`;
+    const sql = `SELECT id, date, \`name\`, total_seconds AS value`
               + ` FROM \`gro-up\`.${params.type === 'project' ? 'waka_project' : 'waka_lang'}`
               + ` WHERE`
               + ` date BETWEEN '${params.start}' AND '${params.end}'`
-              + ` AND \`name\` LIKE '${params.name}'`
+              + name_sql
               + ` ORDER BY date`;
     try {
         const recordList = await sequelizeCase.query({ sql: sql, queryType: 'select'});
