@@ -6,6 +6,8 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
 var _koaRouter = _interopRequireDefault(require("koa-router"));
@@ -19,6 +21,10 @@ var _error = _interopRequireDefault(require("../../../config/error"));
 var ProgramController = _interopRequireWildcard(require("../../service/Exercise/programController"));
 
 var _logger = require("../../components/logger");
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 // 声明一个 router 实例
 var programRouter = new _koaRouter["default"]();
@@ -35,15 +41,21 @@ function () {
           case 0:
             scheme = _joi["default"].object({
               start: _joi["default"].string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
-              end: _joi["default"].string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
-              type: _joi["default"].string().required(),
-              name: _joi["default"].string().required()
+              end: _joi["default"].string().pattern(/^\d{4}-\d{2}-\d{2}$/).required()
             });
             results = {
               success: false,
               message: '',
-              list: [],
-              nameList: []
+              data: {
+                lang: {
+                  list: [],
+                  name: []
+                },
+                project: {
+                  list: [],
+                  name: []
+                }
+              }
             };
             _context.prev = 2;
             _context.next = 5;
@@ -54,44 +66,62 @@ function () {
             ctx.response.type = 'json';
             _context.prev = 7;
             _context.next = 10;
-            return ProgramController.getProgramList(params);
+            return ProgramController.getProgramList(_objectSpread({}, params, {
+              type: 'lang'
+            }));
 
           case 10:
-            results['list'] = _context.sent;
+            results['data']['lang']['list'] = _context.sent;
             _context.next = 13;
-            return ProgramController.getProgramName(params);
+            return ProgramController.getProgramName(_objectSpread({}, params, {
+              type: 'lang'
+            }));
 
           case 13:
-            results['nameList'] = _context.sent;
+            results['data']['lang']['name'] = _context.sent;
+            _context.next = 16;
+            return ProgramController.getProgramList(_objectSpread({}, params, {
+              type: 'project'
+            }));
+
+          case 16:
+            results['data']['project']['list'] = _context.sent;
+            _context.next = 19;
+            return ProgramController.getProgramName(_objectSpread({}, params, {
+              type: 'project'
+            }));
+
+          case 19:
+            results['data']['project']['name'] = _context.sent;
             results['success'] = true;
             ctx.body = results;
-            _context.next = 23;
+            _context.next = 29;
             break;
 
-          case 18:
-            _context.prev = 18;
+          case 24:
+            _context.prev = 24;
             _context.t0 = _context["catch"](7);
             console.log(_context.t0);
             results['message'] = _error["default"][1002];
             ctx.body = results;
 
-          case 23:
-            _context.next = 30;
+          case 29:
+            _context.next = 36;
             break;
 
-          case 25:
-            _context.prev = 25;
+          case 31:
+            _context.prev = 31;
             _context.t1 = _context["catch"](2);
             console.log(_context.t1);
             results['message'] = _error["default"][1001];
             ctx.body = results;
 
-          case 30:
+          case 36:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[2, 25], [7, 18]]);
+    }, _callee, null, [[2, 31], [7, 24]]);
   }));
 
   return function (_x) {

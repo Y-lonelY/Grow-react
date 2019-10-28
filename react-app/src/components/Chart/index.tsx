@@ -171,7 +171,6 @@ function StackedColumn(props) {
                     height={500}
                     data={props.data}
                     forceFit>
-                    <Legend />
                     <Axis name="date" position='bottom' />
                     <Axis name="value" position='left' />
                     <Tooltip />

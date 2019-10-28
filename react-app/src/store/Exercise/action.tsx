@@ -4,7 +4,7 @@ import {
     GoalListAction, 
     GoalListItem,
     programOverviewAction,
-    ProgramItem } from '@/index.d.ts';
+    programOverviewTemplate } from '@/index.d.ts';
 
 const changeChart: (...ExerciseData) => ExerciseChartAction = (dailyList, sumMap) => {
     return {
@@ -21,11 +21,10 @@ const changeGoalList: (goalList: GoalListItem[]) => GoalListAction = (goalList) 
     }
 }
 
-const changeProgramOverview: (list: ProgramItem[], nameList: {name: string}[]) => programOverviewAction = (list, nameList) => {
+const changeProgramOverview: (params: programOverviewTemplate) => programOverviewAction = (data) => {
     return {
         type: 'program-overview',
-        list: list,
-        nameList: nameList,
+        ...data
     }
 } 
 

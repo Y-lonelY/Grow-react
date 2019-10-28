@@ -11,23 +11,31 @@ const programRouter = new Router();
 programRouter.post('/program/overview', async ctx => {
     const scheme = Joi.object({
         start: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
-        end: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
-        type: Joi.string().required(),
-        name: Joi.string().required(),
+        end: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required()
     });
     let results = {
         success: false,
         message: '',
-        list: [],
-        nameList: [],
+        data: {
+            lang: {
+                list: [],
+                name: []
+            },
+            project: {
+                list: [],
+                name: []
+            },
+        },
     };
 
     try {
         const params = await scheme.validateAsync(ctx.request.body);
         ctx.response.type = 'json';
         try {
-            results['list'] = await ProgramController.getProgramList(params);
-            results['nameList'] = await ProgramController.getProgramName(params);
+            results['data']['lang']['list'] = await ProgramController.getProgramList({...params, type: 'lang'});
+            results['data']['lang']['name'] = await ProgramController.getProgramName({...params, type: 'lang'});
+            results['data']['project']['list'] = await ProgramController.getProgramList({...params, type: 'project'});
+            results['data']['project']['name'] = await ProgramController.getProgramName({...params, type: 'project'});
             results['success'] = true;
             ctx.body = results;
         } catch (e) {

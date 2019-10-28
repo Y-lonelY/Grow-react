@@ -28,7 +28,6 @@ function getProgramName(_x) {
  * @params {start} params 开始时间
  * @params {end} params 结束时间
  * @params {type} params 查询类型
- * @params {name} params 具体 name 类型
  */
 
 
@@ -82,41 +81,40 @@ function _getProgramList() {
   _getProgramList = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee2(params) {
-    var list, name_sql, sql, recordList;
+    var list, sql, recordList;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             list = [];
-            name_sql = params.name === '-127' ? '' : " AND `name` LIKE '".concat(params.name, "'");
-            sql = "SELECT id, date, `name`, total_seconds AS value" + " FROM `gro-up`.".concat(params.type === 'project' ? 'waka_project' : 'waka_lang') + " WHERE" + " date BETWEEN '".concat(params.start, "' AND '").concat(params.end, "'") + name_sql + " ORDER BY date";
-            _context2.prev = 3;
-            _context2.next = 6;
+            sql = "SELECT id, date, `name`, total_seconds AS value" + " FROM `gro-up`.".concat(params.type === 'project' ? 'waka_project' : 'waka_lang') + " WHERE" + " date BETWEEN '".concat(params.start, "' AND '").concat(params.end, "'") + " ORDER BY date";
+            _context2.prev = 2;
+            _context2.next = 5;
             return _mysqlSequelize["default"].query({
               sql: sql,
               queryType: 'select'
             });
 
-          case 6:
+          case 5:
             recordList = _context2.sent;
             list = recordList;
-            _context2.next = 13;
+            _context2.next = 12;
             break;
 
-          case 10:
-            _context2.prev = 10;
-            _context2.t0 = _context2["catch"](3);
+          case 9:
+            _context2.prev = 9;
+            _context2.t0 = _context2["catch"](2);
             console.log(_context2.t0);
 
-          case 13:
+          case 12:
             return _context2.abrupt("return", list);
 
-          case 14:
+          case 13:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[3, 10]]);
+    }, _callee2, null, [[2, 9]]);
   }));
   return _getProgramList.apply(this, arguments);
 }

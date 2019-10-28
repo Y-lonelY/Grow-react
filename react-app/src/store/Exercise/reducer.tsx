@@ -37,17 +37,23 @@ const goalListData: (state: TS.GoalListItem[], action: TS.GoalListAction) => TS.
 /**
  * program module
  */
-let defaultProgramState: {list: TS.ProgramItem[], nameList: {name: string}[]} = {
-    list: [],
-    nameList: []
+let defaultProgramState: TS.programOverviewTemplate = {
+    lang: {
+        list: [],
+        name: []
+    },
+    project: {
+        list: [],
+        name: []
+    },
 };
 
 const programOverviewData = (state = defaultProgramState, action) => {
     if (action.type === TS.ExerciseTypes.PROGRAMOVERVIEW) {
-        return {...state, ...{
-            list: action.list,
-            nameList: action.nameList,
-        }};
+        return {...state, 
+            lang: action.lang,
+            project: action.project
+        };
     } else {
         return state;
     }

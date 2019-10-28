@@ -26,16 +26,13 @@ async function getProgramName(params) {
  * @params {start} params 开始时间
  * @params {end} params 结束时间
  * @params {type} params 查询类型
- * @params {name} params 具体 name 类型
  */
 async function getProgramList(params) {
     let list = [];
-    const name_sql = params.name === '-127' ? '' : ` AND \`name\` LIKE '${params.name}'`;
     const sql = `SELECT id, date, \`name\`, total_seconds AS value`
               + ` FROM \`gro-up\`.${params.type === 'project' ? 'waka_project' : 'waka_lang'}`
               + ` WHERE`
               + ` date BETWEEN '${params.start}' AND '${params.end}'`
-              + name_sql
               + ` ORDER BY date`;
     try {
         const recordList = await sequelizeCase.query({ sql: sql, queryType: 'select'});

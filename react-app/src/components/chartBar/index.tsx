@@ -17,10 +17,12 @@ interface ChartBarProps {
     rangeDateChange?: (dates: [moment.Moment, moment.Moment], dateStrings: [string, string]) => void;
     tableSwitch?: boolean;
     switchChange?: (boolean) => void;
-    selectorChange?: (value: string) => void;
     selector?: boolean;
-    
-    selectorList?: {name: string, value?: string}[]
+    selectorValue?: string | number;
+    selectorList?: {name: string, value?: string}[];
+    selectorChange?: (value: string) => void;
+    programSwitch?: boolean;
+    programSwitchChange?: (boolean) => void;
 }
 
 interface ChartBarState {
@@ -88,6 +90,7 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
                             style={{width: '160px', marginRight: '10px'}}
                             placeholder='选择...'
                             defaultValue='-127'
+                            value={this.props.selectorValue ? this.props.selectorValue : '-127'}
                             onChange={this.selectorChange}
                             size='small'
                             showSearch>
@@ -120,7 +123,16 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
                             />
                         }
 
-
+                        {/* program lang/project switch */}
+                        {this.props.programSwitch &&
+                            <Switch
+                                className='programSwitch'
+                                checkedChildren='L'
+                                unCheckedChildren='P'
+                                onChange={this.props.programSwitchChange}
+                                defaultChecked
+                            />
+                        }
 
                         {/* 图表切换 */}
                         {this.props.tableSwitch &&

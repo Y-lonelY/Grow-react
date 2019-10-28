@@ -105,23 +105,38 @@ export interface ProgramItem {
     value: number;
 }
 
+export interface programOverviewTemplate {
+    lang: {
+        list: ProgramItem[];
+        name: {name: string, value?: string}[];
+    },
+    project: {
+        list: ProgramItem[];
+        name: {name: string, value?: string}[];
+    }
+}
+
 export interface programOverviewAction {
-    list: ProgramItem[];
-    nameList: {name: string}[];
+    lang: {
+        list: ProgramItem[];
+        name: {name: string, value?: string}[];
+    };
+    project: {
+        list: ProgramItem[];
+        name: {name: string, value?: string}[];
+    };
     type: string;
 }
 
 export interface programOverviewProps {
-    programOverviewData: {
-        list: ProgramItem[];
-        nameList: {name: string, value?: string}[];
-    };
-    changeProgramOverview: (list: ProgramItem[], nameList: {name: string}[]) => programOverviewAction;
+    programOverviewData: programOverviewTemplate;
+    changeProgramOverview: (params: programOverviewTemplate) => programOverviewAction;
 }
 
 export interface programOverviewState {
     list: ProgramItem[];
-    defaultDateRange: [moment.Moment, moment.Moment];
+    type: string;
+    selectorValue: string | number;
 }
 
 
