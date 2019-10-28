@@ -10,11 +10,27 @@ import '@/app.scss';
 
 
 const {
-    Header, Footer, Content
+    Content
 } = Layout;
 
-class App extends React.Component {
+interface appState {
+    hasError: boolean
+}
+
+class App extends React.Component<{}, appState> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            hasError: false
+        };
+    }
+
     public render() {
+        if (this.state.hasError) {
+            return (
+                <h1>Somethings went wrong.</h1>
+            );
+        };
         return (
             <BrowserRouter>
             <div className={`homeBox ${systemConfig.hugeScreen ? 'max' : 'mac'}`}>
@@ -30,6 +46,14 @@ class App extends React.Component {
             </div>
             </BrowserRouter>
         )
+    }
+
+    static getDerivedStateFromError(error) {
+        return { hasError: true };
+    }
+
+    componentDidCatch(error, info) {
+        console.error(error, info);
     }
 }
 
