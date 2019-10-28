@@ -27,7 +27,15 @@ $text: rgba(0, 0, 0, .85);
             margin: 0 10px 0 0;
         }
 
-        .rangePiacker {
+        .selectorPicker {
+            margin: 0 10px 0 0;
+
+            .ant-select-selection-selected-value {
+                font-size: 12px;
+            }
+        }
+
+        .rangePicker {
             margin: 0 10px 0 0;
 
             // antd

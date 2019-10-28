@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Switch, Icon, DatePicker, Button, Popover, Tooltip } from "antd";
+import { Row, Col, Switch, Icon, DatePicker, Button, Popover, Tooltip, Select } from "antd";
 import AddListFormInstance from './AddListForm';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
@@ -17,6 +17,10 @@ interface ChartBarProps {
     rangeDateChange?: (dates: [moment.Moment, moment.Moment], dateStrings: [string, string]) => void;
     tableSwitch?: boolean;
     switchChange?: (boolean) => void;
+    selectorChange?: (value: string) => void;
+    selector?: boolean;
+    
+    selectorList?: {name: string, value?: string}[]
 }
 
 interface ChartBarState {
@@ -25,6 +29,7 @@ interface ChartBarState {
 }
 
 const { RangePicker } = DatePicker;
+const { Option } = Select;
 
 // 利用接口对传递参数进行检查
 class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
@@ -39,7 +44,7 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
 
     public render() {
         const title = this.props.title && this.props.title.trim() !== '' ? this.props.title : ''
-
+        const list = [1,2,3];
         return (
             <div className="chartBar">
                 <Row>
@@ -76,10 +81,30 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
                             </Tooltip>
                         }
 
+                        {/* 下拉选择 */}
+                        {this.props.selector && this.props.selectorList.length > 0 &&
+                            <Select
+                            className='selectorPicker'
+                            style={{width: '160px', marginRight: '10px'}}
+                            placeholder='选择...'
+                            defaultValue='-127'
+                            onChange={this.selectorChange}
+                            size='small'
+                            showSearch>
+                                <Option value='-127'>全部</Option>
+                                {this.props.selectorList.map((item, index) => {
+                                    return (
+                                        <Option key={index} value={item.value ? item.value : item.name}>{item.name}</Option>
+                                    );
+                                })
+                                }
+                            </Select>
+                        }
+
                         {/* 时间范围选择 */}
                         {this.props.datePicker &&
                             <RangePicker
-                                className='rangePiacker'
+                                className='rangePicker'
                                 defaultValue={this.props.defaultDateRange}
                                 value={this.props.defaultDateRange}
                                 ranges={{
@@ -135,6 +160,11 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
             normalize: !value
         });
         this.props.normalizeEvent(!value);
+    }
+
+    // 下拉选择切换
+    selectorChange = (value: string) => {
+        this.props.selectorChange(value);
     }
 }
 

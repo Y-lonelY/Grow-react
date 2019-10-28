@@ -26,20 +26,27 @@ const ExercisePie = {
     }
 };
 
-const ProgramColumn = {
-    scale: {
+// 通过 type 来解决图不居中问题
+const getProgramScale = (value) => {
+    let scale = {
         date: {
-            // 数据类型，非连续的时间类型
-            type: 'time',
-            /**
-             * range 用来控制坐标轴两边的留白
-             * 对于分类数据的坐标轴两边默认会有留白
-             * 连续数据的坐标轴的两端没有空白刻度
-             * 留白程度通过 range 来控制
-             */
-            range: [0.1, 0.9]
+            type: 'cat',
         }
+    };
+
+    if (value > 1) {
+        // 数据类型，非连续的时间类型
+        scale.date['type'] = 'time';
+        /**
+         * range 用来控制坐标轴两边的留白
+         * 对于分类数据的坐标轴两边默认会有留白
+         * 连续数据的坐标轴的两端没有空白刻度
+         * 留白程度通过 range 来控制
+         */
+        scale.date['range'] = [0.1, 0.9];
     }
+
+    return scale;
 };
 
-export { ExercisePolyline, ExercisePie, ProgramColumn }
+export { ExercisePolyline, ExercisePie, getProgramScale }

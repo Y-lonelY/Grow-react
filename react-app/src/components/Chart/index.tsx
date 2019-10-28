@@ -2,7 +2,7 @@ import React from "react";
 import { SuperEmpty } from '@/components/Override';
 import { G2, Chart, Geom, Axis, Tooltip, Legend, Coord, View, Label } from 'bizcharts';
 import DataSet from "@antv/data-set";
-import { ExercisePolyline, ExercisePie, ProgramColumn } from './config';
+import { ExercisePolyline, ExercisePie, getProgramScale } from './config';
 import { config as SystemConfig } from '@/config/sysConfig';
 import { PieData, PolylineData } from '@/index.d.ts';
 
@@ -165,7 +165,7 @@ function StackedColumn(props) {
         <div>
             {Array.isArray(props.data) && props.data.length > 0 ?
                 <Chart
-                    scale={ProgramColumn.scale}
+                    scale={getProgramScale(props.data.length)}
                     padding="auto"
                     width={w}
                     height={500}
