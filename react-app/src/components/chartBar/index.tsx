@@ -11,7 +11,7 @@ interface ChartBarProps {
     showAddButton?: boolean;
     addSubmit?: (date: string, leg: string, belly: string, chest: string) => void;
     showNormalize?: boolean;
-    normalizeEvent?: (normalize: boolean) => void; 
+    normalizeEvent?: (normalize: boolean) => void;
     datePicker?: boolean;
     defaultDateRange?: [moment.Moment, moment.Moment];
     rangeDateChange?: (dates: [moment.Moment, moment.Moment], dateStrings: [string, string]) => void;
@@ -46,43 +46,41 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
                     <Col className='charBarTitle' span={6}>{title}</Col>
                     <Col className='chartBarBox' span={18}>
 
-                        
-
                         {/* 添加记录按钮 */}
-                        {this.props.showAddButton && 
-                        <Popover
-                            trigger="click"
-                            placement="bottom"
-                            content={<AddListFormInstance submit={this.addSubmit}/>}
-                            visible={this.state.popoverShow}
-                            onVisibleChange={this.handlePopoverShow}>
-                            <Button
-                                className={`addRecordBtn ${this.state.popoverShow ? "rotate" : ""}`}
-                                shape="circle"
-                                icon="plus"
-                                size="small"
-                                type="default" />
-                        </Popover>
+                        {this.props.showAddButton &&
+                            <Popover
+                                trigger="click"
+                                placement="bottom"
+                                content={<AddListFormInstance submit={this.addSubmit} />}
+                                visible={this.state.popoverShow}
+                                onVisibleChange={this.handlePopoverShow}>
+                                <Button
+                                    className={`addRecordBtn ${this.state.popoverShow ? "rotate" : ""}`}
+                                    shape="circle"
+                                    icon="plus"
+                                    size="small"
+                                    type="default" />
+                            </Popover>
                         }
 
                         {/* 归一化按钮 */}
-                        {this.props.showNormalize && 
-                        <Tooltip title={this.state.normalize ? '去归一化' : '归一化'} placement='bottom'>
-                            <Button
-                                className='normalizeBtn'
-                                shape="circle"
-                                icon={this.state.normalize ? 'stock' : 'branches'}
-                                size="small"
-                                type="default"
-                                onClick={this.normalize.bind(this, this.state.normalize)} />
-                        </Tooltip>
+                        {this.props.showNormalize &&
+                            <Tooltip title={this.state.normalize ? '去归一化' : '归一化'} placement='bottom'>
+                                <Button
+                                    className='normalizeBtn'
+                                    shape="circle"
+                                    icon={this.state.normalize ? 'stock' : 'branches'}
+                                    size="small"
+                                    type="default"
+                                    onClick={this.normalize.bind(this, this.state.normalize)} />
+                            </Tooltip>
                         }
-                        
+
                         {/* 时间范围选择 */}
                         {this.props.datePicker &&
                             <RangePicker
-                                className = 'rangePiacker'
-                                defaultValue = {this.props.defaultDateRange}
+                                className='rangePiacker'
+                                defaultValue={this.props.defaultDateRange}
                                 value={this.props.defaultDateRange}
                                 ranges={{
                                     '当月': [moment().startOf('month'), moment().endOf('month')],
@@ -109,7 +107,7 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
                                 defaultChecked
                             />
                         }
-                        
+
                     </Col>
                 </Row>
             </div>

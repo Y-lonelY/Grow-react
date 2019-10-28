@@ -112,13 +112,15 @@ export interface programOverviewAction {
 }
 
 export interface programOverviewProps {
-    list: ProgramItem[];
-    nameList: {name: string}[];
-    changeProgramOverview: (param: {list: ProgramItem[], nameList: {name: string}[]}) => programOverviewAction;
+    programOverviewData: {
+        list: ProgramItem[];
+        nameList: {name: string}[];
+    };
+    changeProgramOverview: (list: ProgramItem[], nameList: {name: string}[]) => programOverviewAction;
 }
 
 export interface programOverviewState {
-    
+    defaultDateRange: [moment.Moment, moment.Moment];
 }
 
 

@@ -2,7 +2,9 @@ import {
     ExerciseChartAction, 
     ExerciseData, 
     GoalListAction, 
-    GoalListItem } from '@/index.d.ts';
+    GoalListItem,
+    programOverviewAction,
+    ProgramItem } from '@/index.d.ts';
 
 const changeChart: (...ExerciseData) => ExerciseChartAction = (dailyList, sumMap) => {
     return {
@@ -19,4 +21,12 @@ const changeGoalList: (goalList: GoalListItem[]) => GoalListAction = (goalList) 
     }
 }
 
-export { changeChart, changeGoalList };
+const changeProgramOverview: (list: ProgramItem[], nameList: {name: string}[]) => programOverviewAction = (list, nameList) => {
+    return {
+        type: 'program-overview',
+        list: list,
+        nameList: nameList,
+    }
+} 
+
+export { changeChart, changeGoalList, changeProgramOverview };

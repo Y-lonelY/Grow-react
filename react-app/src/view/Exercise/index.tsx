@@ -15,7 +15,7 @@ class DashBoard extends React.Component {
                 <Divider orientation='left'>
                     Programming Records
                 </Divider>
-                <ProgramView />
+                <ProgramView></ProgramView>
             </div>
         );
     }

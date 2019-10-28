@@ -55,8 +55,7 @@ function Polyline(props: PolylineProps) {
                     width={(window.innerWidth - 100) * 14 / 24}
                     data={props.normalize ? normalize(props.data) : props.data}
                     scale={ExercisePolyline.scale}
-                    forceFit
-                    placeholder>
+                    forceFit>
                     {/* 图例 */}
                     <Legend></Legend>
                     {/* Axis 通过 name 来指定坐标轴 */}
@@ -161,32 +160,34 @@ function Pie(props: PieProps) {
  * 
  */
 function StackedColumn(props) {
-    const data = [
-        {name: 'js', date: '2019-10-09', value: 123},
-        {name: 'js', date: '2019-10-10', value: 1232},
-        {name: 'ts', date: '2019-10-09', value: 123},
-        {name: 'ts', date: '2019-10-10', value: 123},
-        {name: 'js', date: '2019-10-11', value: 123},
-        {name: 'js', date: '2019-10-12', value: 1232},
-        {name: 'ts', date: '2019-10-11', value: 123},
-        {name: 'ts', date: '2019-10-12', value: 123},
-    ];
+    const w = (window.innerWidth - 100) * props.width;
     return (
-        <Chart scale={ProgramColumn.scale} width={(window.innerWidth - 100) * 14 / 24} height={400} data={data}>
-            <Legend />
-            <Axis name="date" position='bottom' />
-            <Axis name="value" position='left' />
-            <Tooltip />
-            <Geom
-                type="intervalStack"
-                position="date*value"
-                color={"name"}
-                style={{
-                    stroke: "#fff",
-                    lineWidth: 1
-                }}
-            />
-        </Chart>
+        <div>
+            {Array.isArray(props.data) && props.data.length > 0 ?
+                <Chart
+                    scale={ProgramColumn.scale}
+                    padding="auto"
+                    width={w}
+                    height={500}
+                    data={props.data}
+                    forceFit>
+                    <Legend />
+                    <Axis name="date" position='bottom' />
+                    <Axis name="value" position='left' />
+                    <Tooltip />
+                    <Geom
+                        type="intervalStack"
+                        position="date*value"
+                        color={"name"}
+                        style={{
+                            stroke: "#fff",
+                            lineWidth: 1
+                        }}
+                    />
+                </Chart> : <SuperEmpty mTop='250px' />
+            }
+        </div>
+
     );
 }
 
