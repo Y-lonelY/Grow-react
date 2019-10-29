@@ -9,4 +9,11 @@ const Theme = {
   colors_pie_16: colorsPlus,
 };
 
-export { Theme, colors };
+/**
+ * 自定义色值，蓝色渐变
+ */
+const rankBlueColor: string[] = [
+  '#0D47A1', '#01579B', '#1565C0', '#0277BD', '#1976D2', '#0288D1',
+  '#1E88E5', '#0091EA', '#039BE5', '#03A9F4', '#29B6F6'];
+
+export { Theme, colors, rankBlueColor };

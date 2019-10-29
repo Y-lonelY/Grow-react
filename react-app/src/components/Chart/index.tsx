@@ -191,4 +191,62 @@ function StackedColumn(props) {
 }
 
 
-export { Polyline, Pie, StackedColumn }
+/**
+ * 雷达图
+ */
+function Polar(props) {
+    const data = [
+        { item: 'Design', user: 'AppEngineer', score: 70 },
+        { item: 'Development', user: 'AppEngineer', score: 60 },
+        { item: 'Marketing', user: 'AppEngineer', score: 50 },
+        { item: 'Users', user: 'AppEngineer', score: 40 },
+        { item: 'Test', user: 'AppEngineer', score: 60 },
+        { item: 'Language', user: 'AppEngineer', score: 70 },
+    ];
+    return (
+        <div>
+            <Chart height={250} width={330} data={data}>
+            <Coord type="polar" radius={0.8} />
+            <Axis
+            name="item"
+            line={null}
+            tickLine={null}
+            grid={{
+              lineStyle: {
+                lineDash: null,
+              },
+              hideFirstLine: false,
+            }}
+          />
+          <Tooltip />
+          <Axis
+            name="score"
+            line={null}
+            tickLine={null}
+            grid={{
+              type: 'polygon',
+              lineStyle: {
+                lineDash: null,
+              },
+              alternateColor: 'rgba(0, 0, 0, 0.04)',
+            }}
+          />
+          <Geom type="line" position="item*score" color="user" size={2} />
+          <Geom
+            type="point"
+            position="item*score"
+            color="user"
+            shape="circle"
+            size={4}
+            style={{
+              stroke: '#fff',
+              lineWidth: 1,
+              fillOpacity: 1,
+            }}
+          />
+            </Chart>
+        </div>
+    );
+}
+
+export { Polyline, Pie, StackedColumn, Polar }

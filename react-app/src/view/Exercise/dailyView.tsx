@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Table, message} from "antd";
+import { Row, Col, Table, message } from "antd";
 import { SuperEmpty } from '@/components/Override';
 import { ColumnProps } from 'antd/es/table';
 import { connect } from 'react-redux';
@@ -47,7 +47,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
         const sumListView = Object.entries(sumMap).map((item, index) => {
             return (
                 <Row className='dailySumItem' key={index}>
-                    <Col className='dailySumTitle' span={8} style={{color: colors[index]}}>{String(item[0]).toUpperCase()}</Col>
+                    <Col className='dailySumTitle' span={8} style={{ color: colors[index] }}>{String(item[0]).toUpperCase()}</Col>
                     <Col className='dailySumLabel' span={16}>{item[1] ? item[1] : '-'}</Col>
                 </Row>
             );
@@ -79,7 +79,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                     </Col>
                     <Col className='dailyListView' span={14}>
                         <ChartBar
-                            title={this.state.chart.length > 0 ?`共${this.state.chart.length}条锻炼记录` : ''}
+                            title={this.state.chart.length > 0 ? `共${this.state.chart.length}条锻炼记录` : ''}
                             switchChange={this.switchChange}
                             defaultDateRange={this.state.defaultDateRange}
                             rangeDateChange={this.rangeDateChange}
@@ -99,7 +99,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                                 className='dailyTableBox'
                                 size='middle'
                                 dataSource={this.state.table}
-                                locale={{emptyText: <SuperEmpty />}}
+                                locale={{ emptyText: <SuperEmpty /> }}
                                 columns={columns} />
                         }
                     </Col>
@@ -158,7 +158,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
     }
 
     // 处理折线图数据
-    handlePolylineData:() => {chart: PolylineData[], table: ExerciseTableData[]} = () => {
+    handlePolylineData: () => { chart: PolylineData[], table: ExerciseTableData[] } = () => {
         let chartList: PolylineData[] = [];
         let tableList: ExerciseTableData[] = [];
         let avgData: PieData = {};
@@ -175,11 +175,11 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                 }, {
                     type: 'belly',
                     date: item.date,
-                    number: item.belly, 
+                    number: item.belly,
                 }, {
                     type: 'chest',
                     date: item.date,
-                    number: item.chest, 
+                    number: item.chest,
                 });
 
                 tableList.push({
@@ -230,7 +230,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
             const res = await addExerciseList(params);
 
             if (res.success) {
-                message.success('添加成功', 2, () => {this.update()});
+                message.success('添加成功', 2, () => { this.update() });
             } else {
                 message.error('添加失败');
             }

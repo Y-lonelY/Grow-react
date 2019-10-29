@@ -153,9 +153,21 @@ server {
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
+### 2019-10-27
+
+react program module 集成 redux, 添加堆叠柱状图
+
+添加筛选下拉，实现切换，日期选择等功能
+
+修复 bizcharts 只有一列数据时的展示问题
+
+koa 修改 programoverview 接口，一次展示所有数据
+
 ### 2019-10-26
 
+koa 修改 exercise api 结构
 
+koa 修改 program api 细节
 
 ### 2019-10-25
 
