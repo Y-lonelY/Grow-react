@@ -153,7 +153,25 @@ server {
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
-### 2019-10-27
+### 2019-10-30
+
+里程碑事件，打通node内执行python脚本：
+
+- 新增 setWakatime api
+- 在 node 内通过 child_progress 来执行 cmd
+- 在 python 内获取传递参数
+
+对之前知识点进行积累
+
+### 2019-10-29
+
+Chart 添加雷达图组件
+
+bizchart 添加蓝色渐变颜色模式
+
+program 添加总和的列表展示
+
+### 2019-10-28
 
 react program module 集成 redux, 添加堆叠柱状图
 

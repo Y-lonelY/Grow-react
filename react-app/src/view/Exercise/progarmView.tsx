@@ -8,6 +8,7 @@ import { getProgramOverview } from '@/service/exerciseService';
 import { rankBlueColor } from '@/config/bizchartTheme';
 import { programOverviewProps, programOverviewState } from '@/index.d.ts';
 import moment from 'moment';
+import { SuperEmpty } from '@/components/Override';
 
 interface ProgramQueryParams {
     start: string;
@@ -50,19 +51,25 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
                     </Col>
                     <Col span={6}>
                         <div className="sumView">
-                            <List size='small' itemLayout='horizontal' dataSource={this.getDisplayList()}
-                                renderItem={item => (
-                                    <List.Item>
-                                        <List.Item.Meta
-                                            avatar={<Avatar
-                                                size='small'
-                                                alt='Y'
-                                                style={{ backgroundColor: item.backColor }}
-                                            >{item.title.substr(0, 1).toUpperCase()}</Avatar>}
-                                            title={item.title}
-                                            description={item.desc} />
-                                    </List.Item>
-                                )} />
+                            {Array.isArray(this.props.programOverviewData[this.state.type].list) &&
+                                this.props.programOverviewData[this.state.type].list.length > 0 ?
+                                <List
+                                    size='small'
+                                    itemLayout='horizontal'
+                                    dataSource={this.getDisplayList()}
+                                    renderItem={item => (
+                                        <List.Item>
+                                            <List.Item.Meta
+                                                avatar={<Avatar
+                                                    size='small'
+                                                    alt='Y'
+                                                    style={{ backgroundColor: item.backColor }}
+                                                >{item.title.substr(0, 1).toUpperCase()}</Avatar>}
+                                                title={item.title}
+                                                description={item.desc} />
+                                        </List.Item>
+                                    )} /> : <SuperEmpty />
+                            }
                         </div>
                     </Col>
                 </Row>
@@ -138,18 +145,26 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
             sum += Number(item);
         });
         // 优先排序，保证色值渐变
-        return Object.entries(data).sort((a, b) => {
+        let sumList =  Object.entries(data).sort((a, b) => {
             return Number(b[1]) - Number(a[1]);
         }).map((item, index) => {
             let desc = `${String(item[1]).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}-`
-                     + `${this.formatSeconds(item[1])}-`
-                     + `${(Number(item[1]) / sum * 100).toFixed(1)}%`;
+                + `${this.formatSeconds(item[1])}-`
+                + `${(Number(item[1]) / sum * 100).toFixed(1)}%`;
             return {
                 title: item[0],
                 desc: desc,
                 backColor: rankBlueColor[index]
             };
         });
+
+        sumList.unshift({
+            title: 'Total',
+            desc: `${sum}-${this.formatSeconds(sum)}`,
+            backColor: '#263238',
+        });
+
+        return sumList;
     }
 
     /**
@@ -163,11 +178,11 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
         if (h > 0) {
             date += `${h > 1 ? `${h}hrs` : `${h}hr`}`;
         }
-        
+
         if (m > 0) {
             date += `${m > 1 ? `${m}mins` : `${m}min`}`;
         }
-        
+
         if (s > 0) {
             date += `${s > 1 ? `${s}secs` : `${s}sec`}`;
         }

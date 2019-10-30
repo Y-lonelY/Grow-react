@@ -1,4 +1,28 @@
 import sequelizeCase from "C/mysqlSequelize";
+import util from 'util';
+
+const exec = util.promisify(require('child_process').exec);
+
+/**
+ * 执行 python 脚本，更新 wakatime
+ * @param {start} params 开始时间
+ * @param {end} params 结束时间
+ */
+async function setWakaTime(params) {
+    let label = false;
+    try {
+        const cmd = `python3 scripts/wakatime/wakatime.py ${params.start} ${params.end} False`;
+        const { stdout, stderr } = await exec(cmd);
+        if (stdout !== '') {
+            console.log(`stderr: ${stderr}`);
+            label = true;
+        }
+    } catch (e) {
+        console.log(e);
+    }
+    return label;
+}
+
 
 /**
  * 获取时间段内类型列表
@@ -43,4 +67,4 @@ async function getProgramList(params) {
     return list;
 }
 
-export { getProgramList, getProgramName }
+export { getProgramList, getProgramName, setWakaTime }

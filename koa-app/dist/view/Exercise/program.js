@@ -128,6 +128,52 @@ function () {
     return _ref.apply(this, arguments);
   };
 }());
+programRouter.get('/program/wakatime',
+/*#__PURE__*/
+function () {
+  var _ref2 = (0, _asyncToGenerator2["default"])(
+  /*#__PURE__*/
+  _regenerator["default"].mark(function _callee2(ctx) {
+    var scheme, params, data;
+    return _regenerator["default"].wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            scheme = _joi["default"].object({
+              start: _joi["default"].string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
+              end: _joi["default"].string().pattern(/^\d{4}-\d{2}-\d{2}$/).required()
+            });
+            _context2.prev = 1;
+            _context2.next = 4;
+            return scheme.validateAsync(ctx.request.query);
+
+          case 4:
+            params = _context2.sent;
+            _context2.next = 7;
+            return ProgramController.setWakaTime(params);
+
+          case 7:
+            data = _context2.sent;
+            _context2.next = 13;
+            break;
+
+          case 10:
+            _context2.prev = 10;
+            _context2.t0 = _context2["catch"](1);
+            console.log(_context2.t0);
+
+          case 13:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[1, 10]]);
+  }));
+
+  return function (_x2) {
+    return _ref2.apply(this, arguments);
+  };
+}());
 var router = new _koaRouter["default"]();
 router.use('/service', programRouter.routes(), programRouter.allowedMethods());
 var router_middle = router.routes();
