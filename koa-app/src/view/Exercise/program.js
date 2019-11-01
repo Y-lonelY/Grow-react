@@ -51,29 +51,23 @@ programRouter.post('/program/overview', async ctx => {
 });
 
 programRouter.get('/program/wakatime', async ctx => {
-    const scheme = Joi.object({
-        start: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
-        end: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
-    });
     let results = {
         success: false,
         message: '',
         data: {},
     };
+    ctx.response.type = 'json';
+
     try {
-        const params = await scheme.validateAsync(ctx.request.query);
-        ctx.response.type = 'json';
-        try {
-            results['success'] = await ProgramController.setWakaTime(params);
-        } catch (e) {
-            console.log(e);
-            results['message'] = ErrorMessage[1002];
-        }
+        const res = await ProgramController.setWakaTime();
+        results['success'] = res.label;
+        results['message'] = res.msg;
     } catch (e) {
         console.log(e);
-        results['message'] = ErrorMessage[1001];
+        results['message'] = ErrorMessage[1002];
+    } finally {
+        ctx.body = results;
     }
-    ctx.body = results;
 });
 
 const router = new Router;

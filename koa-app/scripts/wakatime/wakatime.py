@@ -106,7 +106,10 @@ if __name__ == "__main__":
     try:
         start = sys.argv[1]
         end = sys.argv[2]
-        label = sys.argv[3]
+        label = False
+
+        if sys.argv[3] == "True":
+            label = True
 
         wakaTime = Wakatime(start, end)
         wakaTime.get_data(label)

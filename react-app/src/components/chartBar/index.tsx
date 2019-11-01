@@ -10,6 +10,8 @@ interface ChartBarProps {
     title: string;
     showAddButton?: boolean;
     addSubmit?: (date: string, leg: string, belly: string, chest: string) => void;
+    showUpdate?: boolean;
+    asyncProgram?: () => void;
     showNormalize?: boolean;
     normalizeEvent?: (normalize: boolean) => void;
     datePicker?: boolean;
@@ -28,6 +30,7 @@ interface ChartBarProps {
 interface ChartBarState {
     popoverShow: boolean,
     normalize: boolean,
+    programCircle: boolean,
 }
 
 const { RangePicker } = DatePicker;
@@ -41,6 +44,7 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
         this.state = {
             popoverShow: false,
             normalize: false,
+            programCircle: false,
         }
     }
 
@@ -80,6 +84,19 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
                                     size="small"
                                     type="default"
                                     onClick={this.normalize.bind(this, this.state.normalize)} />
+                            </Tooltip>
+                        }
+
+                        {/* program 同步按钮 */}
+                        {this.props.showUpdate &&
+                            <Tooltip title='同步' placement='bottom'>
+                                <Button
+                                    className={`programBtn ${this.state.programCircle ? 'circle' : ''}`}
+                                    shape="circle"
+                                    icon='shake'
+                                    size='small'
+                                    type='default'
+                                    onClick={this.asyncProgram} />
                             </Tooltip>
                         }
 
@@ -172,6 +189,22 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
             normalize: !value
         });
         this.props.normalizeEvent(!value);
+    }
+
+    // program record async
+    asyncProgram = async () => {
+        this.setState({
+            programCircle: true
+        });
+        try {
+            const res = await this.props.asyncProgram();
+            console.log(res);
+            this.setState({
+                programCircle: false
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     // 下拉选择切换

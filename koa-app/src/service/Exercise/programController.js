@@ -1,26 +1,66 @@
 import sequelizeCase from "C/mysqlSequelize";
 import util from 'util';
+import moment from 'moment';
 
 const exec = util.promisify(require('child_process').exec);
 
 /**
  * 执行 python 脚本，更新 wakatime
+ * 同步逻辑：从上次同步日期 + 1 < 昨天，则进行同步
+ * 从上次同步日期 + 1 = 昨天，则返回相应信息
  * @param {start} params 开始时间
  * @param {end} params 结束时间
  */
-async function setWakaTime(params) {
-    let label = false;
+async function setWakaTime() {
+    let res = {
+        label: true,
+        msg: '同步完成'
+    };
     try {
-        const cmd = `python3 scripts/wakatime/wakatime.py ${params.start} ${params.end} False`;
+        const params = await getDateRange();
+        if (params && moment(params.end).isBefore(params.start)) {
+            res.label = true;
+            res.msg = '已同步';
+        }
+        const cmd = `python3 scripts/wakatime/wakatime.py ${params.start} ${params.end} True`;
         const { stdout, stderr } = await exec(cmd);
-        if (stdout !== '') {
+        if (stderr !== '') {
             console.log(`stderr: ${stderr}`);
-            label = true;
+            res.label = false;
         }
     } catch (e) {
         console.log(e);
+        res.label = false;
+    } finally {
+        return res;
     }
-    return label;
+}
+
+async function getDateRange() {
+    const list = ['lang', 'project'];
+    const values = [];
+    // end date
+    const params = {
+        end: moment().subtract(1, 'days').format('YYYY-MM-DD'),
+    };
+
+    for (let index = 0; index < list.length; index++) {
+        const item = list[index];
+        const sql = `SELECT MAX(date) AS date FROM waka_${item}`;
+        try {
+            const max_date = await sequelizeCase.query({ sql: sql, queryType: 'select'});
+            if (Array.isArray(max_date) && max_date.length > 0) {
+                values.push(moment(max_date[0]['date']));
+                // 拿到所有数据之后进行处理
+                if (index === list.length - 1) {
+                    params['start'] = moment.max(values).add(1, 'days').format('YYYY-MM-DD');
+                    return params;
+                }
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 }
 
 

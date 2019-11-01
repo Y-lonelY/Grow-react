@@ -215,7 +215,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
     rangeDateChange = (dates, dateStrings) => {
         this.params.start = dateStrings[0];
         this.params.end = dateStrings[1];
-        this.update();
+        this.update(this.params, true);
     }
 
     // add exercise record

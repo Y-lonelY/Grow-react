@@ -27,6 +27,24 @@ $text: rgba(0, 0, 0, .85);
             margin: 0 10px 0 0;
         }
 
+        @keyframes circle {
+            0% {
+                transform: rotate(-45deg);
+            }
+            100% {
+                transform: rotate(315deg);
+            }
+        }
+
+        .programBtn {
+            margin: 0 10px 0 0;
+            transform: rotate(-45deg);
+
+            &.circle {
+                animation: circle 4s linear infinite;
+            }
+        }
+
         .selectorPicker {
             margin: 0 10px 0 0;
 

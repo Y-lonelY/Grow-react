@@ -1,10 +1,10 @@
 import React from 'react';
-import { Row, Col, List, Avatar } from 'antd';
+import { Row, Col, List, Avatar, message } from 'antd';
 import { connect } from 'react-redux';
 import { changeProgramOverview } from '@/store/Exercise/action';
 import { StackedColumn } from '@/components/Chart';
 import ChartBar from '@/components/ChartBar';
-import { getProgramOverview } from '@/service/exerciseService';
+import { getProgramOverview, asyncWakatime } from '@/service/exerciseService';
 import { rankBlueColor } from '@/config/bizchartTheme';
 import { programOverviewProps, programOverviewState } from '@/index.d.ts';
 import moment from 'moment';
@@ -44,6 +44,8 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
                             selectorValue={this.state.selectorValue}
                             selectorChange={this.selectorChange}
                             programSwitchChange={this.programSwitchChange}
+                            asyncProgram={this.asyncProgram}
+                            showUpdate
                             programSwitch
                             datePicker
                             selector />
@@ -119,6 +121,24 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
             list: list,
             selectorValue: 0
         });
+    }
+
+    /**
+     * 同步编程参数
+     */
+    asyncProgram = async () => {
+        try {
+            const res = await asyncWakatime();
+            if (res.success) {
+                message.success(res.message, 2, () => {
+                    this.initData();
+                });
+            } else {
+                message.error('同步失败');
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     // event: 时间选择

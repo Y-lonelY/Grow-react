@@ -941,4 +941,10 @@ const programOverview = {
     }
 }
 
-export { exerciseList, addList, goalList, programOverview }
+const wakaTimeData = {
+    success: true,
+    message: '',
+    data: {},
+};
+
+export { exerciseList, addList, goalList, programOverview, wakaTimeData }

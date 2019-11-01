@@ -134,40 +134,45 @@ function () {
   var _ref2 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee2(ctx) {
-    var scheme, params, data;
+    var results, res;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            scheme = _joi["default"].object({
-              start: _joi["default"].string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
-              end: _joi["default"].string().pattern(/^\d{4}-\d{2}-\d{2}$/).required()
-            });
-            _context2.prev = 1;
-            _context2.next = 4;
-            return scheme.validateAsync(ctx.request.query);
+            results = {
+              success: false,
+              message: '',
+              data: {}
+            };
+            ctx.response.type = 'json';
+            _context2.prev = 2;
+            _context2.next = 5;
+            return ProgramController.setWakaTime();
 
-          case 4:
-            params = _context2.sent;
-            _context2.next = 7;
-            return ProgramController.setWakaTime(params);
-
-          case 7:
-            data = _context2.sent;
-            _context2.next = 13;
+          case 5:
+            res = _context2.sent;
+            results['success'] = res.label;
+            results['message'] = res.msg;
+            _context2.next = 14;
             break;
 
           case 10:
             _context2.prev = 10;
-            _context2.t0 = _context2["catch"](1);
+            _context2.t0 = _context2["catch"](2);
             console.log(_context2.t0);
+            results['message'] = _error["default"][1002];
 
-          case 13:
+          case 14:
+            _context2.prev = 14;
+            ctx.body = results;
+            return _context2.finish(14);
+
+          case 17:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[1, 10]]);
+    }, _callee2, null, [[2, 10, 14, 17]]);
   }));
 
   return function (_x2) {
