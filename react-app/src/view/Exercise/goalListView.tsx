@@ -96,10 +96,7 @@ class GoalListView extends React.Component<GoalListProps, GoalListState> {
 
             if (res.success) {
                 this.props.changeGoalList(res.list);
-                console.log(this.props.goalListData);
             }
-
-            
         } catch (e) {
             throw(e);
         }

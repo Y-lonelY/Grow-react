@@ -81,6 +81,14 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
 
     componentDidMount() {
         this.initData();
+        setTimeout(async (value) => {
+            try {
+                await JSON.parse(JSON.parse(value));
+            } catch (error) {
+                const e = new Error('www');
+                throw(e);
+            }
+        }, 100)
     }
 
     initData = async () => {
@@ -98,7 +106,7 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
     }
 
     // event: 下拉选择
-    selectorChange = (value: string) => {
+    selectorChange = async (value: string) => {        
         const type = this.state.type;
         let list = this.props.programOverviewData[type].list;
         if (value !== '-127') {
@@ -137,7 +145,7 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
                 message.error('同步失败');
             }
         } catch (e) {
-            console.log(e);
+            throw(e);
         }
     }
 

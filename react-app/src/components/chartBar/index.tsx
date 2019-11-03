@@ -198,12 +198,11 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
         });
         try {
             const res = await this.props.asyncProgram();
-            console.log(res);
             this.setState({
                 programCircle: false
             });
         } catch (e) {
-            console.log(e);
+            throw(e);
         }
     }
 
