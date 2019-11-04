@@ -5,12 +5,8 @@ import { config } from '@/config/sysConfig';
 const useMock = config.useMock === 'false' ? false : true;
 
 async function getDailyExerciseList(params={}) {
-    try {
-        const request = useMock ? await exerciseList : await post("exercise/list", params);
-        return request;
-    } catch (e) {
-        console.log(e);
-    }
+    const request = useMock ? await exerciseList : await post("exercise/list", params);
+    return request;
 }
 
 async function addExerciseList(params: {date: string, leg: number, belly: number, chest: number}) {

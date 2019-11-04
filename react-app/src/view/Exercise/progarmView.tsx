@@ -85,8 +85,8 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
             try {
                 await JSON.parse(JSON.parse(value));
             } catch (error) {
-                const e = new Error('www');
-                throw(e);
+                // const e = new Error('www');
+                throw(error);
             }
         }, 100)
     }

@@ -24,7 +24,6 @@ class ErrorBoundary extends React.Component<{}, ErrorBoundaryState> {
     }
 
     componentDidMount() {
-        // 可以捕获 setTimeout 
         window.addEventListener('error', (errorEvent) => {
             console.log('error', errorEvent);
         }, true);

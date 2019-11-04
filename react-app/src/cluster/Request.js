@@ -28,7 +28,7 @@ service.interceptors.request.use(config => {
     }
     return config;
 }, error => {
-    console.log(error);
+    throw(error);
 });
 
 // 设置响应拦截器
@@ -56,7 +56,7 @@ async function get(url, config = {}) {
         // 返回服务器传值
         return response.data;
     } catch (e) {
-        console.log(e);
+        throw(e);
     }
 }
 
@@ -69,7 +69,7 @@ async function post(url, params, config={}) {
         // 返回服务器传值
         return response.data;
     } catch (e) {
-        console.log(e);
+        throw(e);
     }
 }
 

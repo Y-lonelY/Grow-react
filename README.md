@@ -98,6 +98,15 @@ server {
 
 ## Develop Flows
 
+至 2019-11-01，基本完成对于 program 模块的开发，这里计划下一步工作：
+
+- 添加错误搜集日志，计划的信息包括：时间，错误类型，错误信息，错误等级，客户端信息
+- 添加性能监控，参考 appearance 和 sentry
+- 添加主题换肤，总结实现策略和优劣：通过class封装，通过 context，通过 filter 属性，参考 [notepad++](https://notepad-plus-plus.org/)
+- 添加 focus 模块，记录在特定时间段，自己的专注点
+
+目前需要专注在异常log日志捕获
+
 截止到 2019-10-12，进行了一次比较集中的开发，在 exercise flow 方面功能逐渐完善，同时萌生出一些比较新颖的想法，为此做记录
 
 展望了以下，做了几个 growup 的映射：
@@ -152,6 +161,45 @@ server {
 3. think flow 搭建
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
+
+### 2019-11-04
+
+添加项目内捆绑包分析工具：`Source map explorer `
+
+- `npm install --save source-map-explorer` 项目内添加第三方库
+- 在 package.json 内添加命令 `"analyze": "source-map-explorer 'build/static/js/*.js'"`
+- 在创建生产文件之后，`npm run analyze` 创建分析文件
+
+修改 `webpack.config.json` 用来生产 source map
+
+仔细思考 try catch 在项目内的使用情况，考虑删除一些不必要的 try catch 语句
+
+调研异常捕获，生产解决方案
+
+### 2019-11-03
+
+添加 ErrorBoundary 组件，用于捕获项目内发生错误
+
+项目内大量使用 try catch：
+
+- 可以在任意函数内捕获错误
+- 影响页面性能
+- 降低代码可读性
+- 因此，对于“关键”函数可以考虑使用
+
+### 2019-11-01
+
+修复 exercise daily 选择时间的 bug
+
+修复 wakatime.py 脚本，注意输入全为 string 类型
+
+### 2019-10-31
+
+添加同步 waktime data 按钮及事件处理
+
+koa 添加日期最大值比较，生成筛选日期的 params 以及同步脚本的编写
+
+添加同步按钮点击后的动画效果 keyframe
 
 ### 2019-10-30
 
