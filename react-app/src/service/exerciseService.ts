@@ -38,7 +38,7 @@ const getProgramOverview = async (params) => {
 
 const asyncWakatime = async () => {
     try {
-        const request = useMock ? await wakaTimeData : await get("program/wakatime");
+        const request = useMock ? await wakaTimeData : await get("program/wakatime", { timeout: 0 });
         return request;
     } catch (e) {
         console.log(e);

@@ -1,6 +1,7 @@
 interface systemConfig {
-    useMock: string,
-    hugeScreen: boolean
+    useMock: string;
+    hugeScreen: boolean;
+    isdevelop: boolean;
 }
 
 const config: systemConfig = {
@@ -9,6 +10,9 @@ const config: systemConfig = {
 
     // 是否大屏
     hugeScreen: window.screen.availWidth > 1800 ? true : false,
+
+    // 是否是开发环境
+    isdevelop: process.env.NODE_ENV === 'development' ? true : false,
 };
 
 function setUseMock(value: boolean) {

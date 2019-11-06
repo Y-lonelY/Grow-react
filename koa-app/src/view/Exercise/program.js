@@ -8,7 +8,7 @@ import { logger, rrtime } from 'C/logger';
 // 声明一个 router 实例
 const programRouter = new Router();
 
-programRouter.post('/program/overview', async ctx => {
+programRouter.post('/overview', async ctx => {
     const scheme = Joi.object({
         start: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
         end: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required()
@@ -50,7 +50,7 @@ programRouter.post('/program/overview', async ctx => {
     }
 });
 
-programRouter.get('/program/wakatime', async ctx => {
+programRouter.get('/wakatime', async ctx => {
     let results = {
         success: false,
         message: '',
@@ -71,7 +71,7 @@ programRouter.get('/program/wakatime', async ctx => {
 });
 
 const router = new Router;
-router.use('/service', programRouter.routes(), programRouter.allowedMethods());
+router.use('/service/program', programRouter.routes(), programRouter.allowedMethods());
 
 const router_middle = router.routes();
 const router_allow_methods = router.allowedMethods();

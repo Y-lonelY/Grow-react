@@ -28,7 +28,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 // 声明一个 router 实例
 var programRouter = new _koaRouter["default"]();
-programRouter.post('/program/overview',
+programRouter.post('/overview',
 /*#__PURE__*/
 function () {
   var _ref = (0, _asyncToGenerator2["default"])(
@@ -128,7 +128,7 @@ function () {
     return _ref.apply(this, arguments);
   };
 }());
-programRouter.get('/program/wakatime',
+programRouter.get('/wakatime',
 /*#__PURE__*/
 function () {
   var _ref2 = (0, _asyncToGenerator2["default"])(
@@ -180,7 +180,7 @@ function () {
   };
 }());
 var router = new _koaRouter["default"]();
-router.use('/service', programRouter.routes(), programRouter.allowedMethods());
+router.use('/service/program', programRouter.routes(), programRouter.allowedMethods());
 var router_middle = router.routes();
 var router_allow_methods = router.allowedMethods();
 var programCompose = (0, _koaCompose["default"])([_logger.logger, _logger.rrtime, router_middle, router_allow_methods]);

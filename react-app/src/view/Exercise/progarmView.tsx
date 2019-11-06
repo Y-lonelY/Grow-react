@@ -81,14 +81,6 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
 
     componentDidMount() {
         this.initData();
-        setTimeout(async (value) => {
-            try {
-                await JSON.parse(JSON.parse(value));
-            } catch (error) {
-                // const e = new Error('www');
-                throw(error);
-            }
-        }, 100)
     }
 
     initData = async () => {

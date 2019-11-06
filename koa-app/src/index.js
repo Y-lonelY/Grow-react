@@ -5,13 +5,15 @@ import BodyParser from "koa-bodyparser"
 // exercise view
 import exerciseView from "V/Exercise/exercise"
 import programView from 'V/Exercise/program';
+// system view
+import errorView from 'V/System/error';
 // 声明一个 koa 实例
 const app = new Koa();
 
 // 加载路由中间件
 // app.use(BodyParser())
 // app.use(exerciseView)
-app.use(Compose([BodyParser(), exerciseView, programView]));
+app.use(Compose([BodyParser(), exerciseView, programView, errorView]));
 
 // 监听端口 3000
 app.listen(3000);

@@ -1,6 +1,26 @@
 import moment from 'moment';
 
 /**
+ * errorParams
+ */
+export interface ErrorParams {
+    readonly project: string;
+    id?: number;
+    username?: string;
+    path?: string;
+    referrer?: string;
+    event?: string;
+    type?: string;
+    level?: number;
+    stack?: string;
+    message?: string;
+    origin?: string;
+    useragent?: string;
+    network?: string;
+    appversion?: string;
+}
+
+/**
  * redux
  */
 export interface StoreState{
