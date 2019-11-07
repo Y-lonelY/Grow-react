@@ -162,9 +162,24 @@ server {
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
+### 2019-11-07
+
+koa 引入 nodemon 作为脚本监控，修改原脚本内容，添加并行执行
+
+添加 docs，用来记录项目内需求的启动和变更
+
+### 2019-11-06
+
+【koa】 添加错误捕获接口，修改之前的接口路径
+
+【react】
+- react 添加判断生产环境的配置，只有在生产环境才会去捕获错误
+- 修复 wakatime 超时问题，针对该接口设置 timeout = 0，让其用不超时
+- 添加错误捕获的参数处理
+
 ### 2019-11-04
 
-添加项目内捆绑包分析工具：`Source map explorer `
+添加项目内捆绑包分析工具：`Source map explorer`
 
 - `npm install --save source-map-explorer` 项目内添加第三方库
 - 在 package.json 内添加命令 `"analyze": "source-map-explorer 'build/static/js/*.js'"`
