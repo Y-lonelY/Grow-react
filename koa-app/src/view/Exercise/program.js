@@ -28,26 +28,17 @@ programRouter.post('/overview', async ctx => {
         },
     };
 
-    try {
-        const params = await scheme.validateAsync(ctx.request.body);
-        ctx.response.type = 'json';
-        try {
-            results['data']['lang']['list'] = await ProgramController.getProgramList({...params, type: 'lang'});
-            results['data']['lang']['name'] = await ProgramController.getProgramName({...params, type: 'lang'});
-            results['data']['project']['list'] = await ProgramController.getProgramList({...params, type: 'project'});
-            results['data']['project']['name'] = await ProgramController.getProgramName({...params, type: 'project'});
-            results['success'] = true;
-            ctx.body = results;
-        } catch (e) {
-            console.log(e);
-            results['message'] = ErrorMessage[1002];
-            ctx.body = results;
-        }
-    } catch (e) {
-        console.log(e);
-        results['message'] = ErrorMessage[1001];
-        ctx.body = results;
-    }
+    const params = await scheme.validateAsync(ctx.request.body);
+
+    ctx.response.type = 'json';
+
+    results['data']['lang']['list'] = await ProgramController.getProgramList({...params, type: 'lang'});
+    results['data']['lang']['name'] = await ProgramController.getProgramName({...params, type: 'lang'});
+    results['data']['project']['list'] = await ProgramController.getProgramList({...params, type: 'project'});
+    results['data']['project']['name'] = await ProgramController.getProgramName({...params, type: 'project'});
+    results['success'] = true;
+
+    ctx.body = results;
 });
 
 programRouter.get('/wakatime', async ctx => {

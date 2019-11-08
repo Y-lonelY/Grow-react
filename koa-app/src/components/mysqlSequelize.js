@@ -56,13 +56,14 @@ class Mysql {
         if (queryType && Sequelize.QueryTypes[queryType.toUpperCase()]) {
             type = Sequelize.QueryTypes[queryType.toUpperCase()]
         }
+        
         return sequelizeCase.query(sql, {
             type: Sequelize.QueryTypes[type],
             plain: false
         })
         .finally(() => {
-            this.closeConnection()
-        })
+            this.closeConnection();
+        });
     }
 }
 

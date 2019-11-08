@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /koa-app/node_modules
+/koa-app/dist
 /react-app/node_modules
 /.pnp
 .pnp.js

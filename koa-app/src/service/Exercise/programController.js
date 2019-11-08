@@ -72,16 +72,12 @@ async function getDateRange() {
  */
 async function getProgramName(params) {
     let list = [];
-    const sql = `SELECT DISTINCT \`name\` FROM \`gro-up\`.`
+    const sql = `SELEC DISTINCT \`name\` FROM \`gro-up\`.`
               + `${params.type === 'project' ? 'waka_project' : 'waka_lang'}`
               + ` WHERE date BETWEEN '${params.start}' AND '${params.end}'`
               + ` ORDER BY name`;
-    try {
-        const nameList = await sequelizeCase.query({ sql: sql, queryType: 'select'});
-        list = nameList;
-    } catch (e) {
-        console.log(e);
-    }
+    const nameList = await sequelizeCase.query({ sql: sql, queryType: 'select'});
+    list = nameList;
     return list;
 }
 

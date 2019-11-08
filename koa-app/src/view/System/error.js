@@ -32,22 +32,15 @@ errorRouter.post('/catchErrors', async ctx => {
         data: {}
     };
 
+    const params = await scheme.validateAsync(ctx.request.body);
+    ctx.response.type = 'json';
     try {
-        const params = await scheme.validateAsync(ctx.request.body);
-        ctx.response.type = 'json';
-        try {
-            const addList = await addErrorsRecord(params);
-            results['success'] = Array.isArray(addList) && addList.length > 0 ? true : false;
-            ctx.body = results;
-        } catch (e) {
-            console.log(e);
-            results['message'] = ErrorMessage[1002];
-            ctx.body = results;
-        }
-    } catch (e) {
-        console.log(e);
-        results['message'] = ErrorMessage[1001];
+        const addList = await addErrorsRecord(params);
+        results['success'] = Array.isArray(addList) && addList.length > 0 ? true : false;
         ctx.body = results;
+    } catch (e) {
+        ctx.app.emit('error', e, ctx);
+        ctx.throw(500, ErrorMessage[1002]);
     }
 });
 
