@@ -8,18 +8,14 @@ import sequelizeCase from "C/mysqlSequelize";
  */
 async function getDailySum(params) {
     let dailyObj = {};
-    const sql = `SELECT SUM(\`leg-nums\`) AS leg, SUM(\`belly-nums\`) AS belly, SUM(\`chest-nums\`) AS chest`  
-              + ` FROM \`gro-up\`.\`exc_daily\``
-              + ` WHERE date BETWEEN '${params.start}' AND '${params.end}'`;
+    const sql = `SELECT SUM(\`leg-nums\`) AS leg, SUM(\`belly-nums\`) AS belly, SUM(\`chest-nums\`) AS chest`
+        + ` FROM \`gro-up\`.\`exc_daily\``
+        + ` WHERE date BETWEEN '${params.start}' AND '${params.end}'`;
 
-    try {
-        const sumList = await sequelizeCase.query({ sql: sql, queryType: "select" });
+    const sumList = await sequelizeCase.query({ sql: sql, queryType: "select" });
 
-        if (sumList.length > 0) {
-            dailyObj = sumList[0];
-        }
-    } catch (e) {
-        console.log(e);
+    if (sumList.length > 0) {
+        dailyObj = sumList[0];
     }
 
     return dailyObj;
@@ -33,17 +29,11 @@ async function getDailySum(params) {
 async function getDailyLists(params) {
     let list = [];
     const sql_daily_list = `SELECT id, date, \`leg-nums\` AS leg, \`belly-nums\` AS belly, \`chest-nums\` AS chest`
-                         + ` FROM \`gro-up\`.exc_daily`
-                         + ` WHERE date BETWEEN '${params.start}' AND '${params.end}'`
-                         + ` ORDER BY date DESC`;
+        + ` FROM \`gro-up\`.exc_daily`
+        + ` WHERE date BETWEEN '${params.start}' AND '${params.end}'`
+        + ` ORDER BY date DESC`;
 
-    try {
-        const daily_list = await sequelizeCase.query({ sql: sql_daily_list, queryType: "select"});
-        list = daily_list;
-    } catch (e) {
-        console.log(e);
-    }
-
+    list = await sequelizeCase.query({ sql: sql_daily_list, queryType: "select" });
     return list;
 }
 
@@ -54,16 +44,11 @@ async function getDailyLists(params) {
  */
 async function addExerciseList(params) {
     const sql_add_list = `INSERT INTO exc_daily ( date, \`leg-nums\`, \`belly-nums\`, \`chest-nums\` )`
-                       + ` VALUES  ( '${params.date}', '${params.leg}', '${params.belly}', '${params.chest}' )`;
-    
-        try {
-            const add_list = await sequelizeCase.query({ sql: sql_add_list, queryType: 'insert'});
-            return add_list;
-        } catch (e) {
-            console.log(e);
-        }
+        + ` VALUES  ( '${params.date}', '${params.leg}', '${params.belly}', '${params.chest}' )`;
+    const add_list = await sequelizeCase.query({ sql: sql_add_list, queryType: 'insert' });
+    return add_list;
 }
 
 
 
-export { getDailySum, getDailyLists, addExerciseList}
+export { getDailySum, getDailyLists, addExerciseList }

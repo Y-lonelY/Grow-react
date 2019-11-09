@@ -130,9 +130,6 @@
         min-height: 500px;;
         margin: 20px 0;
         box-sizing: border-box;
-        .listView {
-            
-        }
         .sumView {
             max-height: 550px;
             padding: 0 0 0 20px;
@@ -144,6 +141,14 @@
                     family: "Roboto Mono", monospace;
                 };
             }
+        }
+    }
+
+    .focusView {
+        margin: 20px 0;
+        box-sizing: border-box;
+        .focus-empty {
+            padding-left: 70px;
         }
     }
 }

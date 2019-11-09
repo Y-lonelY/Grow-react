@@ -1,11 +1,11 @@
 import { addErrorsRecord } from 'S/System/errorController';
 
 // 是否记录错误标记，生产环境置为 true，后期可以加入数据库配置
-const label = false;
+const label = true;
 
 const listenError = (app) => {
     app.on('error', (err,ctx) => {
-        // console.log('err:', err);
+        console.log('err:', err);
         // console.log(ctx);
         const errStr = String(err);
         let params = {
@@ -33,7 +33,6 @@ const listenError = (app) => {
             params.stack = err.stack;
             // sql 语句错误
         } else if (errStr.includes('SequelizeDatabaseError')) {
-            console.log(ctx);
             params.type = 'SequelizeDatabaseError';
             params.stack = err.stack;
         }

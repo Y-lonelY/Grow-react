@@ -51,13 +51,15 @@ class ErrorBoundary extends React.Component<{}, ErrorBoundaryState> {
     }
 
     setErrorType = (message: string) => {
-        let type = '';
+        let type = 'unkonwn error';
         if (message.includes('SyntaxError')) {
             type = 'SyntaxError';
         } else if (message.includes('ReferenceError')) {
             type = 'ReferenceError';
         } else if (message.includes('404')) {
             type = 'Request404';
+        } else if (message.includes('500')) {
+            type = 'Request500';
         }
         return type;
     }

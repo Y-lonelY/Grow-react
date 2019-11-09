@@ -72,7 +72,7 @@ async function getDateRange() {
  */
 async function getProgramName(params) {
     let list = [];
-    const sql = `SELEC DISTINCT \`name\` FROM \`gro-up\`.`
+    const sql = `SELECT DISTINCT \`name\` FROM \`gro-up\`.`
               + `${params.type === 'project' ? 'waka_project' : 'waka_lang'}`
               + ` WHERE date BETWEEN '${params.start}' AND '${params.end}'`
               + ` ORDER BY name`;
