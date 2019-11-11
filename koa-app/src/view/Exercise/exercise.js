@@ -6,8 +6,7 @@ import Compose from "koa-compose";
 import Joi from "@hapi/joi";
 import * as daliyController from "S/Exercise/exerciseDaliyController";
 import * as goalController from 'S/Exercise/exerciseGoalController';
-import ErrorMessage from 'config/error';
-import { logger, rrtime } from 'C/logger';
+import middle_compose from 'C/logger';
 
 
 // 声明一个 router 实例
@@ -35,26 +34,11 @@ exerciseRouter.post('/exercise/list', async ctx => {
         sum: [],
     };
 
-    try {
-        const params = await scheme.validateAsync(ctx.request.body);
-
-        ctx.response.type = 'json';
-
-        try {
-            results['list'] = await daliyController.getDailyLists(params);
-            results['sum'] = await daliyController.getDailySum(params);
-            results['success'] = true;
-            ctx.body = results;
-        } catch (e) {
-            console.log(e);
-            results['message'] = ErrorMessage[1002];
-            ctx.body = results;
-        }
-    } catch (e) {
-        console.log(e);
-        results['message'] = ErrorMessage[1001];
-        ctx.body = results;
-    }
+    const params = await scheme.validateAsync(ctx.request.body);
+    results['list'] = await daliyController.getDailyLists(params);
+    results['sum'] = await daliyController.getDailySum(params);
+    results['success'] = true;
+    ctx.body = results;
 });
 
 /**
@@ -74,26 +58,10 @@ exerciseRouter.post('/exercise/add', async ctx => {
         message: ''
     };
 
-    try {
-        const params = await scheme.validateAsync(ctx.request.body);
-
-        ctx.response.type = 'json';
-
-        try {
-            const addList = await daliyController.addExerciseList(params);
-    
-            results['success'] = Array.isArray(addList) && addList.length > 0 ? true : false;
-            ctx.body = results;
-        } catch (e) {
-            console.log(e);
-            results['message'] = ErrorMessage[1002];
-            ctx.body = results;
-        }
-    } catch (e) {
-        console.log(e);
-        results['message'] = ErrorMessage[1001];
-        ctx.body = results;
-    }
+    const params = await scheme.validateAsync(ctx.request.body);
+    const addList = await daliyController.addExerciseList(params);
+    results['success'] = Array.isArray(addList) && addList.length > 0 ? true : false;
+    ctx.body = results;
 });
 
 /**
@@ -102,18 +70,12 @@ exerciseRouter.post('/exercise/add', async ctx => {
  */
 exerciseRouter.get('/exercise/goal/list', async ctx => {
     let results = {
-        success: false
+        success: false,
+        list: []
     };
-
-    ctx.response.type = 'json';
-    try {
-        results['list'] = await goalController.getGoalList();
-        results['success'] = true;
-        ctx.response.body = results;
-    } catch (e) {
-        ctx.response.body = results;
-        console.log(e);
-    }
+    results['list'] = await goalController.getGoalList();
+    results['success'] = true;
+    ctx.response.body = results;
 });
 
 // 装载所有路由
@@ -125,6 +87,6 @@ const router_middle = router.routes();
 const router_allow_methods = router.allowedMethods();
 
 // 合并中间件
-const exerciseCompose = Compose([logger, rrtime, router_middle, router_allow_methods]);
+const exerciseCompose = Compose([middle_compose, router_middle, router_allow_methods]);
 
 module.exports = exerciseCompose;

@@ -4,6 +4,7 @@ import Compose from 'koa-compose';
 import BodyParser from 'koa-bodyparser';
 import { listenError } from 'C/errors';
 // exercise view
+import focusView from 'V/Exercise/focus';
 import exerciseView from 'V/Exercise/exercise';
 import programView from 'V/Exercise/program';
 // system view
@@ -11,7 +12,7 @@ import errorView from 'V/System/error';
 // 声明一个 koa 实例
 const app = new Koa();
 
-const exerciseList = [exerciseView, programView];
+const exerciseList = [focusView, exerciseView, programView];
 const systemList = [errorView];
 
 // 合并中间件

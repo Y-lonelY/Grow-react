@@ -1,4 +1,8 @@
-// 中间件栈
+import Compose from 'koa-compose';
+/**
+ * 中间件栈
+ * ctx 当前上下文
+ */
 // 打印接口返回时间
 const logger = async (ctx, next) => {
     await next();
@@ -16,4 +20,12 @@ const rrtime = async (ctx, next) => {
     ctx.set('x-response-time', `${ms}ms`);
 }
 
-export { logger, rrtime }
+// 添加公用属性
+const base = async (ctx, next) => {
+    await next();
+    ctx.response.type = 'json';
+}
+
+const middle_compose = Compose([logger, rrtime, base])
+
+module.exports = middle_compose;

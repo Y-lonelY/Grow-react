@@ -162,6 +162,20 @@ server {
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
+### 2019-11-10
+
+【koa】
+
+- `let goal_res = (await getGoalList({status: 1}))[0];` getGoalList() 返回一个list，异步获取的正确方式
+- 因为错误信息 stack 内可能出现单引号，导致sql语句错误，所以在插入之前统一将单引号替换成中文全角单引号
+- 新增逻辑和 goalController.update api，用于添加运动记录之后的同步
+- 合并 logger 中间件
+- focus module 添加 api
+
+【react】
+
+- react 通过 action 改变 state 来同步更新  goalList
+
 
 ### 2019-11-09
 

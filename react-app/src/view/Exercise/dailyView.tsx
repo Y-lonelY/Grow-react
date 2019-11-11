@@ -3,11 +3,11 @@ import { Row, Col, Table, message } from "antd";
 import { SuperEmpty } from '@/components/Override';
 import { ColumnProps } from 'antd/es/table';
 import { connect } from 'react-redux';
-import { changeChart } from '@/store/Exercise/action';
+import { changeChart, changeGoalList } from '@/store/Exercise/action';
 import GoalListView from './goalListView';
 import { Polyline, Pie } from '@/components/Chart';
 import ChartBar from "@/components/ChartBar";
-import { getDailyExerciseList, addExerciseList } from '@/service/exerciseService';
+import { getDailyExerciseList, addExerciseList, getGoalList } from '@/service/exerciseService';
 import { colors } from '@/config/bizchartTheme';
 import { ExerciseProps, ExerciseState, PolylineData, ExerciseTableData, PieData } from '@/index.d.ts';
 import moment from 'moment';
@@ -136,24 +136,28 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
      * 更新数据，在添加/筛选后执行
      * @param params 筛选参数
      * @param changeDateLabel 标记是否需要更新时间空间范围
+     * @param updateGoal 标记是否同步 goal list
      */
-    public async update(params: queryInterface = this.params, changeDateLabel?: boolean) {
-        try {
-            const res = await getDailyExerciseList(params);
-            if (res.success) {
-                // 更新 redux store
-                this.props.changeChart(res.list, res.sum);
-                const polyData = this.handlePolylineData();
-                this.setState(polyData);
+    public async update(params: queryInterface = this.params, changeDateLabel?: boolean, updateGoal?: boolean) {
+        const res = await getDailyExerciseList(params);
+        if (res.success) {
+            // 更新 redux store
+            this.props.changeChart(res.list, res.sum);
+            const polyData = this.handlePolylineData();
+            this.setState(polyData);
 
-                if (changeDateLabel === true) {
-                    this.setState({
-                        defaultDateRange: [moment(params.start), moment(params.end)]
-                    });
+            if (changeDateLabel) {
+                this.setState({
+                    defaultDateRange: [moment(params.start), moment(params.end)]
+                });
+            }
+
+            if (updateGoal) {
+                const res = await getGoalList();
+                if (res.success) {
+                    this.props.changeGoalList(res.list);
                 }
             }
-        } catch (e) {
-            throw e;
         }
     }
 
@@ -215,7 +219,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
     rangeDateChange = (dates, dateStrings) => {
         this.params.start = dateStrings[0];
         this.params.end = dateStrings[1];
-        this.update(this.params, true);
+        this.update(this.params, true, false);
     }
 
     // add exercise record
@@ -230,7 +234,8 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
             const res = await addExerciseList(params);
 
             if (res.success) {
-                message.success('添加成功', 2, () => { this.update() });
+                this.update(this.params, false, true);
+                message.success('添加成功', 2);
             } else {
                 message.error('添加失败');
             }
@@ -255,5 +260,6 @@ function mapStateToProps({ exerciseData }: any) {
 }
 
 export default connect(mapStateToProps, {
-    changeChart
+    changeChart,
+    changeGoalList
 })(DailyView);

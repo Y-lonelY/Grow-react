@@ -6,8 +6,8 @@ const label = true;
 const listenError = (app) => {
     app.on('error', (err,ctx) => {
         console.log('err:', err);
-        // console.log(ctx);
-        const errStr = String(err);
+        // 将可能出现的单引号替换为中文全角单引号
+        const errStr = String(err).replace(/\'/g, '‘');
         let params = {
             username: 'yh',
             project: 'YLONELY_GROWUP-koa',
@@ -30,11 +30,11 @@ const listenError = (app) => {
             // 函数方法错误
         } else if (errStr.includes('TypeError')) {
             params.type = 'TypeError';
-            params.stack = err.stack;
+            params.stack = err.stack.replace(/\'/g, '‘');;
             // sql 语句错误
         } else if (errStr.includes('SequelizeDatabaseError')) {
             params.type = 'SequelizeDatabaseError';
-            params.stack = err.stack;
+            params.stack = err.stack.replace(/\'/g, '‘');;
         }
 
         console.log(params);

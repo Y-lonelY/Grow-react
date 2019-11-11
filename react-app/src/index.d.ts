@@ -64,6 +64,7 @@ export interface ExerciseChartAction extends ExerciseData {
 
 export type ExerciseProps = {
     changeChart: (...ExerciseData) => ExerciseChartAction;
+    changeGoalList: (goalList: GoalListItem[]) => GoalListAction;
     exerciseData: ExerciseData;
 }
 

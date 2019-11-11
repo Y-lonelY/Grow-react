@@ -28,77 +28,72 @@ class GoalListView extends React.Component<GoalListProps, GoalListState> {
                     className={`goal-item ${hasAchived ? 'isOff' : 'isOn'} ${String(index) === this.state.expandIndex ? 'active' : 'ow'}`}
                     key={String(index)}
                     header={item.reward}>
-                        
-                        <Row className='progeress'>
-                            <Col span={4}>
-                                <i className={`icon ${item.type}`}></i>
-                            </Col>
-                            <Col className='value' span={20}>
-                                <Progress size='small' percent={percent} />
-                            </Col>
-                        </Row>
-                        <Row className='price'>
-                            <Col span={12}>
-                                <Statistic title='Counts' value={Number(item.summary)} suffix={` / ${item.goal}`} />
-                            </Col>
-                            <Col className='end' span={12}>
-                                <Statistic title='Price(CNY)' value={item.total_price} suffix={<Icon type='¥' />} />
-                            </Col>
-                        </Row>
+
+                    <Row className='progeress'>
+                        <Col span={4}>
+                            <i className={`icon ${item.type}`}></i>
+                        </Col>
+                        <Col className='value' span={20}>
+                            <Progress size='small' percent={percent} />
+                        </Col>
+                    </Row>
+                    <Row className='price'>
+                        <Col span={12}>
+                            <Statistic title='Counts' value={Number(item.summary)} suffix={` / ${item.goal}`} />
+                        </Col>
+                        <Col className='end' span={12}>
+                            <Statistic title='Price(CNY)' value={item.total_price} suffix={<Icon type='¥' />} />
+                        </Col>
+                    </Row>
+                    <Row className='date'>
+                        <Col className='label' span={4}>From</Col>
+                        <Col className='value' span={20}>{moment(item.start_date).format('YYYY-MM-DD HH:mm:ss')}</Col>
+                    </Row>
+                    {/* 结束时间 */}
+                    {item.end_date &&
                         <Row className='date'>
-                            <Col className='label' span={4}>From</Col>
-                            <Col className='value' span={20}>{moment(item.start_date).format('YYYY-MM-DD HH:mm:ss')}</Col>
+                            <Col className='label' span={4}>To</Col>
+                            <Col className='value' span={20}>{moment(item.end_date).format('YYYY-MM-DD HH:mm:ss')}</Col>
                         </Row>
-                        {/* 结束时间 */}
-                        {item.end_date && 
-                            <Row className='date'>
-                                <Col className='label' span={4}>To</Col>
-                                <Col className='value' span={20}>{moment(item.end_date).format('YYYY-MM-DD HH:mm:ss')}</Col>
-                            </Row>
+                    }
+                    {/* 评论 */}
+                    {item.remark && item.remark.length > 0 &&
+                        <p>{item.remark}</p>
+                    }
+                    {/* 功能行 */}
+                    <Row className='funcBox'>
+                        {item.start_date && item.end_date &&
+                            <Col className='link' span={4} offset={20}>
+                                <Button
+                                    icon='double-right'
+                                    size='small'
+                                    onClick={this.updateDate.bind(this, item.start_date, item.end_date)}></Button>
+                            </Col>
                         }
-                        {/* 评论 */}
-                        {item.remark && item.remark.length > 0 &&
-                            <p>{item.remark}</p>
-                        }
-                        {/* 功能行 */}
-                        <Row className='funcBox'>
-                            {item.start_date && item.end_date &&
-                                <Col className='link' span={4} offset={20}>
-                                    <Button
-                                        icon='double-right' 
-                                        size='small'
-                                        onClick={this.updateDate.bind(this, item.start_date, item.end_date)}></Button>
-                                </Col>
-                            }
-                        </Row>
+                    </Row>
                 </Panel>
             );
         });
 
-        return(
+        return (
             <div className='goalBox'>
                 {Array.isArray(this.props.goalListData) && this.props.goalListData.length > 0 ?
-                <Collapse
-                    bordered={false}
-                    accordion={true}
-                    defaultActiveKey={this.state.expandIndex}
-                    onChange={this.changeExpand}>
-                    {panelList}
-                </Collapse> : <SuperEmpty />
+                    <Collapse
+                        bordered={false}
+                        accordion={true}
+                        defaultActiveKey={this.state.expandIndex}
+                        onChange={this.changeExpand}>
+                        {panelList}
+                    </Collapse> : <SuperEmpty />
                 }
             </div>
         );
     }
 
     async componentDidMount() {
-        try {
-            const res = await getGoalList();
-
-            if (res.success) {
-                this.props.changeGoalList(res.list);
-            }
-        } catch (e) {
-            throw(e);
+        const res = await getGoalList();
+        if (res.success) {
+            this.props.changeGoalList(res.list);
         }
     }
 
@@ -112,7 +107,7 @@ class GoalListView extends React.Component<GoalListProps, GoalListState> {
     updateDate = (start_date, end_date) => {
         const start = moment(start_date).format('YYYY-MM-DD');
         const end = moment(end_date).format('YYYY-MM-DD');
-        this.props.updateDate({start: start, end: end}, true);
+        this.props.updateDate({ start: start, end: end }, true);
     }
 }
 

@@ -3,7 +3,7 @@ import Compose from "koa-compose";
 import Joi from "@hapi/joi";
 import ErrorMessage from 'config/error';
 import * as ProgramController from 'S/Exercise/programController';
-import { logger, rrtime } from 'C/logger';
+import middle_compose from 'C/logger';
 
 // 声明一个 router 实例
 const programRouter = new Router();
@@ -15,7 +15,6 @@ programRouter.post('/overview', async ctx => {
     });
     let results = {
         success: false,
-        message: '',
         data: {
             lang: {
                 list: [],
@@ -67,6 +66,6 @@ router.use('/service/program', programRouter.routes(), programRouter.allowedMeth
 const router_middle = router.routes();
 const router_allow_methods = router.allowedMethods();
 
-const programCompose = Compose([logger, rrtime, router_middle, router_allow_methods]);
+const programCompose = Compose([middle_compose, router_middle, router_allow_methods]);
 
 module.exports = programCompose;

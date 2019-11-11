@@ -3,7 +3,7 @@ import Compose from 'koa-compose';
 import Joi from '@hapi/joi';
 import ErrorMessage from 'config/error';
 import { addErrorsRecord } from 'S/System/errorController';
-import { logger, rrtime } from 'C/logger';
+import middle_compose from 'C/logger';
 
 const errorRouter = new Router();
 
@@ -33,7 +33,6 @@ errorRouter.post('/catchErrors', async ctx => {
     };
 
     const params = await scheme.validateAsync(ctx.request.body);
-    ctx.response.type = 'json';
     try {
         const addList = await addErrorsRecord(params);
         results['success'] = Array.isArray(addList) && addList.length > 0 ? true : false;
@@ -50,6 +49,6 @@ router.use('/service/system', errorRouter.routes(), errorRouter.allowedMethods()
 const router_middle = router.routes();
 const router_allow_methods = router.allowedMethods();
 
-const errorCompose = Compose([logger, rrtime, router_middle, router_allow_methods]);
+const errorCompose = Compose([middle_compose, router_middle, router_allow_methods]);
 
 module.exports = errorCompose;
