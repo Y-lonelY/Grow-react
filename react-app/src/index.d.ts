@@ -161,6 +161,34 @@ export interface programOverviewState {
 }
 
 
+// focus module
+export interface focusItem {
+    id?: number;
+    title: string;
+    details: string;
+    start_date: string;
+    end_date: string;
+    pictures: string;
+    status: number;
+    priority: number;
+}
+
+export interface focusAction {
+    list: focusItem[];
+    type: string;
+}
+
+export interface focusProps {
+    focusData: {
+        list: focusItem[]
+    };
+    changeFocusList: (list: focusItem[]) => focusAction;
+}
+
+export interface focusState {
+    visible: boolean;
+}
+
 
 // 用于各个模块的action.type类型检查
 
@@ -168,4 +196,5 @@ export enum ExerciseTypes {
     DAILYCHARTS = 'dailycharts',
     GOALLIST = 'goalList',
     PROGRAMOVERVIEW = 'program-overview',
+    FOCUSLIST = 'focusList',
 }

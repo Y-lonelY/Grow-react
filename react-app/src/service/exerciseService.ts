@@ -1,48 +1,62 @@
 import { post, get } from '../cluster/Request';
-import { exerciseList, addList, goalList, programOverview, wakaTimeData } from './mock/exerciseMock';
+import { exerciseList, addData, goalList, programOverview, wakaTimeData, focusData } from './mock/exerciseMock';
 import { config } from '@/config/sysConfig';
+import { message } from 'antd';
 
 const useMock = config.useMock === 'false' ? false : true;
 
-async function getDailyExerciseList(params={}) {
-    const request = useMock ? await exerciseList : await post("exercise/list", params);
-    return request;
+
+/**
+ * Exercise Module
+ */
+async function getDailyExerciseList(params = {}) {
+    const res = useMock ? await exerciseList : await post("exercise/list", params);
+    return res;
 }
 
-async function addExerciseList(params: {date: string, leg: number, belly: number, chest: number}) {
-    try {
-        const request = useMock ? await addList : await post("exercise/add", params);
-        return request;
-    } catch (e) {
-        console.log(e);
-    }
+async function addExerciseList(params: { date: string, leg: number, belly: number, chest: number }) {
+    const res = useMock ? await addData : await post("exercise/add", params);
+    return res;
 }
 
+/**
+ * Goal Module
+ */
 const getGoalList = async () => {
-    try {
-        const request = useMock ? await goalList : await get("exercise/goal/list");
-        return request;
-    } catch (e) {
-        throw(e);
-    }
+    const res = useMock ? await goalList : await get("exercise/goal/list");
+    return res;
 }
 
+/**
+ * Program Module
+ */
 const getProgramOverview = async (params) => {
-    try {
-        const request = useMock ? await programOverview : await post("program/overview", params);
-        return request;
-    } catch (e) {
-        throw(e);
-    }
+    const res = useMock ? await programOverview : await post("program/overview", params);
+    return res;
 }
 
+// 同步 wakatime 数据，设置用不超时
 const asyncWakatime = async () => {
-    try {
-        const request = useMock ? await wakaTimeData : await get("program/wakatime", { timeout: 0 });
-        return request;
-    } catch (e) {
-        console.log(e);
-    }
+    const res = useMock ? await wakaTimeData : await get("program/wakatime", { timeout: 0 });
+    return res;
 }
 
-export { getDailyExerciseList, addExerciseList, getGoalList, getProgramOverview, asyncWakatime }
+/**
+ * Focus Moduel
+ */
+const addFocusRecord = async (params) => {
+    const res = useMock ? await addData : await post('focus/add', params);
+    if (!res.success) {
+        message.error('添加失败！');
+    }
+    return res;
+}
+
+const getFocusList = async (params) => {
+    const res = useMock ? await focusData : await get('focus/list', { params: params });
+    if (!res.success) {
+        message.error('获取列表失败！');
+    }
+    return res;
+}
+export { getDailyExerciseList, addExerciseList, getGoalList, getProgramOverview, asyncWakatime, addFocusRecord, getFocusList }

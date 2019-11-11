@@ -8,7 +8,7 @@ let defaultExerciseState: TS.ExerciseData = {
     sumMap: {},
 };
 
-const exerciseData: (state: TS.ExerciseData, action: TS.ExerciseChartAction) => TS.ExerciseData = (state = defaultExerciseState, action) => {
+export const exerciseData: (state: TS.ExerciseData, action: TS.ExerciseChartAction) => TS.ExerciseData = (state = defaultExerciseState, action) => {
     switch(action.type) {
         case TS.ExerciseTypes.DAILYCHARTS:
             return {...state, ...{
@@ -25,7 +25,7 @@ const exerciseData: (state: TS.ExerciseData, action: TS.ExerciseChartAction) => 
  */
 let defaultGoalListState: TS.GoalListItem[] = [];
 
-const goalListData: (state: TS.GoalListItem[], action: TS.GoalListAction) => TS.GoalListItem[] = (state = defaultGoalListState, action) => {
+export const goalListData: (state: TS.GoalListItem[], action: TS.GoalListAction) => TS.GoalListItem[] = (state = defaultGoalListState, action) => {
     switch(action.type) {
         case TS.ExerciseTypes.GOALLIST:
             return action.goalList;
@@ -48,7 +48,7 @@ let defaultProgramState: TS.programOverviewTemplate = {
     },
 };
 
-const programOverviewData = (state = defaultProgramState, action) => {
+export const programOverviewData = (state = defaultProgramState, action) => {
     if (action.type === TS.ExerciseTypes.PROGRAMOVERVIEW) {
         return {...state, 
             lang: action.lang,
@@ -59,4 +59,13 @@ const programOverviewData = (state = defaultProgramState, action) => {
     }
 }
 
-export { exerciseData, goalListData, programOverviewData }
+export const focusData = (state = { list: [] }, action) => {
+    if (action.type === TS.ExerciseTypes.FOCUSLIST) {
+        return {
+            ...state,
+            list: action.list
+        };
+    } else {
+        return state;
+    }
+}

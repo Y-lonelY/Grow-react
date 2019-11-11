@@ -21,10 +21,17 @@ async function addFocuxRecord(params) {
 /**
  * 获取专注点记录
  */
-async function getFocusRecord() {
+async function getFocusRecord(params) {
     let list = [];
-    const sql = `SELECT * FROM \`gro-up\`.\`focus\``;
-    list = await sequelizeCase.query({ sql: sql, queryType: 'select' });
+    let sql = 'SELECT * FROM `gro-up`.`focus`';
+    if (params.status !== -127) {
+        sql = sql + ` WHERE status = ${params.status}`;
+    }
+    const res = await sequelizeCase.query({ sql: sql, queryType: 'select' });
+    list = res.map(item => {
+        delete item.last_update;
+        return item;
+    });
     return list;
 }
 

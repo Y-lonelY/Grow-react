@@ -68,7 +68,7 @@ async function addExerciseList(params) {
             // 更新正在进行的
             await updateGoalRecord(goal_res);
             // 获取一个新的未进行列，将其设置为新的进行列
-            let new_goal_res = await getGoalList({status: 0})[0];
+            let new_goal_res = (await getGoalList({status: 0}))[0];
             new_goal_res['start_date'] = moment().format('YYYY-MM-DD HH:mm:ss');
             new_goal_res['summary'] = new_summary;
             new_goal_res['status'] = 1;

@@ -219,7 +219,7 @@ const exerciseList = {
     }
 };
 
-const addList = {
+const addData = {
     "success": true
 };
 
@@ -947,4 +947,52 @@ const wakaTimeData = {
     data: {},
 };
 
-export { exerciseList, addList, goalList, programOverview, wakaTimeData }
+const focusData = {
+    "success": true,
+    "data": {
+        "list": [
+            {
+                "id": 1,
+                "title": "test111",
+                "details": "ssss",
+                "start_date": "2019-11-01T00:00:00.000Z",
+                "end_date": "2019-11-11T00:00:00.000Z",
+                "pictures": "",
+                "status": 1,
+                "priority": 1
+            },
+            {
+                "id": 2,
+                "title": "test",
+                "details": "ssss",
+                "start_date": "2019-11-01T00:00:00.000Z",
+                "end_date": "2019-11-11T00:00:00.000Z",
+                "pictures": "",
+                "status": 1,
+                "priority": 1
+            },
+            {
+                "id": 3,
+                "title": "test",
+                "details": "ssss",
+                "start_date": "2019-11-01T00:00:00.000Z",
+                "end_date": "2019-11-11T00:00:00.000Z",
+                "pictures": "",
+                "status": 1,
+                "priority": 1
+            },
+            {
+                "id": 4,
+                "title": "test",
+                "details": "ssss",
+                "start_date": "2019-11-01T00:00:00.000Z",
+                "end_date": "2019-11-11T00:00:00.000Z",
+                "pictures": "",
+                "status": 1,
+                "priority": 1
+            }
+        ]
+    }
+};
+
+export { exerciseList, addData, goalList, programOverview, wakaTimeData, focusData }

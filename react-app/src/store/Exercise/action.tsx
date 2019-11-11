@@ -4,9 +4,11 @@ import {
     GoalListAction, 
     GoalListItem,
     programOverviewAction,
-    programOverviewTemplate } from '@/index.d.ts';
+    programOverviewTemplate,
+    focusItem,
+    focusAction } from '@/index.d.ts';
 
-const changeChart: (...ExerciseData) => ExerciseChartAction = (dailyList, sumMap) => {
+export const changeChart: (...ExerciseData) => ExerciseChartAction = (dailyList, sumMap) => {
     return {
         type: 'dailycharts',
         dailyList,
@@ -14,18 +16,23 @@ const changeChart: (...ExerciseData) => ExerciseChartAction = (dailyList, sumMap
     }
 }
 
-const changeGoalList: (goalList: GoalListItem[]) => GoalListAction = (goalList) => {
+export const changeGoalList: (goalList: GoalListItem[]) => GoalListAction = (goalList) => {
     return {
         type: 'goalList',
         goalList,
     }
 }
 
-const changeProgramOverview: (params: programOverviewTemplate) => programOverviewAction = (data) => {
+export const changeProgramOverview: (params: programOverviewTemplate) => programOverviewAction = (data) => {
     return {
         type: 'program-overview',
         ...data
     }
-} 
+}
 
-export { changeChart, changeGoalList, changeProgramOverview };
+export const changeFocusList: (list: focusItem[]) => focusAction = (data) => {
+    return {
+        list: data,
+        type: 'focusList'
+    }
+}

@@ -5,7 +5,6 @@ const label = true;
 
 const listenError = (app) => {
     app.on('error', (err,ctx) => {
-        console.log('err:', err);
         // 将可能出现的单引号替换为中文全角单引号
         const errStr = String(err).replace(/\'/g, '‘');
         let params = {
@@ -36,8 +35,6 @@ const listenError = (app) => {
             params.type = 'SequelizeDatabaseError';
             params.stack = err.stack.replace(/\'/g, '‘');;
         }
-
-        console.log(params);
 
         if (label) {
             addErrorsRecord(params);

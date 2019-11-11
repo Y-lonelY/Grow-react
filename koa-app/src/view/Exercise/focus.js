@@ -32,13 +32,17 @@ focusRouter.post('/add', async ctx => {
 });
 
 focusRouter.get('/list', async ctx => {
+    const scheme = Joi.object({
+        status: Joi.number().integer().default(-127)
+    });
     let results = {
         success: true,
         data: {
             list: []
         },
     };
-    const res = await FocusController.getFocusRecord();
+    const params = await scheme.validateAsync(ctx.request.query);
+    const res = await FocusController.getFocusRecord(params);
     results['data']['list'] = res;
     ctx.response.type = 'json';
     ctx.body = results;

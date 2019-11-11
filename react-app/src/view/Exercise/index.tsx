@@ -1,6 +1,6 @@
 import React from "react";
 import { Divider } from 'antd';
-import FocusView from './focusView';
+import FocusView from './Focus/focusView';
 import DailyView from "./dailyView";
 import ProgramView from './progarmView';
 import './index.scss';

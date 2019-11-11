@@ -210,7 +210,7 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
     }
 }
 
-function mapStateToProps({ programOverviewData }: any) {
+function mapStateToProps({ programOverviewData }) {
     return {
         programOverviewData
     };

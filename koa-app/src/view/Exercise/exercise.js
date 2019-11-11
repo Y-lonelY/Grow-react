@@ -17,7 +17,7 @@ const exerciseRouter = new Router();
  * 用来查询锻炼记录
  * body-parser 将 params 挂载至 ctx.request.body
  */
-exerciseRouter.post('/exercise/list', async ctx => {
+exerciseRouter.post('/list', async ctx => {
     /**
      * 参数校验规则
      * start "2019-10-17"
@@ -45,7 +45,7 @@ exerciseRouter.post('/exercise/list', async ctx => {
  * exercise/add
  * 添加记录
  */
-exerciseRouter.post('/exercise/add', async ctx => {
+exerciseRouter.post('/add', async ctx => {
     // 参数校验规则
     const scheme = Joi.object({
         date: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
@@ -68,19 +68,23 @@ exerciseRouter.post('/exercise/add', async ctx => {
  * exercise/goal/list
  * 获取目标列表
  */
-exerciseRouter.get('/exercise/goal/list', async ctx => {
+exerciseRouter.get('/goal/list', async ctx => {
+    const scheme = Joi.object({
+        status: Joi.number().integer().default(3)
+    });
     let results = {
         success: false,
         list: []
     };
-    results['list'] = await goalController.getGoalList();
+    const params = await scheme.validateAsync(ctx.request.query);
+    results['list'] = await goalController.getGoalList(params);
     results['success'] = true;
     ctx.response.body = results;
 });
 
 // 装载所有路由
 const router = new Router;
-router.use('/service', exerciseRouter.routes(), exerciseRouter.allowedMethods());
+router.use('/service/exercise', exerciseRouter.routes(), exerciseRouter.allowedMethods());
 
 // 生成路由中间件
 const router_middle = router.routes();

@@ -149,6 +149,29 @@
         box-sizing: border-box;
         .focus-empty {
             padding-left: 70px;
+            .bold {
+                padding: 0 2px;
+                font-weight: bold;
+            }
+            .add {
+                margin-right: 3px;
+                line-height: 24px;
+                font-size: 12px;;
+            }
+        }
+    }
+}
+
+// focus module
+.drawer {
+    .content {
+        .ant-input,
+        .ant-calendar-picker-input,
+        .ant-radio-wrapper {
+            font-size: 12px;
+        }
+        .ant-form-item {
+            margin-bottom: 12px;
         }
     }
 }
