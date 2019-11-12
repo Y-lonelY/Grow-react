@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, DatePicker, Switch, Radio, Icon } from 'antd';
+import { Form, Input, DatePicker, Switch, Radio, Upload, Button, Icon } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
@@ -89,6 +89,18 @@ class DrawerForm extends React.Component<DrawerViewProps, {}> {
                                 <Radio value={3}>较低</Radio>
                                 <Radio value={4}>极低</Radio>
                             </Radio.Group>)
+                            }
+                        </Form.Item>
+                        <Form.Item label='pistures' {...col}>
+                            {getFieldDecorator('pictures', {
+                                valuePropName: 'fielList',
+                                
+                            })
+                            (<Upload action='' listType='picture'>
+                                <Button size='small'>
+                                    <Icon type='upload' />Upload
+                                </Button>
+                            </Upload>)
                             }
                         </Form.Item>
                     </div>

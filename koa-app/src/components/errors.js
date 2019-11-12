@@ -1,7 +1,7 @@
 import { addErrorsRecord } from 'S/System/errorController';
 
 // 是否记录错误标记，生产环境置为 true，后期可以加入数据库配置
-const label = true;
+const label = false;
 
 const listenError = (app) => {
     app.on('error', (err,ctx) => {
@@ -35,7 +35,7 @@ const listenError = (app) => {
             params.type = 'SequelizeDatabaseError';
             params.stack = err.stack.replace(/\'/g, '‘');;
         }
-
+        console.log(params);
         if (label) {
             addErrorsRecord(params);
         }

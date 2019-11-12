@@ -39,7 +39,6 @@ errorRouter.post('/catchErrors', async ctx => {
         ctx.body = results;
     } catch (e) {
         ctx.app.emit('error', e, ctx);
-        ctx.throw(500, ErrorMessage[1002]);
     }
 });
 

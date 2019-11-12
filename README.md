@@ -86,6 +86,10 @@ server {
 	location /service {
 	    proxy_pass http://localhost:3000/service;
 	}
+
+	location /pics {
+		alias   /Users/yango/Growup/YlonelY-GrowingUp/koa-app/upload;
+	}
 }
 ``` 
 
@@ -161,6 +165,20 @@ server {
 3. think flow 搭建
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
+
+
+### 2019-11-12
+
+nginx 添加静态文件 pics 的代理服务
+
+【koa】
+
+- 添加文件上传功能，自定义存放路径和文件名，对文件名进行md5加密
+
+【react】
+
+- 添加文件上传功能
+
 
 ### 2019-11-11
 

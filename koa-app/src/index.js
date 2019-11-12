@@ -9,11 +9,12 @@ import exerciseView from 'V/Exercise/exercise';
 import programView from 'V/Exercise/program';
 // system view
 import errorView from 'V/System/error';
+import upload from 'V/System/upload';
 // 声明一个 koa 实例
 const app = new Koa();
 
 const exerciseList = [focusView, exerciseView, programView];
-const systemList = [errorView];
+const systemList = [errorView, upload];
 
 // 合并中间件
 app.use(Compose([BodyParser(), ...exerciseList, ...systemList]));
