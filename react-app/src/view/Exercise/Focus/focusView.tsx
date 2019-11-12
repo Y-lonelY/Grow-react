@@ -20,8 +20,6 @@ class FocusView extends React.Component<focusProps, focusState> {
         };
     }
 
-    
-
     render() {
         const list = this.props.focusData.list;
         const RenderEmpty = () => {
@@ -57,7 +55,7 @@ class FocusView extends React.Component<focusProps, focusState> {
                  placement='right'
                  visible={this.state.visible}
                  onClose={this.drawerClose}>
-                    <DrawerView className='content' type={this.state.type}></DrawerView>
+                    <DrawerView className='content' type={this.state.type} drawerClose={this.drawerClose}></DrawerView>
                 </Drawer>
             </div>
         );

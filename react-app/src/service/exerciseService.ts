@@ -44,7 +44,7 @@ const asyncWakatime = async () => {
 /**
  * Focus Moduel
  */
-const addFocusRecord = async (params) => {
+export const addFocusRecord = async (params) => {
     const res = useMock ? await addData : await post('focus/add', params);
     if (!res.success) {
         message.error('添加失败！');
@@ -52,11 +52,11 @@ const addFocusRecord = async (params) => {
     return res;
 }
 
-const getFocusList = async (params) => {
+export const getFocusList = async (params) => {
     const res = useMock ? await focusData : await get('focus/list', { params: params });
     if (!res.success) {
         message.error('获取列表失败！');
     }
     return res;
 }
-export { getDailyExerciseList, addExerciseList, getGoalList, getProgramOverview, asyncWakatime, addFocusRecord, getFocusList }
+export { getDailyExerciseList, addExerciseList, getGoalList, getProgramOverview, asyncWakatime }

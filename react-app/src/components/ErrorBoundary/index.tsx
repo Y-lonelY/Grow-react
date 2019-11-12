@@ -117,7 +117,6 @@ class ErrorBoundary extends React.Component<{}, ErrorBoundaryState> {
 
         // 用于控制添加错误本身请求错误
         const stopLabel = errorParams.origin && String(errorParams.origin).includes('catchErrors');
-        console.log(stopLabel);
         addErrorRecord(errorParams, stopLabel);
     }
 }

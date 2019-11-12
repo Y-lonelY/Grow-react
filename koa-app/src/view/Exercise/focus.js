@@ -8,12 +8,13 @@ const focusRouter = new Router();
 
 /**
  * 公用验证字段
+ * Joi.date() 会将原 date 转换，不建议用
  */
 const base_scheme = Joi.object({
     title: Joi.string().required(),
     details: Joi.string().allow(''),
-    start_date: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
-    end_date: Joi.string().pattern(/^\d{4}-\d{2}-\d{2}$/).allow(''),
+    start_date: Joi.string().required(),
+    end_date: Joi.string().allow(''),
     pictures: Joi.string().allow(''),
     priority: Joi.number().integer().required(),
     status: Joi.number().integer().required()

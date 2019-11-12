@@ -54,7 +54,7 @@ if [[ $option_select -eq 1 ]]; then
     npm run build
     # node category
     cd /Users/yango/Growup/YlonelY-GrowingUp/koa-app
-    npm run server
+    npm run dev
 elif [[ $option_select -eq 2 ]]; then
     cd ~
     nginx -s stop

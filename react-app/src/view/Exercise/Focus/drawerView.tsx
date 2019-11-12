@@ -1,18 +1,19 @@
 import React from 'react';
-import { Form, Input, DatePicker, Switch, Radio, Upload, Button, Icon } from 'antd';
+import { Form, Input, DatePicker, Switch, Radio, Upload, Button, Icon, message } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
+import { addFocusRecord, getFocusList } from '@/service/exerciseService';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
 
 interface DrawerViewProps extends FormComponentProps {
     type: string;
     className?: string;
+    drawerClose: () => void;
 }
 
 class DrawerForm extends React.Component<DrawerViewProps, {}> {
     constructor(props) {
         super(props);
-
     }
 
     render() {
@@ -25,8 +26,8 @@ class DrawerForm extends React.Component<DrawerViewProps, {}> {
         return (
             <div className={this.props.className}>
                 {type === 'add' &&
-                    <div className={`type-${type}`}>
-                        <Form.Item label='title' {...col}>
+                    <Form className={`type-${type}`} {...col} onSubmit={this.submit}>
+                        <Form.Item label='title'>
                             {getFieldDecorator('title', {
                                 rules: [{
                                     required: true,
@@ -37,7 +38,7 @@ class DrawerForm extends React.Component<DrawerViewProps, {}> {
                             })(<Input placeholder='添加标题' size='small' />)
                             }
                         </Form.Item>
-                        <Form.Item label='start' {...col}>
+                        <Form.Item label='start'>
                             {getFieldDecorator('start_date', {
                                 initialValue: moment(),
                                 rules: [{
@@ -53,57 +54,63 @@ class DrawerForm extends React.Component<DrawerViewProps, {}> {
                             />)
                             }
                         </Form.Item>
-                        <Form.Item label='details' {...col}>
+                        <Form.Item label='details'>
                             {getFieldDecorator('details')
-                            (<Input placeholder='添加细节信息' size='small' />)
+                                (<Input placeholder='添加细节信息' size='small' />)
                             }
                         </Form.Item>
-                        <Form.Item label='end' {...col}>
+                        <Form.Item label='end'>
                             {getFieldDecorator('end_date')
-                            (<DatePicker
-                                size='small'
-                                locale={locale}
-                                allowClear={true}
-                            />)
+                                (<DatePicker
+                                    size='small'
+                                    locale={locale}
+                                    allowClear={true}
+                                />)
                             }
                         </Form.Item>
-                        <Form.Item label='status' {...col}>
+                        <Form.Item label='status'>
                             {getFieldDecorator('status', {
                                 valuePropName: 'checked',
                                 initialValue: true
                             })
-                            (<Switch
-                                size='small'
-                                checkedChildren={<Icon type='check' />}
-                                unCheckedChildren={<Icon type='close' />}
-                            />)
+                                (<Switch
+                                    size='small'
+                                    checkedChildren={<Icon type='check' />}
+                                    unCheckedChildren={<Icon type='close' />}
+                                />)
                             }
                         </Form.Item>
-                        <Form.Item label='priority' {...col}>
+                        <Form.Item label='priority'>
                             {getFieldDecorator('priority', {
                                 initialValue: 1
                             })
-                            (<Radio.Group>
-                                <Radio value={1}>极高</Radio>
-                                <Radio value={2}>较高</Radio>
-                                <Radio value={3}>较低</Radio>
-                                <Radio value={4}>极低</Radio>
-                            </Radio.Group>)
+                                (<Radio.Group>
+                                    <Radio value={1}>极高</Radio>
+                                    <Radio value={2}>较高</Radio>
+                                    <Radio value={3}>较低</Radio>
+                                    <Radio value={4}>极低</Radio>
+                                </Radio.Group>)
                             }
                         </Form.Item>
-                        <Form.Item label='pistures' {...col}>
+                        <Form.Item label='pistures'>
                             {getFieldDecorator('pictures', {
                                 valuePropName: 'fielList',
-                                
+                                getValueFromEvent: this.normFile,
                             })
-                            (<Upload action='' listType='picture'>
-                                <Button size='small'>
-                                    <Icon type='upload' />Upload
+                                (<Upload action='/service/upload' listType='picture'>
+                                    <Button size='small'>
+                                        <Icon type='upload' />Upload
                                 </Button>
-                            </Upload>)
+                                </Upload>)
                             }
                         </Form.Item>
-                    </div>
+                        <Form.Item wrapperCol={{ offset: 18, span: 6 }}>
+                            <Button type='primary' htmlType='submit' size='small'>
+                                确认
+                            </Button>
+                        </Form.Item>
+                    </Form>
+
                 }
             </div>
         );
@@ -111,6 +118,55 @@ class DrawerForm extends React.Component<DrawerViewProps, {}> {
 
     componentDidMount() {
 
+    }
+
+    normFile = (e) => {
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e && e.fileList;
+    };
+
+    addForm = async (params) => {
+        const res = await addFocusRecord(params);
+        if (res.success) {
+            this.props.drawerClose();
+            message.success('添加成功！');
+        } else {
+            message.error('添加失败！');
+        }
+    }
+
+    // 提交表单事件
+    submit = (e) => {
+        e.preventDefault();
+        let params = {};
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                // 处理文件列表
+                if (values.pictures.fileList.length > 0) {
+                    const list = values.pictures.fileList.map(item => {
+                        return item.response.url
+                    });
+                    // 文件数组转字符串
+                    params['pictures'] = list.join('^^');
+                } else {
+                    params['pictures'] = '';
+                }
+                params['title'] = values.title;
+                params['details'] = values.details ? values.details : '';
+                params['start_date'] = moment(values.start_date).format('YYYY-MM-DD HH:mm:ss');
+                params['end_date'] = values.end_date ? moment(values.end_date).format('YYYY-MM-DD HH:mm:ss') : '';
+                params['priority'] = values.priority;
+                params['status'] = values.status ? 1 : 0;
+                console.log(params);
+                if (this.props.type === 'add') {
+                    this.addForm(params);
+                }
+            } else {
+                throw (err);
+            }
+        });
     }
 }
 
