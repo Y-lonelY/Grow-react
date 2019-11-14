@@ -1,4 +1,4 @@
-import sequelizeCase from "C/mysqlSequelize";
+import sequelizeCase from "M/mysqlSequelize";
 import util from 'util';
 import moment from 'moment';
 

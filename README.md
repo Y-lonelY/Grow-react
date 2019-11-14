@@ -54,52 +54,6 @@
 5. 也可以直接 `ctrl-c` 来终止 node service，然后重新执行脚本，选择 start，因为每次 start 之前都会先尝试终止 nginx 服务
 
 
-## Nginx
-
-`brew update` 查看 brew 安装是否成功<br>
-`brew search nginx` 查看 nginx 信息<br>
-`brew install nginx` 安装 nginx<br>
-
-==== 安装成功之后 ====
-
-在 `/usr/local/var/www` 查看主页内容<br>
-在 `/usr/local/etc/nginx/nginx.conf` 修改配置文件<br>
-
-### Config
-
-在本项目内，koa 在3000端口上运行，react-app 在 7177端口上运行，需要：
-
-1. 将react工程内的 build/index.html 代理到 127.0.0.1:7177/ 路径下
-2. 将koa启动之后，即后台服务启动之后，将其代理到 127.0.0.1:7177/service 路径下
-
-具体配置如下：
-
-```
-server {
-    listen       7177;
-    server_name  127.0.0.1;
-    location / {
-            root   /Users/yango/YlonelY-GrowingUp/react-app/build/;
-            index  index.html index.htm;
-        }
-
-	location /service {
-	    proxy_pass http://localhost:3000/service;
-	}
-
-	location /pics {
-		alias   /Users/yango/Growup/YlonelY-GrowingUp/koa-app/upload;
-	}
-}
-``` 
-
-### Command
-
-`nginx` 启动 nginx 服务<br>
-`nginx -s stop` 停止 nginx 服务<br>
-`nginx -s reload` 重启 nginx 服务
-
-
 ## Develop Flows
 
 至 2019-11-01，基本完成对于 program 模块的开发，这里计划下一步工作：
@@ -166,6 +120,27 @@ server {
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
+### 2019-11-14
+
+`text-transform: capitalize;` 首字母大写
+
+
+
+### 2019-11-13
+
+[koa]
+
+- koa 修改 components 路径
+- 修改 nginx 配置，添加图片存储地址
+- errorController 修改，用于捕获错误
+
+[react]
+
+- 添加 Header 组件，focus，exercise，program 应用 header 组件，并且统一配置
+- 修改添加 exercise record 默认值
+- 修改模块 margin 值
+- focus module 添加列表展示和新增 add 入口
+- 从 iconfont 获取图标方式
 
 ### 2019-11-12
 
@@ -174,10 +149,13 @@ nginx 添加静态文件 pics 的代理服务
 【koa】
 
 - 添加文件上传功能，自定义存放路径和文件名，对文件名进行md5加密
+- 修改 focus 参数验证方式，注意不要使用 Joi.date()，因为其会改变参数为 local time
 
 【react】
 
 - 添加文件上传功能
+- 开发新增 focus 功能
+- 遗留问题：不上传图片，点击 submit 无反应
 
 
 ### 2019-11-11

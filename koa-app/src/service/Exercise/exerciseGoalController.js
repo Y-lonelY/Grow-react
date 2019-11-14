@@ -1,4 +1,4 @@
-import sequelizeCase from "C/mysqlSequelize";
+import sequelizeCase from "M/mysqlSequelize";
 import moment from 'moment';
 /**
  * 获取 goal 列表
@@ -28,10 +28,10 @@ async function getGoalList(params = { status: 3 }) {
     });
     list = res.map(item => {
         // 处理 DATETIME 类型数据
-        if (item.start_date !== null) {
+        if (item.start_date && item.start_date !== '') {
             item.start_date = moment.utc(item.start_date).format('YYYY-MM-DD HH:mm:ss');
         }
-        if (item.end_date !== null) {
+        if (item.end_date && item.end_date !== '') {
             item.end_date = moment.utc(item.end_date).format('YYYY-MM-DD HH:mm:ss');
         }
         // filter 无意义字段

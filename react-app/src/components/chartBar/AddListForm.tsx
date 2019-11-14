@@ -12,12 +12,18 @@ class AddListForm extends React.Component<AddListFormProps, {}> {
 
     render() {
         const { getFieldDecorator } = this.props.form;
+        const initValue = {
+            date: moment(),
+            leg: '80',
+            belly: '80',
+            chest: '80'
+        };
 
         return (
             <div className='addPopoverDialog'>
                 <Form.Item>
                     {getFieldDecorator('date', {
-                        initialValue: moment()
+                        initialValue: initValue.date
                     })(<DatePicker
                         locale={locale}
                         allowClear={false}
@@ -35,7 +41,7 @@ class AddListForm extends React.Component<AddListFormProps, {}> {
                         message: 'please input correct leg!',
                     },
                     ],
-                    initialValue: '100',
+                    initialValue: initValue.leg,
                 })(<Input prefix='L' suffix='个' placeholder='Leg Nums' />)}
                 </Form.Item>
                 <Form.Item>
@@ -47,7 +53,7 @@ class AddListForm extends React.Component<AddListFormProps, {}> {
                         message: 'please input correct belly!',
                     },
                     ],
-                    initialValue: '100',
+                    initialValue: initValue.belly,
                 })(<Input prefix='B' suffix='个' placeholder='Belly Nums' />)}
                 </Form.Item>
                 <Form.Item>
@@ -59,7 +65,7 @@ class AddListForm extends React.Component<AddListFormProps, {}> {
                         message: 'please input correct chest!',
                     },
                     ],
-                    initialValue: '100',
+                    initialValue: initValue.chest,
                 })(<Input prefix='C' suffix='个' placeholder='Chest Nums' />)}
                 </Form.Item>
                 <Form.Item className='submitItem'>

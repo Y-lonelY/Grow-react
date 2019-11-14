@@ -6,7 +6,7 @@ import Compose from "koa-compose";
 import Joi from "@hapi/joi";
 import * as daliyController from "S/Exercise/exerciseDaliyController";
 import * as goalController from 'S/Exercise/exerciseGoalController';
-import middle_compose from 'C/logger';
+import middle_compose from 'M/logger';
 
 
 // 声明一个 router 实例

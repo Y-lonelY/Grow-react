@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col, List, Avatar, message } from 'antd';
+import { SuperEmpty, Header } from '@/components/Override';
 import { connect } from 'react-redux';
 import { changeProgramOverview } from '@/store/Exercise/action';
 import { StackedColumn } from '@/components/Chart';
@@ -8,7 +9,7 @@ import { getProgramOverview, asyncWakatime } from '@/service/exerciseService';
 import { rankBlueColor } from '@/config/bizchartTheme';
 import { programOverviewProps, programOverviewState } from '@/index.d.ts';
 import moment from 'moment';
-import { SuperEmpty } from '@/components/Override';
+
 
 interface ProgramQueryParams {
     start: string;
@@ -34,6 +35,7 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
         const selectorList = this.props.programOverviewData[this.state.type].name;
         return (
             <div className="programView">
+                <Header {...this.props.head} />
                 <Row>
                     <Col className='listView' span={18}>
                         <ChartBar
@@ -130,9 +132,8 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
         try {
             const res = await asyncWakatime();
             if (res.success) {
-                message.success(res.message, 2, () => {
-                    this.initData();
-                });
+                message.success(res.message, 2);
+                this.initData();
             } else {
                 message.error('同步失败');
             }

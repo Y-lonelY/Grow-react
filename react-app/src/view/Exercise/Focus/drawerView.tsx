@@ -1,11 +1,14 @@
 import React from 'react';
 import { Form, Input, DatePicker, Switch, Radio, Upload, Button, Icon, message } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
+import { connect } from 'react-redux';
+import { changeFocusList } from '@/store/Exercise/action';
+import { focusProps } from '@/index.d.ts';
 import { addFocusRecord, getFocusList } from '@/service/exerciseService';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
 
-interface DrawerViewProps extends FormComponentProps {
+interface DrawerViewProps extends FormComponentProps, focusProps {
     type: string;
     className?: string;
     drawerClose: () => void;
@@ -100,7 +103,7 @@ class DrawerForm extends React.Component<DrawerViewProps, {}> {
                                 (<Upload action='/service/upload' listType='picture'>
                                     <Button size='small'>
                                         <Icon type='upload' />Upload
-                                </Button>
+                                    </Button>
                                 </Upload>)
                             }
                         </Form.Item>
@@ -127,14 +130,24 @@ class DrawerForm extends React.Component<DrawerViewProps, {}> {
         return e && e.fileList;
     };
 
+    // 添加 focus 记录回调
     addForm = async (params) => {
         const res = await addFocusRecord(params);
         if (res.success) {
+            // 关闭阴影遮罩
             this.props.drawerClose();
-            message.success('添加成功！');
+            message.success('添加成功！', 2);
+            this.freshList();
         } else {
             message.error('添加失败！');
         }
+    }
+
+    // 刷新 focus list
+    // 可以直接从父组件通过通信获得，这里是为了锻炼 redux 能力
+    freshList = async () => {
+        const res = await getFocusList({ status: 1 });
+        this.props.changeFocusList(res.data.list);
     }
 
     // 提交表单事件
@@ -144,7 +157,7 @@ class DrawerForm extends React.Component<DrawerViewProps, {}> {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 // 处理文件列表
-                if (values.pictures.fileList.length > 0) {
+                if (values.pictures && values.pictures.fileList.length > 0) {
                     const list = values.pictures.fileList.map(item => {
                         return item.response.url
                     });
@@ -174,4 +187,12 @@ const DrawerView = Form.create<DrawerViewProps>({
     name: 'drawerForm',
 })(DrawerForm);
 
-export default DrawerView;
+function mapStateToProps({ focusData }) {
+    return {
+        focusData,
+    }
+}
+
+export default connect(mapStateToProps, {
+    changeFocusList
+})(DrawerView);

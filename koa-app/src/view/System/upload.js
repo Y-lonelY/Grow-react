@@ -1,7 +1,7 @@
 import Router from "koa-router";
 import Compose from "koa-compose";
 import multer from "@koa/multer";
-import middle_compose from 'C/logger';
+import middle_compose from 'M/logger';
 import utils from 'utility';
 
 const uploadRouter = new Router();

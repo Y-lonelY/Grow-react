@@ -3,7 +3,7 @@ import Compose from 'koa-compose';
 import Joi from '@hapi/joi';
 import ErrorMessage from 'config/error';
 import { addErrorsRecord } from 'S/System/errorController';
-import middle_compose from 'C/logger';
+import middle_compose from 'M/logger';
 
 const errorRouter = new Router();
 

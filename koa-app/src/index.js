@@ -2,7 +2,7 @@
 import Koa from 'koa';
 import Compose from 'koa-compose';
 import BodyParser from 'koa-bodyparser';
-import { listenError } from 'C/errors';
+import { listenError } from 'M/errors';
 // exercise view
 import focusView from 'V/Exercise/focus';
 import exerciseView from 'V/Exercise/exercise';

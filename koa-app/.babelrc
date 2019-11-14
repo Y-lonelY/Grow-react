@@ -10,7 +10,7 @@
                 "@": "./src",
                 "S": "./src/service",
                 "V": "./src/view",
-                "C": "./src/components"
+                "M": "./src/middleware"
             }
         }]
     ]

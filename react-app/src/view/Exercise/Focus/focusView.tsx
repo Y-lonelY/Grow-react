@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Drawer } from 'antd';
+import { Button, Drawer, List, Card, Icon } from 'antd';
+import { Header } from '@/components/Override';
 import { connect } from 'react-redux';
 import { focusProps } from '@/index.d.ts';
 import { changeFocusList } from '@/store/Exercise/action';
-import { addFocusRecord, getFocusList } from '@/service/exerciseService';
+import { getFocusList } from '@/service/exerciseService';
 import DrawerView from './drawerView';
 
 interface focusState {
@@ -18,6 +19,13 @@ class FocusView extends React.Component<focusProps, focusState> {
             visible: false,
             type: 'add',
         };
+    }
+
+    // Drawer Titles
+    drawerTitle = {
+        add: '添加 Focus',
+        edit: '编辑 Focus',
+        show: '展示 Focus',
     }
 
     render() {
@@ -36,25 +44,42 @@ class FocusView extends React.Component<focusProps, focusState> {
                 </div>
             );
         };
-        let title = 'Focus';
-        if (this.state.type === 'add') {
-            title = '添加 Focus';
-        } else if (this.state.type === 'edit') {
-            title = '编辑 Focus';
+
+        if (list.length > 0) {
+            this.props.head.showAddBtn = true;
+            this.props.head.addEvent = this.showPannel;
         }
+
         return (
             <div className='focusView'>
+                <Header {...this.props.head} />
                 {list.length > 0 ?
-                    <div></div> : <RenderEmpty />
+                    <List
+                        grid={{ gutter: 16, column: 6 }}
+                        dataSource={this.props.focusData.list}
+                        renderItem={item => (
+                            <List.Item>
+                                <Card
+                                    size='small'
+                                    className='card'
+                                    hoverable={true}
+                                    extra={<Button size='small' type='link'><Icon type="form" /></Button>}
+                                    title={item.title}>
+                                    <p className='start'>{item.start_date}</p>
+                                    <p className='details'>{item.details}</p>
+                                </Card>
+                            </List.Item>
+                        )}
+                    /> : <RenderEmpty />
                 }
                 <Drawer
-                 className='drawer'
-                 width={400}
-                 closable={false}
-                 title={title}
-                 placement='right'
-                 visible={this.state.visible}
-                 onClose={this.drawerClose}>
+                    className='drawer'
+                    width={400}
+                    closable={false}
+                    title={this.drawerTitle[this.state.type]}
+                    placement='right'
+                    visible={this.state.visible}
+                    onClose={this.drawerClose}>
                     <DrawerView className='content' type={this.state.type} drawerClose={this.drawerClose}></DrawerView>
                 </Drawer>
             </div>
@@ -67,13 +92,13 @@ class FocusView extends React.Component<focusProps, focusState> {
     }
 
     initData = async () => {
+        // 获取处于激活状态的 list
         const res = await getFocusList({ status: 1 });
-        this.props.changeFocusList([]);
-        console.log(this.props);
+        this.props.changeFocusList(res.data.list);
     }
 
     // 展示添加面板
-    showPannel = (type) => {
+    showPannel = (type?: string) => {
         this.setState({
             visible: true,
             type: type

@@ -29,6 +29,19 @@ export interface StoreState{
 }
 
 /**
+ * header config
+ */
+export interface HeaderData {
+    icon: {
+        type: string,
+        style?: {}
+    };
+    title: string;
+    showAddBtn?: boolean;
+    addEvent?: () => void;
+}
+
+/**
  * chart
  */
 export interface PolylineData {
@@ -63,9 +76,10 @@ export interface ExerciseChartAction extends ExerciseData {
 }
 
 export type ExerciseProps = {
+    head: HeaderData;
+    exerciseData: ExerciseData;
     changeChart: (...ExerciseData) => ExerciseChartAction;
     changeGoalList: (goalList: GoalListItem[]) => GoalListAction;
-    exerciseData: ExerciseData;
 }
 
 export interface ExerciseState {
@@ -150,6 +164,7 @@ export interface programOverviewAction {
 }
 
 export interface programOverviewProps {
+    head: HeaderData;
     programOverviewData: programOverviewTemplate;
     changeProgramOverview: (params: programOverviewTemplate) => programOverviewAction;
 }
@@ -178,7 +193,9 @@ export interface focusAction {
     type: string;
 }
 
+// 这里设置 head 为可选是因为 drawerView 模块需要继承该 interface
 export interface focusProps {
+    head?: HeaderData;
     focusData: {
         list: focusItem[]
     };

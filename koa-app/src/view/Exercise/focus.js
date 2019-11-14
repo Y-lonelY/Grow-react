@@ -2,7 +2,7 @@ import Router from "koa-router";
 import Compose from "koa-compose";
 import Joi from "@hapi/joi";
 import * as FocusController from 'S/Exercise/focusController';
-import middle_compose from 'C/logger';
+import middle_compose from 'M/logger';
 
 const focusRouter = new Router();
 

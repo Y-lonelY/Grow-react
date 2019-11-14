@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Table, message } from "antd";
-import { SuperEmpty } from '@/components/Override';
+import { SuperEmpty, Header } from '@/components/Override';
 import { ColumnProps } from 'antd/es/table';
 import { connect } from 'react-redux';
 import { changeChart, changeGoalList } from '@/store/Exercise/action';
@@ -73,6 +73,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
 
         return (
             <div className='dailyChartView'>
+                <Header {...this.props.head} />
                 <Row>
                     <Col className='goalListView' span={4}>
                         <GoalListView updateDate={this.update.bind(this)} />

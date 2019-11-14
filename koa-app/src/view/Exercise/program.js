@@ -3,7 +3,7 @@ import Compose from "koa-compose";
 import Joi from "@hapi/joi";
 import ErrorMessage from 'config/error';
 import * as ProgramController from 'S/Exercise/programController';
-import middle_compose from 'C/logger';
+import middle_compose from 'M/logger';
 
 // 声明一个 router 实例
 const programRouter = new Router();

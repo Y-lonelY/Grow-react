@@ -1,7 +1,6 @@
 // 引入 mysql
-import sequelizeCase from 'C/mysqlSequelize';
+import sequelizeCase from 'M/mysqlSequelize';
 import { getGoalList, updateGoalRecord } from './exerciseGoalController';
-import monent from 'moment';
 import moment from 'moment';
 
 /**

@@ -947,46 +947,16 @@ const wakaTimeData = {
     data: {},
 };
 
-const focusData = {
+export const focusData = {
     "success": true,
     "data": {
         "list": [
             {
-                "id": 1,
-                "title": "test111",
-                "details": "ssss",
-                "start_date": "2019-11-01T00:00:00.000Z",
-                "end_date": "2019-11-11T00:00:00.000Z",
-                "pictures": "",
-                "status": 1,
-                "priority": 1
-            },
-            {
-                "id": 2,
-                "title": "test",
-                "details": "ssss",
-                "start_date": "2019-11-01T00:00:00.000Z",
-                "end_date": "2019-11-11T00:00:00.000Z",
-                "pictures": "",
-                "status": 1,
-                "priority": 1
-            },
-            {
-                "id": 3,
-                "title": "test",
-                "details": "ssss",
-                "start_date": "2019-11-01T00:00:00.000Z",
-                "end_date": "2019-11-11T00:00:00.000Z",
-                "pictures": "",
-                "status": 1,
-                "priority": 1
-            },
-            {
-                "id": 4,
-                "title": "test",
-                "details": "ssss",
-                "start_date": "2019-11-01T00:00:00.000Z",
-                "end_date": "2019-11-11T00:00:00.000Z",
+                "id": 8,
+                "title": "锻炼",
+                "details": "锻炼，肌肉💪，保持良好状态，不当FBI",
+                "start_date": "2019-11-14 10:54:38",
+                "end_date": "",
                 "pictures": "",
                 "status": 1,
                 "priority": 1
@@ -995,4 +965,4 @@ const focusData = {
     }
 };
 
-export { exerciseList, addData, goalList, programOverview, wakaTimeData, focusData }
+export { exerciseList, addData, goalList, programOverview, wakaTimeData }

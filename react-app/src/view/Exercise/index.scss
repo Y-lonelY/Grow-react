@@ -2,8 +2,8 @@
 
 .dashboard {
     .dailyChartView {
-        height: 540px;
-        margin: 20px 0;
+        min-height: 540px;
+        margin: 30px 0;
         box-sizing: border-box;
         .goalListView {
             .goalBox {
@@ -128,7 +128,7 @@
 
     .programView {
         min-height: 500px;;
-        margin: 20px 0;
+        margin: 30px 0;
         box-sizing: border-box;
         .sumView {
             max-height: 550px;
@@ -145,7 +145,7 @@
     }
 
     .focusView {
-        margin: 20px 0;
+        margin: 30px 0;
         box-sizing: border-box;
         .focus-empty {
             padding-left: 70px;
@@ -157,6 +157,16 @@
                 margin-right: 3px;
                 line-height: 24px;
                 font-size: 12px;;
+            }
+        }
+
+        .card {
+            border-radius: 8px;
+            .start {
+                font-size: 12px;
+            }
+            .details {
+                font-size: 12px;
             }
         }
     }
