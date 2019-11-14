@@ -179,13 +179,13 @@ export interface programOverviewState {
 // focus module
 export interface focusItem {
     id?: number;
-    title: string;
-    details: string;
-    start_date: string;
-    end_date: string;
-    pictures: string;
-    status: number;
-    priority: number;
+    title?: string;
+    details?: string;
+    start_date?: string;
+    end_date?: string;
+    pictures?: string;
+    status?: number;
+    priority?: number;
 }
 
 export interface focusAction {

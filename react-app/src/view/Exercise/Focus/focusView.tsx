@@ -10,6 +10,8 @@ import DrawerView from './drawerView';
 interface focusState {
     visible: boolean;
     type: string;
+    // 当前选中 id
+    current: number;
 }
 
 class FocusView extends React.Component<focusProps, focusState> {
@@ -18,14 +20,8 @@ class FocusView extends React.Component<focusProps, focusState> {
         this.state = {
             visible: false,
             type: 'add',
+            current: -1,
         };
-    }
-
-    // Drawer Titles
-    drawerTitle = {
-        add: '添加 Focus',
-        edit: '编辑 Focus',
-        show: '展示 Focus',
     }
 
     render() {
@@ -63,7 +59,7 @@ class FocusView extends React.Component<focusProps, focusState> {
                                     size='small'
                                     className='card'
                                     hoverable={true}
-                                    extra={<Button size='small' type='link'><Icon type="form" /></Button>}
+                                    extra={<Button size='small' onClick={this.showPannel.bind(this, 'show', item.id)} type='link'><Icon type="form" /></Button>}
                                     title={item.title}>
                                     <p className='start'>{item.start_date}</p>
                                     <p className='details'>{item.details}</p>
@@ -76,11 +72,10 @@ class FocusView extends React.Component<focusProps, focusState> {
                     className='drawer'
                     width={400}
                     closable={false}
-                    title={this.drawerTitle[this.state.type]}
                     placement='right'
                     visible={this.state.visible}
                     onClose={this.drawerClose}>
-                    <DrawerView className='content' type={this.state.type} drawerClose={this.drawerClose}></DrawerView>
+                    <DrawerView className='content' type={this.state.type} current={this.state.current} drawerClose={this.drawerClose}></DrawerView>
                 </Drawer>
             </div>
         );
@@ -98,10 +93,11 @@ class FocusView extends React.Component<focusProps, focusState> {
     }
 
     // 展示添加面板
-    showPannel = (type?: string) => {
+    showPannel = (type?: string, id?: number) => {
         this.setState({
             visible: true,
-            type: type
+            type: type,
+            current: Number(id),
         });
     }
 

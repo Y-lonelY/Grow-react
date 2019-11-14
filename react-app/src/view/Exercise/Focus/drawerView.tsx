@@ -1,9 +1,10 @@
 import React from 'react';
-import { Form, Input, DatePicker, Switch, Radio, Upload, Button, Icon, message } from 'antd';
+import { Form, Input, DatePicker, Switch, Radio, Upload, Button, Icon, message, Row, Col } from 'antd';
+import { formatSeconds } from '@/components/Utils';
 import { FormComponentProps } from 'antd/es/form';
 import { connect } from 'react-redux';
 import { changeFocusList } from '@/store/Exercise/action';
-import { focusProps } from '@/index.d.ts';
+import { focusProps, focusItem } from '@/index.d.ts';
 import { addFocusRecord, getFocusList } from '@/service/exerciseService';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
@@ -11,23 +12,36 @@ import moment from 'moment';
 interface DrawerViewProps extends FormComponentProps, focusProps {
     type: string;
     className?: string;
+    current?: number;
     drawerClose: () => void;
 }
 
-class DrawerForm extends React.Component<DrawerViewProps, {}> {
+interface DrawerViewState {
+    data: focusItem
+}
+
+class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
     constructor(props) {
         super(props);
+        this.state = {
+            data: {}
+        }
     }
 
     render() {
         const type = this.props.type;
+        const data = this.state.data;
         const { getFieldDecorator } = this.props.form;
         const col = {
             labelCol: { span: 4 },
             wrapperCol: { span: 20 }
         };
+
         return (
             <div className={this.props.className}>
+                <div className="header">
+                    <div className="title">{this.renderTitle()}</div>
+                </div>
                 {type === 'add' &&
                     <Form className={`type-${type}`} {...col} onSubmit={this.submit}>
                         <Form.Item label='title'>
@@ -113,14 +127,31 @@ class DrawerForm extends React.Component<DrawerViewProps, {}> {
                             </Button>
                         </Form.Item>
                     </Form>
-
+                }
+                {type === 'show' &&
+                    <div>
+                        <Row>
+                            <p>始于{data.start_date}</p>
+                            <p>{this.renderEndDate()}</p>
+                        </Row>
+                        <Row>{data.details}</Row>
+                    </div>
                 }
             </div>
         );
     }
 
     componentDidMount() {
-
+        if (this.props.type === 'show' || this.props.type === 'edit') {
+            const list = this.props.focusData.list;
+            list.forEach(item => {
+                if (item.id === this.props.current) {
+                    this.setState({
+                        data: item
+                    });
+                }
+            })
+        }
     }
 
     normFile = (e) => {
@@ -129,6 +160,33 @@ class DrawerForm extends React.Component<DrawerViewProps, {}> {
         }
         return e && e.fileList;
     };
+
+    // 渲染标题
+    renderTitle = () => {
+        let title = '-';
+        const type = this.props.type
+        if (type === 'add') {
+            title = '添加 Focus';
+        } else if (type === 'edit') {
+            title = '编辑 Focus';
+        } else if (type === 'show') {
+            title = this.state.data.title;
+        }
+        return title;
+    }
+
+    // 渲染 show 结束时间
+    renderEndDate = () => {
+        const data = this.state.data;
+        const label = data.end_date && data.end_date !== '';
+        const end_date = label ? moment(data.end_date) : moment();
+        const diffSeconds = end_date.diff(moment(data.start_date), 'seconds');
+        const diffStr = formatSeconds(diffSeconds);
+        console.log(end_date.diff(moment(data.start_date)));
+        console.log(diffSeconds);
+        const str = `距${label ? data.end_date : '今'}已执行${diffStr}`;
+        return str;
+    }
 
     // 添加 focus 记录回调
     addForm = async (params) => {

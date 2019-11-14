@@ -42,7 +42,6 @@ export function Header(props) {
                         Add
                     </Button>
                 }
-
             </Col>
         </Row>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, List, Avatar, message } from 'antd';
 import { SuperEmpty, Header } from '@/components/Override';
+import { formatSeconds } from '@/components/Utils';
 import { connect } from 'react-redux';
 import { changeProgramOverview } from '@/store/Exercise/action';
 import { StackedColumn } from '@/components/Chart';
@@ -170,7 +171,7 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
             return Number(b[1]) - Number(a[1]);
         }).map((item, index) => {
             let desc = `${String(item[1]).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}-`
-                + `${this.formatSeconds(item[1])}-`
+                + `${formatSeconds(item[1])}-`
                 + `${(Number(item[1]) / sum * 100).toFixed(1)}%`;
             return {
                 title: item[0],
@@ -181,33 +182,11 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
 
         sumList.unshift({
             title: 'Total',
-            desc: `${sum}-${this.formatSeconds(sum)}`,
+            desc: `${sum}-${formatSeconds(sum)}`,
             backColor: '#263238',
         });
 
         return sumList;
-    }
-
-    /**
-     * 格式化时间展示
-     */
-    formatSeconds(value) {
-        const h = Math.floor(value / 3600);
-        const m = Math.floor((value - h * 3600) / 60);
-        const s = value % 60;
-        let date = '';
-        if (h > 0) {
-            date += `${h > 1 ? `${h}hrs` : `${h}hr`}`;
-        }
-
-        if (m > 0) {
-            date += `${m > 1 ? `${m}mins` : `${m}min`}`;
-        }
-
-        if (s > 0) {
-            date += `${s > 1 ? `${s}secs` : `${s}sec`}`;
-        }
-        return date;
     }
 }
 
