@@ -59,12 +59,17 @@ export const programOverviewData = (state = defaultProgramState, action) => {
     }
 }
 
-export const focusData = (state = { list: [] }, action) => {
+export const focusData = (state = { list: [], currentType: '' }, action) => {
     if (action.type === TS.ExerciseTypes.FOCUSLIST) {
         return {
             ...state,
             list: action.list
         };
+    } else if (action.type === TS.ExerciseTypes.FOCUSTYPE) {
+        return {
+            ...state,
+            currentType: action.currentType
+        }
     } else {
         return state;
     }

@@ -52,6 +52,14 @@ export const addFocusRecord = async (params) => {
     return res;
 }
 
+export const editFocusRecord = async (params) => {
+    const res = useMock ? await addData : await post('focus/update', params);
+    if (!res.success) {
+        message.error('更新失败！');
+    }
+    return res;
+}
+
 export const getFocusList = async (params) => {
     const res = useMock ? await focusData : await get('focus/list', { params: params });
     if (!res.success) {

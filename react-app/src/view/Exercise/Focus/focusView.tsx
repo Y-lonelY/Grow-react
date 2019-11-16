@@ -3,13 +3,12 @@ import { Button, Drawer, List, Card, Icon } from 'antd';
 import { Header } from '@/components/Override';
 import { connect } from 'react-redux';
 import { focusProps } from '@/index.d.ts';
-import { changeFocusList } from '@/store/Exercise/action';
+import { changeFocusList, changeFocusType } from '@/store/Exercise/action';
 import { getFocusList } from '@/service/exerciseService';
 import DrawerView from './drawerView';
 
 interface focusState {
     visible: boolean;
-    type: string;
     // 当前选中 id
     current: number;
 }
@@ -19,7 +18,6 @@ class FocusView extends React.Component<focusProps, focusState> {
         super(props);
         this.state = {
             visible: false,
-            type: 'add',
             current: -1,
         };
     }
@@ -75,7 +73,7 @@ class FocusView extends React.Component<focusProps, focusState> {
                     placement='right'
                     visible={this.state.visible}
                     onClose={this.drawerClose}>
-                    <DrawerView className='content' type={this.state.type} current={this.state.current} drawerClose={this.drawerClose}></DrawerView>
+                    <DrawerView className='content' current={this.state.current} drawerClose={this.drawerClose}></DrawerView>
                 </Drawer>
             </div>
         );
@@ -92,12 +90,12 @@ class FocusView extends React.Component<focusProps, focusState> {
         this.props.changeFocusList(res.data.list);
     }
 
-    // 展示添加面板
+    // 展示面板
     showPannel = (type?: string, id?: number) => {
+        this.props.changeFocusType(type);
         this.setState({
-            visible: true,
-            type: type,
             current: Number(id),
+            visible: true,
         });
     }
 
@@ -116,5 +114,6 @@ function mapStateToProps({ focusData }) {
 }
 
 export default connect(mapStateToProps, {
-    changeFocusList
+    changeFocusList,
+    changeFocusType
 })(FocusView);

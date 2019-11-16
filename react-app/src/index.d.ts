@@ -189,7 +189,8 @@ export interface focusItem {
 }
 
 export interface focusAction {
-    list: focusItem[];
+    list?: focusItem[];
+    currentType?: string;
     type: string;
 }
 
@@ -197,13 +198,11 @@ export interface focusAction {
 export interface focusProps {
     head?: HeaderData;
     focusData: {
-        list: focusItem[]
+        list: focusItem[],
+        currentType: string
     };
     changeFocusList: (list: focusItem[]) => focusAction;
-}
-
-export interface focusState {
-    visible: boolean;
+    changeFocusType: (type: string) => focusAction;
 }
 
 
@@ -214,4 +213,5 @@ export enum ExerciseTypes {
     GOALLIST = 'goalList',
     PROGRAMOVERVIEW = 'program-overview',
     FOCUSLIST = 'focusList',
+    FOCUSTYPE = 'focusType',
 }

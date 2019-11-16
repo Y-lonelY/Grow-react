@@ -36,3 +36,10 @@ export const changeFocusList: (list: focusItem[]) => focusAction = (data) => {
         type: 'focusList'
     }
 }
+
+export const changeFocusType: (type: string) => focusAction = (data) => {
+    return {
+        currentType: data,
+        type: 'focusType'
+    }
+}

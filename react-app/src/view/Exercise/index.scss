@@ -162,11 +162,16 @@
 
         .card {
             border-radius: 8px;
+            height: 144px;
             .start {
                 font-size: 12px;
             }
             .details {
+                max-height: 36px;
                 font-size: 12px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: pre;
             }
         }
     }
@@ -177,6 +182,7 @@
     .content {
         .ant-input,
         .ant-calendar-picker-input,
+        .ant-btn-sm,
         .ant-radio-wrapper {
             font-size: 12px;
         }
@@ -195,9 +201,46 @@
                 font-weight: 500;
                 font-size: 18px;
                 line-height: 22px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: normal;
+                @include ow-text;
+            }
+            .priority {
+                height: 20px;
+                position: relative;
+                top: 1px;
+                margin-right: 6px;
+                padding: 0 8px;
+                line-height: 20px;
+                border-radius: 4px;
+                color: #fff;
+                font-size: 12px;
+
+                &.type-1 {
+                    background-color: $error;
+                }
+                &.type-2 {
+                    background-color: $vlone;
+                }
+                &.type-3 {
+                    background-color: $blue;
+                }
+                &.type-4 {
+                    background-color: $green;
+                }
+            }
+        }
+        .show {
+            font-size: 12px;
+            p:last-child {
+                margin-bottom: 0;
+            }
+            .func-box {
+                height: 40px;
+                line-break: 40px;
+            }
+            .carousel {
+                .display-image {
+                    width: 100%;
+                }
             }
         }
     }

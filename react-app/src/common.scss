@@ -15,8 +15,10 @@ $robotFont: "Roboto Mono",monospace;
 $bck-color: #202124;
 $gray: #bdc1c6;
 $ftc-gray: rgba(0, 0, 0, .85);
+$error: #f5222d;
 $vlone: #ef613e;
 $blue: #1890ff;
+$green: #52c41a;
 
 @mixin ow-text {
     overflow: hidden;
