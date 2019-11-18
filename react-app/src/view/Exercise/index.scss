@@ -39,28 +39,6 @@
                     }
                     // 进度条信息
                     .progeress {
-                        .icon {
-                            display: inline-block;
-                            height: 24px;
-                            width: 24px;
-                            &.shoes {
-                                background: {
-                                    image: url(../../assets/shoes.png);
-                                };
-                            }
-                            &.airClear {
-                                background: {
-                                    image: url(../../assets/air-clear.png);
-                                };
-                            }
-
-                            &.T-shirt {
-                                background: {
-                                    image: url(../../assets/shirts.png);
-                                };
-                            }
-                        }
-
                         .value {
                             line-height: 24px;
                         }

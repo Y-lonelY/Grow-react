@@ -3,7 +3,7 @@ import { Empty, Icon, Button, Col, Row } from 'antd';
 import './index.scss';
 
 const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/font_1509932_ydzx6k1smod.js',
+    scriptUrl: '//at.alicdn.com/t/font_1509932_qg7yt9odoyf.js',
 });
 
 // override antd Empty
@@ -34,15 +34,24 @@ export function Header(props) {
             </Col>
             <Col className='func-box'>
                 {props.showAddBtn &&
-                    <Button 
-                    onClick={props.addEvent.bind(this, 'add')}
-                    title='添加 focus' 
-                    size='small' 
-                    type='link'>
+                    <Button
+                        onClick={props.addEvent.bind(this, 'add')}
+                        title='添加 focus'
+                        size='small'
+                        type='link'>
                         Add
                     </Button>
                 }
             </Col>
         </Row>
+    );
+}
+
+export function SuperIcon(props) {
+    return (
+        <IconFont
+            className={props.className}
+            type={props.type}
+            style={props.style} />
     );
 }

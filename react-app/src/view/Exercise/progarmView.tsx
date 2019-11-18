@@ -180,9 +180,10 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
             };
         });
 
+        // 添加 total 
         sumList.unshift({
             title: 'Total',
-            desc: `${sum}-${formatSeconds(sum)}`,
+            desc: `${String(sum).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}-${formatSeconds(sum)}`,
             backColor: '#263238',
         });
 

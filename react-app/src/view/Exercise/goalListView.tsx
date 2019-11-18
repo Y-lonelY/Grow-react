@@ -1,11 +1,11 @@
 import React from 'react';
 import { Collapse, Icon, Col, Row, Progress, Statistic, Button } from 'antd';
-import { SuperEmpty } from '@/components/Override';
+import { SuperEmpty, SuperIcon } from '@/components/Override';
 import { connect } from 'react-redux';
 import { changeGoalList } from '@/store/Exercise/action';
 import { getGoalList } from '@/service/exerciseService';
-import moment from 'moment';
 import { GoalListProps, GoalListState } from '@/index.d.ts';
+import moment from 'moment';
 
 const { Panel } = Collapse;
 
@@ -31,7 +31,7 @@ class GoalListView extends React.Component<GoalListProps, GoalListState> {
 
                     <Row className='progeress'>
                         <Col span={4}>
-                            <i className={`icon ${item.type}`}></i>
+                            <SuperIcon type={`icon-${item.type}`} style={{fontSize: '24px'}} />
                         </Col>
                         <Col className='value' span={20}>
                             <Progress size='small' percent={percent} />
