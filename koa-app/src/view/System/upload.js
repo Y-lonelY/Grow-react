@@ -24,7 +24,7 @@ const limits = {
     //非文件字段的数量
     fields: 10,
     //文件大小 单位 b，3M
-    fileSize: 3 * 1024 * 1024,
+    fileSize: 10 * 1024 * 1024,
     //文件数量
     files: 1
 }
@@ -38,7 +38,7 @@ uploadRouter.post('/upload', upload.single('file'), async ctx => {
             success: true,
             name: file.originalname,
             status: 'done',
-            url: `http://192.168.1.103:7177/pics/${file.filename}`
+            url: `http://192.168.1.103:7777/pics/${file.filename}`
         };
         ctx.body = results;
     } catch (e) {

@@ -16,7 +16,19 @@ interface DrawerViewProps extends FormComponentProps, focusProps {
 }
 
 interface DrawerViewState {
-    data: focusItem
+    data: focusItem;
+    initValue: initValue;
+}
+
+interface initValue {
+    id?: number;
+    title?: string;
+    details?: string;
+    start_date?: moment.Moment;
+    end_date?: moment.Moment | null;
+    pictures?: { url: string }[] | null;
+    status?: boolean;
+    priority?: number;
 }
 
 const { TextArea } = Input;
@@ -25,8 +37,9 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
     constructor(props) {
         super(props);
         this.state = {
-            data: {}
-        }
+            data: {},
+            initValue: {},
+        };
     }
 
     priority = {
@@ -39,46 +52,12 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
     render() {
         const type = this.props.focusData.currentType;
         const data = this.state.data;
+        const initValues = this.state.initValue;
         const { getFieldDecorator } = this.props.form;
         const col = {
             labelCol: { span: 4 },
             wrapperCol: { span: 20 }
         };
-
-        let initValues = {
-            title: '',
-            start: moment(),
-            details: '',
-            end: null,
-            status: true,
-            priority: 1,
-            pictures: null
-        };
-
-        if (type === 'edit' || type === 'show') {
-            const end = this.state.data.end_date && this.state.data.end_date !== '' ? moment(this.state.data.end_date) : null;
-            const pics = this.state.data.pictures;
-            initValues.title = this.state.data.title;
-            initValues.start = moment(this.state.data.start_date);
-            initValues.details = this.state.data.details;
-            initValues.end = end;
-            initValues.status = this.state.data.status === 1 ? true : false;
-            initValues.priority = this.state.data.priority;
-            if (pics && pics !== '') {
-                const list = pics.split('^^');
-                initValues.pictures = list.map((item, index) => {
-                    return {
-                        uid: String(index - 10),
-                        name: item,
-                        status: 'done',
-                        url: item,
-                        response: {
-                            url: item
-                        }
-                    };
-                })
-            }
-        }
 
         return (
             <div className={this.props.className}>
@@ -93,7 +72,6 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                                 rules: [{
                                     required: true,
                                     message: 'title is required!',
-                                    min: 1,
                                     max: 255
                                 }]
                             })(<Input placeholder='添加标题' size='small' />)
@@ -101,7 +79,7 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                         </Form.Item>
                         <Form.Item label='start'>
                             {getFieldDecorator('start_date', {
-                                initialValue: initValues.start,
+                                initialValue: initValues.start_date,
                                 rules: [{
                                     required: true,
                                     message: 'start date is required!',
@@ -123,7 +101,7 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                         </Form.Item>
                         <Form.Item label='end'>
                             {getFieldDecorator('end_date', {
-                                initialValue: initValues.end,
+                                initialValue: initValues.end_date,
                             })(<DatePicker
                                 size='small'
                                 locale={locale}
@@ -161,6 +139,7 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                             {getFieldDecorator('pictures', {
                                 initialValue: initValues.pictures,
                                 valuePropName: 'fileList',
+                                getValueFromEvent: this.normFile,
                             })
                                 (<Upload action='/service/upload' listType='picture'>
                                     <Button size='small'>
@@ -218,28 +197,86 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
     }
 
     componentDidMount() {
-        this.initCurrentData();
+        const type = this.props.focusData.currentType;
+        if (type === 'add') {
+             this.updateInitValues();
+        } else {
+            this.initCurrentData();
+        }
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.current !== prevProps.current) {
             this.initCurrentData();
         }
+        if (this.props.focusData.currentType !== prevProps.focusData.currentType) {
+            this.props.form.resetFields();
+            this.updateInitValues();
+        }
+    }
+
+    getEditInitValue = () => {
+        const end = this.state.data.end_date && this.state.data.end_date !== '' ? moment(this.state.data.end_date) : null;
+        const pics = this.state.data.pictures;
+        let params: initValue = {};
+        params.title = this.state.data.title;
+        params.start_date = moment(this.state.data.start_date);
+        params.details = this.state.data.details;
+        params.end_date = end;
+        params.status = this.state.data.status === 1 ? true : false;
+        params.priority = this.state.data.priority;
+        if (pics && pics !== '') {
+            const list = pics.split('^^');
+            params.pictures = list.map((item, index) => {
+                return {
+                    uid: String(index - 10),
+                    name: item,
+                    status: 'done',
+                    url: item,
+                    response: {
+                        url: item
+                    }
+                };
+            })
+        }
+
+        return params;
+    }
+
+    // 更新表单初始值
+    updateInitValues = () => {
+        const type = this.props.focusData.currentType;
+        let params = {};
+        if (type === 'add') {
+            params = {
+                title: '',
+                start_date: moment(),
+                details: '',
+                end_date: null,
+                status: true,
+                priority: 1,
+                pictures: null
+            };
+        } else {
+            params = this.getEditInitValue();
+        }
+        this.setState({
+            initValue: params
+        });
     }
 
     // 根据 id 来更新 data
     initCurrentData = () => {
-        const type = this.props.focusData.currentType;
-        if (type === 'show' || type === 'edit') {
-            const list = this.props.focusData.list;
-            list.forEach(item => {
-                if (item.id === this.props.current) {
-                    this.setState({
-                        data: item
-                    });
-                }
-            });
-        }
+        const list = this.props.focusData.list;
+        list.forEach(item => {
+            if (item.id === this.props.current) {
+                this.setState({
+                    data: item
+                }, () => {
+                    this.updateInitValues();
+                });
+            }
+        });
     }
 
     // 渲染标题
@@ -293,7 +330,9 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
         if (res.success) {
             await this.freshList();
             this.props.drawerClose();
-            message.success('更新成功！', 2);
+            message.success('更新成功！', 2, () => {
+                this.initCurrentData();
+            });
         }
     }
 
@@ -313,11 +352,10 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
     submit = (e) => {
         let params = {};
         this.props.form.validateFields((err, values) => {
-            console.log(values);
             if (!err) {
                 // 处理文件列表
-                if (values.pictures && values.pictures.fileList.length > 0) {
-                    let list = values.pictures.fileList.map(item => {
+                if (values.pictures && values.pictures.length > 0) {
+                    let list = values.pictures.map(item => {
                         return item.response.url;
                     });
                     // 文件数组转字符串
@@ -347,6 +385,13 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
     editPanel = () => {
         this.props.changeFocusType('edit');
     }
+
+    normFile = e => {
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e && e.fileList;
+    };
 }
 
 const DrawerView = Form.create<DrawerViewProps>({
