@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col, Table, message } from "antd";
+import { LocaleContext } from '@/cluster/context';
 import { SuperEmpty, Header } from '@/components/Override';
 import { ColumnProps } from 'antd/es/table';
 import { connect } from 'react-redux';
@@ -29,6 +30,8 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
         end: moment().format('YYYY-MM-DD')
     }
 
+    static contextType = LocaleContext;
+
     constructor(props) {
         super(props)
         this.state = {
@@ -53,7 +56,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
             );
         });
 
-        const columns: ColumnProps<ExerciseTableData>[] = [{
+        let columns: ColumnProps<ExerciseTableData>[] = [{
             key: 'date',
             title: '日期',
             dataIndex: 'date'
@@ -71,6 +74,17 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
             dataIndex: 'chest'
         }];
 
+        // 国际化内容
+        const locale = this.context.locale;
+        let title = '';
+
+        if (locale === 'zh_cn') {
+            columns[0].title = 'Date';
+            title = this.state.chart.length > 0 ? `共${this.state.chart.length}条锻炼记录` : '';
+        } else {
+            title = this.state.chart.length > 0 ? `total ${this.state.chart.length} records` : '';
+        }
+
         return (
             <div className='dailyChartView'>
                 <Header {...this.props.head} />
@@ -80,7 +94,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
                     </Col>
                     <Col className='dailyListView' span={14}>
                         <ChartBar
-                            title={this.state.chart.length > 0 ? `共${this.state.chart.length}条锻炼记录` : ''}
+                            title={title}
                             switchChange={this.switchChange}
                             defaultDateRange={this.state.defaultDateRange}
                             rangeDateChange={this.rangeDateChange}

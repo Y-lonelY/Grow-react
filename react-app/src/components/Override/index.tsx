@@ -1,9 +1,10 @@
 import React from 'react';
 import { Empty, Icon, Button, Col, Row } from 'antd';
+import { LocaleContext } from '@/cluster/context';
 import './index.scss';
 
 const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/font_1509932_qg7yt9odoyf.js',
+    scriptUrl: '//at.alicdn.com/t/font_1509932_6wivr1bwg0j.js',
 });
 
 // override antd Empty
@@ -21,29 +22,36 @@ export function SuperEmpty(props) {
     );
 }
 
-// heander
+/**
+ * header
+ * 对于 function 组件通过 LocaleContext.Consumer 来获取 context
+ */
 export function Header(props) {
     return (
-        <Row className='module-header' type='flex' justify='space-between'>
-            <Col className='text-box'>
-                <IconFont
-                    className='icon'
-                    type={props.icon.type}
-                    style={props.icon.style} />
-                <span className='title'>{props.title}</span>
-            </Col>
-            <Col className='func-box'>
-                {props.showAddBtn &&
-                    <Button
-                        onClick={props.addEvent.bind(this, 'add')}
-                        title='添加 focus'
-                        size='small'
-                        type='link'>
-                        Add
-                    </Button>
-                }
-            </Col>
-        </Row>
+        <LocaleContext.Consumer>
+            {/* value 在这里代表 this.context */}
+            {({assets}) =>
+                <Row className='module-header' type='flex' justify='space-between'>
+                    <Col className='text-box'>
+                        <IconFont
+                            className='icon'
+                            type={props.icon.type}
+                            style={props.icon.style} />
+                        <span className='title'>{props.title}</span>
+                    </Col>
+                    <Col className='func-box'>
+                        {props.showAddBtn &&
+                            <Button
+                                onClick={props.addEvent.bind(this, 'add')}
+                                size='small'
+                                type='link'>
+                                {assets.add}
+                        </Button>
+                        }
+                    </Col>
+                </Row>
+            }
+        </LocaleContext.Consumer>
     );
 }
 

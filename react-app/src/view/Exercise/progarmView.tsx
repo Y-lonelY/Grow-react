@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, List, Avatar, message } from 'antd';
 import { SuperEmpty, Header } from '@/components/Override';
+import { LocaleContext } from '@/cluster/context';
 import { formatSeconds } from '@/components/Utils';
 import { connect } from 'react-redux';
 import { changeProgramOverview } from '@/store/Exercise/action';
@@ -23,6 +24,8 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
         end: moment().format('YYYY-MM-DD'),
     };
 
+    static contextType = LocaleContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -33,14 +36,22 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
     }
 
     render() {
+        const locale = this.context.locale;
         const selectorList = this.props.programOverviewData[this.state.type].name;
+        let title = '';
+        if (locale === 'zh_cn') {
+            title = this.state.list.length > 0 ? `共${this.state.list.length}条编程${this.state.type === 'lang' ? '语言' : '项目'}记录` : '';
+        } else {
+            title = this.state.list.length > 0 ? `total ${this.state.list.length} ${this.state.type === 'lang' ? 'language' : 'project'} records` : ''
+        }
+        console.log(title);
         return (
             <div className="programView">
                 <Header {...this.props.head} />
                 <Row>
                     <Col className='listView' span={18}>
                         <ChartBar
-                            title={this.state.list.length > 0 ? `共${this.state.list.length}条编程${this.state.type === 'lang' ? '语言' : '项目'}记录` : ''}
+                            title={title}
                             defaultDateRange={[moment(this.params.start), moment(this.params.end)]}
                             rangeDateChange={this.rangeDateChange}
                             selectorList={selectorList}

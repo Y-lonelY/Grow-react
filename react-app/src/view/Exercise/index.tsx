@@ -1,48 +1,20 @@
 import React from "react";
-import { Divider } from 'antd';
+import { LocaleContext } from '@/cluster/context';
 import FocusView from './Focus/focusView';
 import DailyView from "./dailyView";
 import ProgramView from './progarmView';
 import './index.scss';
 
 class DashBoard extends React.Component {
-    config = {
-        focus: {
-            icon: {
-                type: 'icon-mubiao',
-                style: {
-                    fontSize: '18px'
-                }
-            },
-            title: 'focus',
-            showAddBtn: false,
-        },
-        exercise: {
-            icon: {
-                type: 'icon-jianshen',
-                style: {
-                    fontSize: '18px'
-                }
-            },
-            title: 'exercise',
-        },
-        program: {
-            icon: {
-                type: 'icon-code',
-                style: {
-                    fontSize: '16px'
-                }
-            },
-            title: 'program',
-        }
-    }
+    static contextType = LocaleContext;
 
     render() {
+        const practiceConfig = this.context.assets.practiceConfig;
         return (
             <div className="dashboard">
-                <FocusView head={this.config.focus}></FocusView>
-                <DailyView head={this.config.exercise}></DailyView>
-                <ProgramView head={this.config.program}></ProgramView>
+                <FocusView head={ practiceConfig.focus }></FocusView>
+                <DailyView head={ practiceConfig.exercise }></DailyView>
+                <ProgramView head={ practiceConfig.program }></ProgramView>
             </div>
         );
     }

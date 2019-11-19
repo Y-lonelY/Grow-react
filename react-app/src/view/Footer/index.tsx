@@ -1,17 +1,23 @@
 import React from 'react';
-import { Layout, Col, Row, Switch, Icon, Divider} from 'antd';
+import { Layout, Col, Row, Switch, Icon, Divider, Button } from 'antd';
+import { LocaleContext } from '@/cluster/context';
 import { config, setUseMock } from '@/config/sysConfig';
 import './index.scss';
 
 const { Footer } = Layout;
 
 class FlowFooter extends React.Component {
+
+    static contextType = LocaleContext;
+
     render() {
+        const assets = this.context.assets;
         return (
             <Footer className='flow-footer'>
                 <Divider className="footer-seprator">Respect everything that happens</Divider>
                 <Row className='main-footer' type='flex' justify='start'>
-                    <Col span={20}></Col>
+                    <Col span={20}>
+                    </Col>
                     <Col span={4}>
                         <Switch
                             size='small'
@@ -19,8 +25,8 @@ class FlowFooter extends React.Component {
                             unCheckedChildren={<Icon type="close" />}
                             checked={config.useMock === 'true' ? true : false}
                             onChange={this.switchChange}
-                            ></Switch>
-                            <span className='footer-switch-label'> - 使用虚拟数据</span>
+                        ></Switch>
+                        <span className='footer-switch-label'> - {assets.mock}</span>
                     </Col>
                 </Row>
             </Footer>
@@ -28,7 +34,6 @@ class FlowFooter extends React.Component {
     };
 
     componentDidMount() {
-
     }
 
     switchChange = (checked, event) => {

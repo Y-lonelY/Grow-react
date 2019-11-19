@@ -1,104 +1,87 @@
-@import '@/common.scss';
+@import "@/common.scss";
 
 .flow-header {
-    .main-header {
-        background: {
-            color: $blackBack;
+  .header {
+    background: {
+      color: $blackBack;
+    }
+    .main-row {
+      .ant-col {
+        height: 64px;
+      }
+
+      .label {
+        font: {
+          size: 18px;
+          family: $robotFont;
+          weight: 400;
         }
+        text-transform: uppercase;
+        color: #ffffff;
+      }
+
+      .list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
 
         .seperator {
-            width: 2px;
-            background-color: rgba(255,255,255,.75);
-            height: 25%;
-            transform: translateY(150%);
-            border-radius: 4px;
-        } 
-
-        .header-label {
-            font: {
-                size: 18px;
-                family: $robotFont;
-                weight: 400;
-            }
-            text-transform: uppercase;
-            color: #ffffff;
-    
-        }
-
-        .header-flow-list {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: flex-end;
-        }
-
-        .header-link-list {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: flex-start;
-
-            .item {
-                &:first-child {
-                    padding-left: 18px;
-                }
-                &.github {
-                    i {
-                        display: inline-block;
-                        width: 24px;
-                        height: 22px;
-                        transform: translateY(5px);
-                        background: {
-                            image: url(../../assets/github.png);
-                            repeat: no-repeat;
-                            position: center right;
-                        }
-                    }
-                }
-
-                &.lore {
-                    i {
-                        display: inline-block;
-                        width: 24px;
-                        height: 22px;
-                        transform: translateY(5px);
-                        background: {
-                            image: url(../../assets/lore.png);
-                            repeat: no-repeat;
-                            position: center right;
-                        }
-                    }
-                }
-            }
+          width: 2px;
+          height: 25%;
+          margin-right: 24px;
+          background-color: rgba(255, 255, 255, 0.75);
+          transform: translateY(150%);
+          border-radius: 4px;
         }
 
         .item {
-            height: calc(100% - 5px);
-            margin-right: 24px;
+          height: calc(100% - 5px);
+          margin-right: 24px;
+          color: $gray;
+          cursor: pointer;
+          text-transform: capitalize;
+          font: {
+            size: 14px;
+            weight: 400;
+          }
+
+          &:hover {
+            color: #ffffff;
+          }
+
+          &.active {
+            color: #ffffff;
+            font-weight: 500;
+            border-bottom: 2px solid #ffffff;
+          }
+
+          a {
             color: $gray;
-            cursor: pointer;
-            font: {
-                size: 14px;
-                weight: 400;
-            }
+          }
 
-            &:hover {
-                color: #ffffff;
-            }
-
-            &.active {
-                color: #ffffff;
-                font-weight: 500;
-                border-bottom: 2px solid #ffffff;
-            }
-
-            a {
-                color: $gray;
-            }
-
-            a:hover {
-                color: #ffffff;
-            }
+          a:hover {
+            color: #ffffff;
+          }
         }
+      }
+
+      .func-box {
+        text-align: end;
+        .locale {
+          cursor: pointer;
+          color: $gray;
+          &:hover {
+            color: #fff;
+          }
+
+          .icon {
+            position: relative;
+            top: 1px;
+            font-size: 20px;
+          }
+        }
+      }
     }
+  }
 }

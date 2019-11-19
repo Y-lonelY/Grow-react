@@ -31,7 +31,7 @@ class GoalListView extends React.Component<GoalListProps, GoalListState> {
 
                     <Row className='progeress'>
                         <Col span={4}>
-                            <SuperIcon type={`icon-${item.type}`} style={{fontSize: '24px'}} />
+                            <SuperIcon type={`icon-${item.type}`} style={{fontSize: '22px'}} />
                         </Col>
                         <Col className='value' span={20}>
                             <Progress size='small' percent={percent} />

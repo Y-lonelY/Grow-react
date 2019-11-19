@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col, Switch, Icon, DatePicker, Button, Popover, Tooltip, Select } from "antd";
+import { LocaleContext } from '@/cluster/context';
 import AddListFormInstance from './AddListForm';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
@@ -21,7 +22,7 @@ interface ChartBarProps {
     switchChange?: (boolean) => void;
     selector?: boolean;
     selectorValue?: string | number;
-    selectorList?: {name: string, value?: string}[];
+    selectorList?: { name: string, value?: string }[];
     selectorChange?: (value: string) => void;
     programSwitch?: boolean;
     programSwitchChange?: (boolean) => void;
@@ -39,6 +40,8 @@ const { Option } = Select;
 // 利用接口对传递参数进行检查
 class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
 
+    static contextType = LocaleContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -49,8 +52,28 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
     }
 
     public render() {
-        const title = this.props.title && this.props.title.trim() !== '' ? this.props.title : ''
-        const list = [1,2,3];
+        const title = this.props.title && this.props.title.trim() !== '' ? this.props.title : '';
+        const locale = this.context.locale;
+        const assets = this.context.assets;
+
+        let dateRange = {};
+
+        if (locale === 'zh_cn') {
+            dateRange = {
+                '当月': [moment().startOf('month'), moment().endOf('month')],
+                '近7天': [moment().subtract(7, 'days'), moment()],
+                '近30天': [moment().subtract(30, 'days'), moment()],
+                '近90天': [moment().subtract(90, 'days'), moment()]
+            };
+        } else if (locale === 'en_us') {
+            dateRange = {
+                'currentMonth': [moment().startOf('month'), moment().endOf('month')],
+                'sevenDays': [moment().subtract(7, 'days'), moment()],
+                'thirtyDays': [moment().subtract(30, 'days'), moment()],
+                'ninetyDays': [moment().subtract(90, 'days'), moment()]
+            };
+        }
+
         return (
             <div className="chartBar">
                 <Row>
@@ -76,7 +99,7 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
 
                         {/* 归一化按钮 */}
                         {this.props.showNormalize &&
-                            <Tooltip title={this.state.normalize ? '去归一化' : '归一化'} placement='bottom'>
+                            <Tooltip title={this.state.normalize ? assets.denormalization : assets.normalize} placement='bottom'>
                                 <Button
                                     className='normalizeBtn'
                                     shape="circle"
@@ -89,7 +112,7 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
 
                         {/* program 同步按钮 */}
                         {this.props.showUpdate &&
-                            <Tooltip title='同步' placement='bottom'>
+                            <Tooltip title={assets.update} placement='bottom'>
                                 <Button
                                     className={`programBtn ${this.state.programCircle ? 'circle' : ''}`}
                                     shape="circle"
@@ -103,15 +126,14 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
                         {/* 下拉选择 */}
                         {this.props.selector && this.props.selectorList.length > 0 &&
                             <Select
-                            className='selectorPicker'
-                            style={{width: '160px', marginRight: '10px'}}
-                            placeholder='选择...'
-                            defaultValue='-127'
-                            value={this.props.selectorValue ? this.props.selectorValue : '-127'}
-                            onChange={this.selectorChange}
-                            size='small'
-                            showSearch>
-                                <Option value='-127'>全部</Option>
+                                className='selectorPicker'
+                                style={{ width: '160px', marginRight: '10px' }}
+                                defaultValue='-127'
+                                value={this.props.selectorValue ? this.props.selectorValue : '-127'}
+                                onChange={this.selectorChange}
+                                size='small'
+                                showSearch>
+                                <Option value='-127'>{assets.all}</Option>
                                 {this.props.selectorList.map((item, index) => {
                                     return (
                                         <Option key={index} value={item.value ? item.value : item.name}>{item.name}</Option>
@@ -127,12 +149,7 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
                                 className='rangePicker'
                                 defaultValue={this.props.defaultDateRange}
                                 value={this.props.defaultDateRange}
-                                ranges={{
-                                    '当月': [moment().startOf('month'), moment().endOf('month')],
-                                    '近7天': [moment().subtract(7, 'days'), moment()],
-                                    '近30天': [moment().subtract(30, 'days'), moment()],
-                                    '近90天': [moment().subtract(90, 'days'), moment()]
-                                }}
+                                ranges={dateRange}
                                 locale={locale}
                                 size='small'
                                 allowClear={false}
@@ -202,7 +219,7 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
                 programCircle: false
             });
         } catch (e) {
-            throw(e);
+            throw (e);
         }
     }
 

@@ -1,4 +1,4 @@
-import { post, get } from '../cluster/Request';
+import { post, get } from '../cluster/request';
 import { exerciseList, addData, goalList, programOverview, wakaTimeData, focusData } from './mock/exerciseMock';
 import { config } from '@/config/sysConfig';
 import { message } from 'antd';

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Input, DatePicker, Switch, Radio, Upload, Button, Icon, message, Row, Divider, Carousel } from 'antd';
+import { LocaleContext } from '@/cluster/context';
 import { formatSeconds } from '@/components/Utils';
 import { FormComponentProps } from 'antd/es/form';
 import { connect } from 'react-redux';
@@ -34,19 +35,15 @@ interface initValue {
 const { TextArea } = Input;
 
 class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
+
+    static contextType = LocaleContext;
+
     constructor(props) {
         super(props);
         this.state = {
             data: {},
             initValue: {},
         };
-    }
-
-    priority = {
-        1: '极高',
-        2: '较高',
-        3: '较低',
-        4: '极低',
     }
 
     render() {
@@ -58,6 +55,8 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
             labelCol: { span: 4 },
             wrapperCol: { span: 20 }
         };
+        const assets = this.context.assets;
+        const priorityList = assets.priorityList;
 
         return (
             <div className={this.props.className}>
@@ -66,7 +65,7 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                 </div>
                 {(type === 'add' || type === 'edit') &&
                     <Form className={`type-${type}`} {...col}>
-                        <Form.Item label='title'>
+                        <Form.Item label={assets.title}>
                             {getFieldDecorator('title', {
                                 initialValue: initValues.title,
                                 rules: [{
@@ -74,10 +73,10 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                                     message: 'title is required!',
                                     max: 255
                                 }]
-                            })(<Input placeholder='添加标题' size='small' />)
+                            })(<Input placeholder={`${assets.add}${assets.title}`} size='small' />)
                             }
                         </Form.Item>
-                        <Form.Item label='start'>
+                        <Form.Item label={assets.start}>
                             {getFieldDecorator('start_date', {
                                 initialValue: initValues.start_date,
                                 rules: [{
@@ -93,13 +92,13 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                             />)
                             }
                         </Form.Item>
-                        <Form.Item label='details'>
+                        <Form.Item label={assets.details}>
                             {getFieldDecorator('details', {
                                 initialValue: initValues.details
-                            })(<TextArea rows={3} placeholder='添加细节信息' />)
+                            })(<TextArea rows={3} placeholder={`${assets.add}${assets.details}`} />)
                             }
                         </Form.Item>
-                        <Form.Item label='end'>
+                        <Form.Item label={assets.end}>
                             {getFieldDecorator('end_date', {
                                 initialValue: initValues.end_date,
                             })(<DatePicker
@@ -109,7 +108,7 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                             />)
                             }
                         </Form.Item>
-                        <Form.Item label='status'>
+                        <Form.Item label={assets.status}>
                             {getFieldDecorator('status', {
                                 initialValue: initValues.status,
                                 valuePropName: 'checked'
@@ -121,12 +120,12 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                                 />)
                             }
                         </Form.Item>
-                        <Form.Item label='priority'>
+                        <Form.Item label={assets.priority}>
                             {getFieldDecorator('priority', {
                                 initialValue: initValues.priority
                             })
                                 (<Radio.Group>{
-                                    Object.entries(this.priority).map((item, index) => {
+                                    Object.entries(priorityList).map((item, index) => {
                                         return (
                                             <Radio key={index} value={Number(item[0])}>{item[1]}</Radio>
                                         );
@@ -135,7 +134,7 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                                 </Radio.Group>)
                             }
                         </Form.Item>
-                        <Form.Item label='pistures'>
+                        <Form.Item label={assets.pistures}>
                             {getFieldDecorator('pictures', {
                                 initialValue: initValues.pictures,
                                 valuePropName: 'fileList',
@@ -151,11 +150,11 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                         <Row type='flex' justify='end'>
                             {type === 'edit' &&
                                 <Button type='default' onClick={this.cancel} size='small' style={{ marginRight: '12px' }}>
-                                    取消
+                                    {assets.cancel}
                                 </Button>
                             }
                             <Button type='primary' onClick={this.submit} size='small'>
-                                确认
+                                {assets.submit}
                             </Button>
                         </Row>
                     </Form>
@@ -187,7 +186,7 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                         }
                         <Row className='func-box' type='flex' justify='end'>
                             <Button type='primary' size='small' onClick={this.editPanel}>
-                                编辑
+                                {assets.edit}
                             </Button>
                         </Row>
                     </div>
@@ -199,7 +198,7 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
     componentDidMount() {
         const type = this.props.focusData.currentType;
         if (type === 'add') {
-             this.updateInitValues();
+            this.updateInitValues();
         } else {
             this.initCurrentData();
         }
@@ -282,20 +281,21 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
     // 渲染标题
     renderTitle = () => {
         const type = this.props.focusData.currentType;
+        const assets = this.context.assets;
         if (type === 'add') {
             return (
-                <div className="title">添加 Focus</div>
+                <div className="title">{assets.add} Focus</div>
             );
         } else if (type === 'edit') {
             return (
-                <div className="title">编辑 Focus</div>
+                <div className="title">{assets.edit} Focus</div>
             );
         } else if (type === 'show') {
             const priority = this.state.data.priority;
             const title = this.state.data.title;
             return (
                 <Row type='flex'>
-                    <div className={`priority type-${priority}`}>{this.priority[priority]}</div>
+                    <div className={`priority type-${priority}`}>{assets.priorityList[priority]}</div>
                     <div className="title">{title}</div>
                 </Row>
             );
