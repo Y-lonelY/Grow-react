@@ -1,6 +1,7 @@
 import React from 'react';
 import { LocaleContext } from '@/cluster/context';
-import FocusView from './Focus/focusView';
+import FocusView from './Focus';
+import TriviaView  from './Trivia';
 import './index.scss';
 
 /**
@@ -12,9 +13,11 @@ function HomepageView() {
         <LocaleContext.Consumer>
             {({ assets }) => {
                 const homepageConfig = assets.homepageConfig;
+                
                 return (
                     <div className='homepage'>
                         <FocusView head={homepageConfig.focus} />
+                        <TriviaView head={homepageConfig.trivia} />
                     </div>
                 );
             }}

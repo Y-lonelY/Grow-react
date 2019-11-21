@@ -1,7 +1,7 @@
 import Router from "koa-router";
 import Compose from "koa-compose";
 import Joi from "@hapi/joi";
-import * as FocusController from 'S/Exercise/focusController';
+import * as FocusController from 'S/Homepage/focusController';
 import middle_compose from 'M/logger';
 
 const focusRouter = new Router();
@@ -70,4 +70,4 @@ const router_routes = router.routes();
 const router_allow_methods = router.allowedMethods();
 const focusCompose = Compose([middle_compose, router_routes, router_allow_methods]);
 
-module.exports = focusCompose;
+export default focusCompose;

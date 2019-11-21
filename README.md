@@ -131,6 +131,10 @@
 - 将 focus module 迁移至 home page
 - 新建 trivia 和 trivia_group 表
 
+koa 
+- 修改文档结构和 index compose 方式
+- 添加 trivia 模块，思考接口组织方式
+
 ### 2019-11-20
 
 规划 Trivia Module 需求及开发细节

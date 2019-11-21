@@ -1,5 +1,4 @@
 import sequelizeCase from "M/mysqlSequelize";
-import moment from 'moment';
 
 /**
  * 添加专注点记录

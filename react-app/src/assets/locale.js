@@ -73,6 +73,16 @@ export const locale = {
                 title: '聚焦',
                 showAddBtn: false,
             },
+            trivia: {
+                icon: {
+                    type: 'icon-mubiao',
+                    style: {
+                        fontSize: '18px'
+                    }
+                },
+                title: '碎片',
+                showAddBtn: false,
+            }
         },
         priorityList: {
             1: '极高',
@@ -153,6 +163,16 @@ export const locale = {
                     }
                 },
                 title: 'focus',
+                showAddBtn: false,
+            },
+            trivia: {
+                icon: {
+                    type: 'icon-mubiao',
+                    style: {
+                        fontSize: '18px'
+                    }
+                },
+                title: 'trivia',
                 showAddBtn: false,
             },
         },

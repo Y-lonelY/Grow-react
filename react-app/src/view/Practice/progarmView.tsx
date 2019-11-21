@@ -97,16 +97,12 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
     }
 
     initData = async () => {
-        try {
-            const res = await getProgramOverview(this.params);
-            if (res.success) {
-                this.props.changeProgramOverview(res.data);
-                this.setState({
-                    list: res.data[this.state.type].list
-                });
-            }
-        } catch (e) {
-            throw (e);
+        const res = await getProgramOverview(this.params);
+        if (res.success) {
+            this.props.changeProgramOverview(res.data);
+            this.setState({
+                list: res.data[this.state.type].list
+            });
         }
     }
 

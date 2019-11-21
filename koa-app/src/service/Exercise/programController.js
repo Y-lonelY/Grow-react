@@ -47,18 +47,15 @@ async function getDateRange() {
     for (let index = 0; index < list.length; index++) {
         const item = list[index];
         const sql = `SELECT MAX(date) AS date FROM waka_${item}`;
-        try {
-            const max_date = await sequelizeCase.query({ sql: sql, queryType: 'select'});
-            if (Array.isArray(max_date) && max_date.length > 0) {
-                values.push(moment(max_date[0]['date']));
-                // 拿到所有数据之后进行处理
-                if (index === list.length - 1) {
-                    params['start'] = moment.max(values).add(1, 'days').format('YYYY-MM-DD');
-                    return params;
-                }
+        const max_date = await sequelizeCase.query({ sql: sql, queryType: 'select' });
+
+        if (Array.isArray(max_date) && max_date.length > 0) {
+            values.push(moment(max_date[0]['date']));
+            // 拿到所有数据之后进行处理
+            if (index === list.length - 1) {
+                params['start'] = moment.max(values).add(1, 'days').format('YYYY-MM-DD');
+                return params;
             }
-        } catch (e) {
-            console.log(e);
         }
     }
 }
@@ -73,10 +70,11 @@ async function getDateRange() {
 async function getProgramName(params) {
     let list = [];
     const sql = `SELECT DISTINCT \`name\` FROM \`gro-up\`.`
-              + `${params.type === 'project' ? 'waka_project' : 'waka_lang'}`
-              + ` WHERE date BETWEEN '${params.start}' AND '${params.end}'`
-              + ` ORDER BY name`;
-    const nameList = await sequelizeCase.query({ sql: sql, queryType: 'select'});
+        + `${params.type === 'project' ? 'waka_project' : 'waka_lang'}`
+        + ` WHERE date BETWEEN '${params.start}' AND '${params.end}'`
+        + ` ORDER BY name`;
+    const nameList = await sequelizeCase.query({ sql: sql, queryType: 'select' });
+    
     list = nameList;
     return list;
 }
@@ -90,16 +88,13 @@ async function getProgramName(params) {
 async function getProgramList(params) {
     let list = [];
     const sql = `SELECT id, date, \`name\`, total_seconds AS value`
-              + ` FROM \`gro-up\`.${params.type === 'project' ? 'waka_project' : 'waka_lang'}`
-              + ` WHERE`
-              + ` date BETWEEN '${params.start}' AND '${params.end}'`
-              + ` ORDER BY date`;
-    try {
-        const recordList = await sequelizeCase.query({ sql: sql, queryType: 'select'});
-        list = recordList;
-    } catch (e) {
-        console.log(e);
-    }
+        + ` FROM \`gro-up\`.${params.type === 'project' ? 'waka_project' : 'waka_lang'}`
+        + ` WHERE`
+        + ` date BETWEEN '${params.start}' AND '${params.end}'`
+        + ` ORDER BY date`;
+    const recordList = await sequelizeCase.query({ sql: sql, queryType: 'select' });
+
+    list = recordList;
     return list;
 }
 
