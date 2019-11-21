@@ -168,7 +168,7 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                         <Divider dashed={true}></Divider>
                         {data.details !== '' &&
                             <div>
-                                <Row>{data.details}</Row>
+                                <Row className='details'>{data.details}</Row>
                                 <Divider dashed={true}></Divider>
                             </div>
                         }
