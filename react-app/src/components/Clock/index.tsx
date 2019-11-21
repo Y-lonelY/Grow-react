@@ -44,7 +44,6 @@ class Clock extends React.Component<{}, ClockState> {
 
         let leftDays = fullDays - days;
         let percent = Number((days * 100 / fullDays).toFixed(0));
-        let mockList: string[] = ['react', 'redux', 'python api'];
 
         return (
             <div className="dateBox">
@@ -59,10 +58,6 @@ class Clock extends React.Component<{}, ClockState> {
                     from: '#eee',
                     to: '#777'
                 }}></Progress>
-                <p className="title-bold">todo list</p>
-                {mockList.map((item, index) => {
-                    return (<p key={ String(index) }>{ item }</p>);
-                })}
             </div>
         ) 
     }

@@ -14,8 +14,6 @@ interface FlowHeaderProps {
 
 interface FlowHeaderState {
     current: number;
-    currentTop: number,
-    currentItem: string,
 };
 
 class FlowHeader extends React.Component<FlowHeaderProps, FlowHeaderState> {
@@ -25,9 +23,7 @@ class FlowHeader extends React.Component<FlowHeaderProps, FlowHeaderState> {
     constructor(props) {
         super(props)
         this.state = {
-            current: 1,
-            currentTop: 0,
-            currentItem: 'Exercise'
+            current: -1,
         }
     }
 
@@ -40,9 +36,12 @@ class FlowHeader extends React.Component<FlowHeaderProps, FlowHeaderState> {
                 <Header className="header">
                     <Row className='main-row' type="flex" justify="start">
                         <Col span={2}>
-                            <span className="label">{assets.mainTitle}</span>
+                            <span className="label" onClick={this.viewHomepage}>
+                                {assets.mainTitle}
+                                <sup>✦</sup>
+                            </span>
                         </Col>
-                        <Col className='list' span={16}>
+                        <Col className='list' span={13} offset={1}>
                             {headerItems.map((item, index) => {
                                 if (item.type === 'item') {
                                     return (
@@ -51,22 +50,30 @@ class FlowHeader extends React.Component<FlowHeaderProps, FlowHeaderState> {
                                             key={index}
                                             onClick={this.handleRouter.bind(this, item.id)}>
                                             {item.label}
-                                            {item.icon &&
-                                                <SuperIcon type={`icon-${item.icon}`} style={{ fontSize: '14px', paddingLeft: '2px' }} />
-                                            }
                                         </div>)
                                 } else if (item.type === 'seperator') {
                                     return (<div key={index} className="seperator"></div>);
+                                } else if (item.type === 'link') {
+                                    return (
+                                        <div
+                                            className={`${item.type} ${item.id === this.state.current ? 'active' : ''}`}
+                                            key={index}
+                                            title={item.label}
+                                            onClick={this.handleRouter.bind(this, item.id)}>
+                                            <SuperIcon type={`icon-${item.icon}`} style={{ fontSize: '14px', paddingLeft: '2px' }} />
+                                        </div>
+                                    );
                                 }
                             })}
                         </Col>
-                        <Col span={4}>
-                            <Clock />
-                        </Col>
-                        <Col className='func-box' span={2}>
-                            <Button className='locale' size='small' type='link' onClick={this.toggleLocale}>
-                                <SuperIcon className='icon' type={`icon-${locale === 'zh_cn' ? 'en_us' : 'zh_cn'}`} />
-                            </Button>
+                        <Col span={8}>
+                            <div className='func-box'>
+                                <Button className='locale' size='small' type='link' onClick={this.toggleLocale}>
+                                    <SuperIcon className='icon' type={`icon-${locale === 'zh_cn' ? 'en_us' : 'zh_cn'}`} />
+                                </Button>
+                                <Clock />
+                            </div>
+
                         </Col>
                     </Row>
                 </Header>
@@ -75,6 +82,20 @@ class FlowHeader extends React.Component<FlowHeaderProps, FlowHeaderState> {
     }
 
     componentDidMount() {
+        // 根据当前 url 渲染 active item
+        const pathname = window.location.pathname;
+        const assets = this.context.assets;
+        const headerItems = assets.headerItems;
+        let label = -1;
+        headerItems.forEach(item => {
+            if (item.target === pathname) {
+                label = item.id;
+                return;
+            }
+        });
+        this.setState({
+            current: label
+        });
     }
 
     // 控制路由跳转
@@ -90,14 +111,23 @@ class FlowHeader extends React.Component<FlowHeaderProps, FlowHeaderState> {
                     this.setState({
                         current: id
                     });
-                    if (item.target) {
+                    if (item.type === 'link') {
                         window.open(item.target, '_blank');
-                    } else {
-                        this.props.history.push('/');
+                    } else if (item.type === 'item') {
+                        this.props.history.push(item.target);
                     }
                 }
             });
         }
+    }
+
+    // 进入首页
+    viewHomepage = () => {
+        this.setState({
+            current: -1
+        }, () => {
+            this.props.history.push('/');
+        });
     }
 
     toggleLocale = () => {

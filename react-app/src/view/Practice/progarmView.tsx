@@ -44,7 +44,6 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
         } else {
             title = this.state.list.length > 0 ? `total ${this.state.list.length} ${this.state.type === 'lang' ? 'language' : 'project'} records` : ''
         }
-        console.log(title);
         return (
             <div className="programView">
                 <Header {...this.props.head} />
@@ -112,7 +111,7 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
     }
 
     // event: 下拉选择
-    selectorChange = async (value: string) => {        
+    selectorChange = async (value: string) => {
         const type = this.state.type;
         let list = this.props.programOverviewData[type].list;
         if (value !== '-127') {
@@ -150,7 +149,7 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
                 message.error('同步失败');
             }
         } catch (e) {
-            throw(e);
+            throw (e);
         }
     }
 
@@ -178,7 +177,7 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
             sum += Number(item);
         });
         // 优先排序，保证色值渐变
-        let sumList =  Object.entries(data).sort((a, b) => {
+        let sumList = Object.entries(data).sort((a, b) => {
             return Number(b[1]) - Number(a[1]);
         }).map((item, index) => {
             let desc = `${String(item[1]).replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}-`

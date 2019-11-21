@@ -18,11 +18,11 @@ $gray: #bdc1c6;
         align: right;
     }
     .clock-btn {
+        height: 50px;
         display: inline-block;
         color: $gray;
         cursor: default;
         user-select: none;
-        height: 50px;
         font: {
             size: 12px;
         }

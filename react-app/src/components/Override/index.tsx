@@ -4,7 +4,7 @@ import { LocaleContext } from '@/cluster/context';
 import './index.scss';
 
 const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/font_1509932_6wivr1bwg0j.js',
+    scriptUrl: '//at.alicdn.com/t/font_1509932_oo5mjfo06xn.js',
 });
 
 // override antd Empty

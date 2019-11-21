@@ -11,39 +11,42 @@
       }
 
       .label {
+        padding: 3px 6px;
+        border: 2px solid #fff;
+        border-radius: 6px;
         font: {
-          size: 18px;
+          size: 16px;
           family: $robotFont;
           weight: 400;
         }
         text-transform: uppercase;
         color: #ffffff;
+        cursor: pointer;
       }
 
       .list {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        justify-content: flex-end;
+        justify-content: flex-start;
 
         .seperator {
           width: 2px;
-          height: 25%;
-          margin-right: 24px;
-          background-color: rgba(255, 255, 255, 0.75);
-          transform: translateY(150%);
+          height: 12px;
+          margin-right: 12px;
+          background-color: $gray;
+          transform: translateY(26px);
           border-radius: 4px;
         }
 
         .item {
-          height: calc(100% - 5px);
           margin-right: 24px;
           color: $gray;
           cursor: pointer;
           text-transform: capitalize;
           font: {
             size: 14px;
-            weight: 400;
+            weight: bold;
           }
 
           &:hover {
@@ -52,23 +55,35 @@
 
           &.active {
             color: #ffffff;
-            font-weight: 500;
-            border-bottom: 2px solid #ffffff;
+          }
+        }
+
+        .link {
+          margin-right: 8px;
+          color: $gray;
+          cursor: pointer;
+          text-transform: capitalize;
+          font: {
+            size: 14px;
+            weight: bold;
           }
 
-          a {
-            color: $gray;
+          &:hover {
+            color: #ffffff;
           }
 
-          a:hover {
+          &.active {
             color: #ffffff;
           }
         }
       }
 
       .func-box {
-        text-align: end;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
         .locale {
+          margin-top: 20px;
           cursor: pointer;
           color: $gray;
           &:hover {

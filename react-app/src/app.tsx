@@ -1,9 +1,9 @@
 import React from 'react';
 import { Layout } from 'antd';
+// 路由
 import { BrowserRouter } from "react-router-dom";
-import routeConfig from '@/config/routerConfig';
+import Router from '@/cluster/Router';
 import { config as systemConfig } from '@/config/sysConfig';
-import Router from '@/cluster/router';
 import FlowHeader from '@/view/Header';
 import FlowFooter from '@/view/Footer';
 import ErrorBoundary from '@/components/ErrorBoundary';
@@ -55,7 +55,7 @@ class App extends React.Component<{}, AppState> {
                                     <FlowHeader></FlowHeader>
                                     <Content className='dash-content'>
                                         {/* 路由主体 */}
-                                        <Router defaultConfig={routeConfig.routeConfig}></Router>
+                                        <Router />
                                         {/* 路由主体 */}
                                     </Content>
                                     <FlowFooter></FlowFooter>

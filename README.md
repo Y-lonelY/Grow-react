@@ -120,6 +120,17 @@
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
+### 2019-11-21
+
+优化 flowheader 样式，出于其扩展性和观赏性的考虑，参考 github 头部样式
+
+行内元素 `<sup> && <sub>` 分别用于添加上标和下标
+
+添加 home page，用于展示首页信息
+
+- 将 focus module 迁移至 home page
+- 新建 trivia 和 trivia_group 表
+
 ### 2019-11-20
 
 规划 Trivia Module 需求及开发细节

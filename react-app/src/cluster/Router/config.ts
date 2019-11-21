@@ -1,9 +1,10 @@
-import DashboardView from '@/view/Exercise'
+import HomepageView from '@/view/Homepage';
+import PracticeView from '@/view/Practice'
 import ChartBarView from '@/components/ChartBar'
 
 interface routeConfigItem {
     key: number;
-    title: string;
+    title?: string;
     exact: boolean;
     path: string;
     component: any;
@@ -16,17 +17,15 @@ interface RouterConfig {
 const config: RouterConfig = {
     routeConfig: [{
         key: 1,
-        title: 'mainView',
         exact: true,
         path: '/',
-        component: DashboardView
+        component: HomepageView
     }, {
         key: 2,
-        title: 'mainView',
         exact: true,
-        path: '/test',
-        component: ChartBarView
+        path: '/practice',
+        component: PracticeView
     }],
 }
 
-export default config;
+export  default config;

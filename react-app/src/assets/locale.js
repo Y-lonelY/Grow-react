@@ -1,6 +1,6 @@
 export const locale = {
     'zh_cn': {
-        mainTitle: '成长',
+        mainTitle: 'growth',
         mock: '虚拟数据',
         add: '添加',
         edit: '编辑',
@@ -21,10 +21,10 @@ export const locale = {
             id: 1,
             label: '勤练',
             type: 'item',
-            target: null
+            target: '/practice',
         }, {
             id: 2,
-            label: '工作',
+            label: '项目',
             type: 'item',
             target: null
         }, {
@@ -32,26 +32,17 @@ export const locale = {
         }, {
             id: 3,
             label: '博客',
-            type: 'item',
-            target: 'https://y-lonely.github.io/BlogFlows/'
+            type: 'link',
+            target: 'https://y-lonely.github.io/BlogFlows/',
+            icon: 'blog'
         }, {
             id: 4,
             label: 'github',
-            type: 'item',
+            type: 'link',
             target: 'https://github.com/Y-lonelY',
             icon: 'github'
         }],
         practiceConfig: {
-            focus: {
-                icon: {
-                    type: 'icon-mubiao',
-                    style: {
-                        fontSize: '18px'
-                    }
-                },
-                title: '聚焦',
-                showAddBtn: false,
-            },
             exercise: {
                 icon: {
                     type: 'icon-jianshen',
@@ -59,7 +50,7 @@ export const locale = {
                         fontSize: '18px'
                     }
                 },
-                title: '锻炼',
+                title: '练习',
             },
             program: {
                 icon: {
@@ -70,6 +61,18 @@ export const locale = {
                 },
                 title: '编程',
             }
+        },
+        homepageConfig: {
+            focus: {
+                icon: {
+                    type: 'icon-mubiao',
+                    style: {
+                        fontSize: '18px'
+                    }
+                },
+                title: '聚焦',
+                showAddBtn: false,
+            },
         },
         priorityList: {
             1: '极高',
@@ -98,39 +101,30 @@ export const locale = {
         all: 'all options',
         headerItems: [{
             id: 1,
-            label: 'exercise',
+            label: 'practice',
             type: 'item',
-            target: null
+            target: '/practice',
         }, {
             id: 2,
-            label: 'workflow',
+            label: 'project',
             type: 'item',
             target: null
         }, {
             type: 'seperator'
         }, {
             id: 3,
-            label: 'LoreFlow',
-            type: 'item',
-            target: 'https://y-lonely.github.io/BlogFlows/'
+            label: 'blog',
+            type: 'link',
+            target: 'https://y-lonely.github.io/BlogFlows/',
+            icon: 'blog'
         }, {
             id: 4,
             label: 'github',
-            type: 'item',
+            type: 'link',
             target: 'https://github.com/Y-lonelY',
             icon: 'github'
         }],
         practiceConfig: {
-            focus: {
-                icon: {
-                    type: 'icon-mubiao',
-                    style: {
-                        fontSize: '18px'
-                    }
-                },
-                title: 'focus',
-                showAddBtn: false,
-            },
             exercise: {
                 icon: {
                     type: 'icon-jianshen',
@@ -149,6 +143,18 @@ export const locale = {
                 },
                 title: 'program',
             }
+        },
+        homepageConfig: {
+            focus: {
+                icon: {
+                    type: 'icon-mubiao',
+                    style: {
+                        fontSize: '18px'
+                    }
+                },
+                title: 'focus',
+                showAddBtn: false,
+            },
         },
         priorityList: {
             1: 'highest',
