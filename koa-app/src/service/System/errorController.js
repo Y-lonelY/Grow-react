@@ -14,7 +14,7 @@ async function addErrorsRecord(params) {
         + `'${params.referrer}', '${params.event}', '${params.type}', `
         + `${params.level}, '${params.stack}', '${params.message}', `
         + `'${params.origin}', '${params.useragent}', '${params.network}', '${params.appversion}' );`;
-    const add_record = await sequelizeCase.query({ sql: add_sql, queryType: 'insert' });
+    const add_record = await sequelizeCase.query({ sql: add_sql, type: 'insert' });
     return add_record;
 }
 

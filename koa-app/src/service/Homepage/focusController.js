@@ -11,11 +11,11 @@ import sequelizeCase from "M/mysqlSequelize";
  * @param {status} 状态
  */
 async function addFocuxRecord(params) {
-    const add_focus_sql = `INSERT INTO
+    const sql = `INSERT INTO
      \`gro-up\`.\`focus\`(\`title\`, \`details\`, \`start_date\`, \`end_date\`, \`pictures\`, \`priority\`, \`status\`) 
      VALUES ('${params.title}', '${params.details}', '${params.start_date}', '${params.end_date}', '${params.pictures}', ${params.priority}, ${params.status});`;
-    const add_res = await sequelizeCase.query({ sql: add_focus_sql, queryType: 'insert' });
-    return add_res;
+    const res = await sequelizeCase.query({ sql: sql, type: 'insert' });
+    return res;
 }
 
 /**
@@ -27,7 +27,7 @@ async function getFocusRecord(params) {
     if (params.status !== -127) {
         sql = sql + ` WHERE status = ${params.status}`;
     }
-    const res = await sequelizeCase.query({ sql: sql, queryType: 'select' });
+    const res = await sequelizeCase.query({ sql: sql, type: 'select' });
     list = res.map(item => {
         delete item.last_update;
         return item;
@@ -52,7 +52,7 @@ async function updateFocusRecord(params) {
       \`end_date\` = '${params.end_date}', \`pictures\` = '${params.pictures}', \`status\` = ${params.status}, 
       \`priority\` = ${params.priority}, \`status\` = ${params.status} 
       WHERE \`id\` = ${params.id};`
-    const res = await sequelizeCase.query({ sql: sql, queryType: 'update' });
+    const res = await sequelizeCase.query({ sql: sql, type: 'update' });
     return res;
 }
 

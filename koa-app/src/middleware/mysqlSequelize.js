@@ -47,14 +47,15 @@ class Mysql {
         })
     }
 
-    // raw query
-    query({sql: sql, queryType: queryType}) {
+    /**
+     * 通过原生 sql 进行查询，默认 type 为 select
+     * @param {sql, type} sql语句和查询类型
+     */
+    query({sql, type = Sequelize.QueryTypes.SELECT}) {
         const sequelizeCase = this.createConnection();
-        // 默认为 select
-        let type = Sequelize.QueryTypes.SELECT
 
-        if (queryType && Sequelize.QueryTypes[queryType.toUpperCase()]) {
-            type = Sequelize.QueryTypes[queryType.toUpperCase()]
+        if (type && Sequelize.QueryTypes[type.toUpperCase()]) {
+            type = Sequelize.QueryTypes[type.toUpperCase()]
         }
         
         return sequelizeCase.query(sql, {

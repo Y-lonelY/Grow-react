@@ -120,6 +120,13 @@
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
+### 2019-11-22
+
+[koa]
+
+- 修改 mysqlSequelize 封装内容
+- group 的list/update/add api 开发
+
 ### 2019-11-21
 
 优化 flowheader 样式，出于其扩展性和观赏性的考虑，参考 github 头部样式

@@ -47,7 +47,7 @@ async function getDateRange() {
     for (let index = 0; index < list.length; index++) {
         const item = list[index];
         const sql = `SELECT MAX(date) AS date FROM waka_${item}`;
-        const max_date = await sequelizeCase.query({ sql: sql, queryType: 'select' });
+        const max_date = await sequelizeCase.query({ sql: sql, type: 'select' });
 
         if (Array.isArray(max_date) && max_date.length > 0) {
             values.push(moment(max_date[0]['date']));
@@ -73,7 +73,7 @@ async function getProgramName(params) {
         + `${params.type === 'project' ? 'waka_project' : 'waka_lang'}`
         + ` WHERE date BETWEEN '${params.start}' AND '${params.end}'`
         + ` ORDER BY name`;
-    const nameList = await sequelizeCase.query({ sql: sql, queryType: 'select' });
+    const nameList = await sequelizeCase.query({ sql: sql, type: 'select' });
     
     list = nameList;
     return list;
@@ -92,7 +92,7 @@ async function getProgramList(params) {
         + ` WHERE`
         + ` date BETWEEN '${params.start}' AND '${params.end}'`
         + ` ORDER BY date`;
-    const recordList = await sequelizeCase.query({ sql: sql, queryType: 'select' });
+    const recordList = await sequelizeCase.query({ sql: sql, type: 'select' });
 
     list = recordList;
     return list;

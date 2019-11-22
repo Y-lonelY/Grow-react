@@ -22,12 +22,11 @@ const base_scheme = Joi.object({
 
 focusRouter.post('/add', async ctx => {
     let results = {
-        success: false,
+        success: true,
     };
     const params = await base_scheme.validateAsync(ctx.request.body);
     const res = await FocusController.addFocuxRecord(params);
     results['success'] = Array.isArray(res) && res.length > 0 ? true : false;
-    ctx.response.type = 'json';
     ctx.body = results;
 
 });
@@ -45,7 +44,6 @@ focusRouter.get('/list', async ctx => {
     const params = await scheme.validateAsync(ctx.request.query);
     const res = await FocusController.getFocusRecord(params);
     results['data']['list'] = res;
-    ctx.response.type = 'json';
     ctx.body = results;
 });
 
@@ -55,7 +53,7 @@ focusRouter.post('/update', async ctx => {
     };
     const scheme = base_scheme.keys(update_scheme);
     let results = {
-        success: false,
+        success: true,
     };
     const params = await scheme.validateAsync(ctx.request.body);
     const res = await FocusController.updateFocusRecord(params);

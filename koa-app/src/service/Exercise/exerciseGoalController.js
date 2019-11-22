@@ -24,7 +24,7 @@ async function getGoalList(params = { status: 3 }) {
     const sql = 'SELECT * FROM exc_goal WHERE ' + status_sql + ' ORDER BY start_date DESC';
     const res = await sequelizeCase.query({
         sql: sql,
-        queryType: "select"
+        type: "select"
     });
     list = res.map(item => {
         // 处理 DATETIME 类型数据
@@ -56,7 +56,7 @@ async function updateGoalRecord(params) {
     \`remark\` = ${params.remark === null ? null : `'${params.remark}'`}, 
     \`status\` = ${params.status} 
     WHERE \`id\` = ${params.id};`;
-    const res = await sequelizeCase.query({ sql: sql, queryType: 'update'});
+    const res = await sequelizeCase.query({ sql: sql, type: 'update'});
     return res;
 }
 

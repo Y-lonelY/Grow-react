@@ -14,7 +14,7 @@ async function getDailySum(params) {
         + ` FROM \`gro-up\`.\`exc_daily\``
         + ` WHERE date BETWEEN '${params.start}' AND '${params.end}'`;
 
-    const sumList = await sequelizeCase.query({ sql: sql, queryType: "select" });
+    const sumList = await sequelizeCase.query({ sql: sql, type: "select" });
 
     if (sumList.length > 0) {
         dailyObj = sumList[0];
@@ -35,7 +35,7 @@ async function getDailyLists(params) {
         + ` WHERE date BETWEEN '${params.start}' AND '${params.end}'`
         + ` ORDER BY date DESC`;
 
-    list = await sequelizeCase.query({ sql: sql_daily_list, queryType: "select" });
+    list = await sequelizeCase.query({ sql: sql_daily_list, type: "select" });
     return list;
 }
 
@@ -47,7 +47,7 @@ async function getDailyLists(params) {
 async function addExerciseList(params) {
     const sql_add_list = `INSERT INTO exc_daily ( date, \`leg-nums\`, \`belly-nums\`, \`chest-nums\` )`
         + ` VALUES  ( '${params.date}', '${params.leg}', '${params.belly}', '${params.chest}' )`;
-    const res = await sequelizeCase.query({ sql: sql_add_list, queryType: 'insert' });
+    const res = await sequelizeCase.query({ sql: sql_add_list, type: 'insert' });
     // 插入成功，更新 goal table
     if (Array.isArray(res) && res.length > 0) {
         // 获取当前正在进行的goal
