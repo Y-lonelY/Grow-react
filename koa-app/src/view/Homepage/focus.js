@@ -48,15 +48,15 @@ focusRouter.get('/list', async ctx => {
 });
 
 focusRouter.post('/update', async ctx => {
-    const update_scheme = {
+    const scheme = base_scheme.keys({
         id: Joi.number().integer().required()
-    };
-    const scheme = base_scheme.keys(update_scheme);
+    });
     let results = {
         success: true,
     };
     const params = await scheme.validateAsync(ctx.request.body);
     const res = await FocusController.updateFocusRecord(params);
+
     results['success'] = Array.isArray(res) && res.length > 0 ? true : false;
     ctx.body = results;
 });

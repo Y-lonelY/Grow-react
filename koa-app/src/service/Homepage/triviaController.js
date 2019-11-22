@@ -48,7 +48,7 @@ async function addTriviaGroupList(params) {
 }
 
 /**
- * 添加 trivia trcoed
+ * 添加 trivia record
  * @param {details} 详情
  * @param {link} 相关连接
  * @param {status} 是否展示
@@ -67,7 +67,7 @@ export async function addTriviaList(params) {
 }
 
 /**
- * 修改 trivia trcoed
+ * 修改 trivia record
  * @param {id} 记录 id
  * @param {details} 详情
  * @param {link} 相关连接
@@ -87,6 +87,34 @@ export async function updateTriviaList(params) {
     const res = sequelizeCase.query({
         sql: sql,
         type: 'update'
+    });
+    return res;
+}
+
+
+/**
+ * 获取 trivia list
+ * @param {group} group id，如果为 -127 则查询全部
+ */
+export async function getTriviaList(params) {
+    let where_sql = '';
+    if (params.group !== -127) {
+        where_sql = `AND t1.\`group\` = 1 `;
+    }
+    const sql = `SELECT
+    t1.id,
+    t1.details,
+    t1.link,
+    t1.\`user\`,
+    t1.\`group\`,
+    t2.\`name\`,
+    t1.last_update
+    FROM trivia t1, trivia_group t2 
+    WHERE t1.\`group\` = t2.id AND t1.\`status\` = 1 ` + where_sql + 
+    `ORDER BY t1.last_update LIMIT 0,40`;
+    const res = sequelizeCase.query({
+        sql: sql,
+        type: 'select'
     });
     return res;
 }

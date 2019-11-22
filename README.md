@@ -126,6 +126,7 @@
 
 - 修改 mysqlSequelize 封装内容
 - group 的list/update/add api 开发
+- trivia list/add/update api 开发
 
 ### 2019-11-21
 

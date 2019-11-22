@@ -5,11 +5,20 @@ import middle_compose from 'M/logger';
 import * as TriviaController from 'S/Homepage/triviaController';
 
 const triviaRouter = new Router();
-// group scheme
+// trivia group 校验规则
 const group_scheme = Joi.object({
     name: Joi.string().allow(''),
     status: Joi.number().integer().default(0),
 });
+// trivia 校验规则
+const trivia_scheme = Joi.object({
+    details: Joi.string().max(3000).required(),
+    link: Joi.string().allow(''),
+    status: Joi.number().integer().default(1),
+    user: Joi.string().allow('').default('yh'),
+    group: Joi.number().integer().required(),
+});
+
 
 triviaRouter.get('/group/list', async ctx => {
     let results = {
@@ -24,11 +33,11 @@ triviaRouter.get('/group/list', async ctx => {
     ctx.response.body = results;
 });
 
+
 triviaRouter.post('/group/update', async ctx => {
-    const update_scheme = Joi.object({
-        id: Joi.number().integer().required(),
+    const scheme = group_scheme.keys({
+        id: Joi.number().integer().required()
     });
-    const scheme = group_scheme.keys(update_scheme);
     let results = {
         success: true,
     };
@@ -39,12 +48,58 @@ triviaRouter.post('/group/update', async ctx => {
     ctx.response.body = results;
 });
 
+
 triviaRouter.post('/group/add', async ctx => {
     let results = {
         success: true,
     };
     const params = await group_scheme.validateAsync(ctx.request.body);
     const res = await TriviaController.addTriviaGroupList(params);
+
+    results['success'] = Array.isArray(res) && res.length > 0 ? true : false;
+    ctx.response.body = results;
+});
+
+
+triviaRouter.get('/list', async ctx => {
+    const scheme = Joi.object({
+        group: Joi.number().integer().default(-127)
+    });
+    let results = {
+        success: true,
+        data: {
+            list: []
+        }
+    };
+    const params = await scheme.validateAsync(ctx.request.query);
+    const list = await TriviaController.getTriviaList(params);
+
+    results.data.list = list;
+    ctx.response.body = results;
+});
+
+
+triviaRouter.post('/add', async ctx => {
+    let results = {
+        success: true,
+    };
+    const params = await trivia_scheme.validateAsync(ctx.request.body);
+    const res = await TriviaController.addTriviaList(params);
+
+    results['success'] = Array.isArray(res) && res.length > 0 ? true : false;
+    ctx.response.body = results;
+});
+
+
+triviaRouter.post('/update', async ctx => {
+    const scheme = trivia_scheme.keys({
+        id: Joi.number().integer().required(),
+    });
+    let results = {
+        success: true,
+    };
+    const params = await scheme.validateAsync(ctx.request.body);
+    const res = await TriviaController.updateTriviaList(params);
 
     results['success'] = Array.isArray(res) && res.length > 0 ? true : false;
     ctx.response.body = results;
