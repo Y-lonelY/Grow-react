@@ -29,3 +29,65 @@ export const focusData = {
         ]
     }
 }
+
+export const triviaGroup = {
+    "success": true,
+    "data": {
+        "list": [
+            {
+                "id": 1,
+                "name": "unknown",
+                "status": 1
+            },
+            {
+                "id": 3,
+                "name": "111111",
+                "status": 1
+            }
+        ]
+    }
+}
+
+export const triviaList = {
+    "success": true,
+    "data": {
+        "list": [
+            {
+                "id": 1,
+                "details": "test",
+                "link": "test",
+                "user": "yh",
+                "group": 1,
+                "name": "unknown",
+                "last_update": "2019-11-22 11:04:32"
+            },
+            {
+                "id": 2,
+                "details": "t",
+                "link": null,
+                "user": "yh",
+                "group": 1,
+                "name": "unknown",
+                "last_update": "2019-11-22 21:02:27"
+            },
+            {
+                "id": 3,
+                "details": "111111",
+                "link": "",
+                "user": "undefined",
+                "group": 1,
+                "name": "unknown",
+                "last_update": "2019-11-22 22:36:52"
+            },
+            {
+                "id": 4,
+                "details": "qwer",
+                "link": "",
+                "user": "yh",
+                "group": 1,
+                "name": "unknown",
+                "last_update": "2019-11-23 17:52:00"
+            }
+        ]
+    }
+}

@@ -1,4 +1,5 @@
 import sequelizeCase from "M/mysqlSequelize";
+import moment from 'moment';
 
 /**
  * 获取 trivia group list
@@ -97,6 +98,7 @@ export async function updateTriviaList(params) {
  * @param {group} group id，如果为 -127 则查询全部
  */
 export async function getTriviaList(params) {
+    let list = [];
     let where_sql = '';
     if (params.group !== -127) {
         where_sql = `AND t1.\`group\` = 1 `;
@@ -116,6 +118,10 @@ export async function getTriviaList(params) {
         sql: sql,
         type: 'select'
     });
+    list = res.map(item => {
+        item['last_update'] = moment(item.last_update).add(8, 'h').format('YYYY-MM-DD HH:mm:ss');
+        return item;
+    })
     return res;
 }
 

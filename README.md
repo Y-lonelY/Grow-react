@@ -124,7 +124,10 @@
 
 [react]
 - 调整 service 架构，根据 module 进行区分
-- 添加 triviaService
+- 封装 triviaService 接口调用
+
+[koa]
+- 解决针对 TIMESTAMP 时间类型的解析
 
 ### 2019-11-22
 
