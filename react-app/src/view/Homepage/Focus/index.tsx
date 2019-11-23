@@ -29,7 +29,7 @@ class FocusView extends React.Component<focusProps, focusState> {
                 <div className='focus-empty'>
                     <p>
                         脑海里充斥着各种想法的状态，被称为<span className='bold'>猴子思维</span>
-                        ，一旦杂念占据大脑，会导致大脑极易疲劳
+                        ，一旦杂念占据大脑，会导致大脑极易疲劳！
                     </p>
                     <p>
                         <Button className='add' onClick={this.showPannel.bind(this, 'add')} type='default' size='small'>专注</Button>

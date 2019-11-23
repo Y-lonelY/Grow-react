@@ -17,7 +17,7 @@ export function SuperEmpty(props) {
         <Empty
             style={styleObject}
             image={Empty.PRESENTED_IMAGE_SIMPLE}
-            description="暂无数据" >
+            description="暂无数据">
         </Empty>
     );
 }

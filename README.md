@@ -125,6 +125,7 @@
 [react]
 - 调整 service 架构，根据 module 进行区分
 - 封装 triviaService 接口调用
+- 开发 trivia 模块空状态和初始化状态
 
 [koa]
 - 解决针对 TIMESTAMP 时间类型的解析
