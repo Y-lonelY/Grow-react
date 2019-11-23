@@ -4,7 +4,7 @@ import { Header } from '@/components/Override';
 import { connect } from 'react-redux';
 import { focusProps } from '@/index.d.ts';
 import { changeFocusList, changeFocusType } from '@/store/Exercise/action';
-import { getFocusList } from '@/service/exerciseService';
+import { getFocusList } from '@/service/homepage/focusService';
 import DrawerView from './drawerView';
 
 interface focusState {

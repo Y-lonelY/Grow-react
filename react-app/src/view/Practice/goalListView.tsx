@@ -3,7 +3,7 @@ import { Collapse, Icon, Col, Row, Progress, Statistic, Button } from 'antd';
 import { SuperEmpty, SuperIcon } from '@/components/Override';
 import { connect } from 'react-redux';
 import { changeGoalList } from '@/store/Exercise/action';
-import { getGoalList } from '@/service/exerciseService';
+import { getGoalList } from '@/service/practice/service';
 import { GoalListProps, GoalListState } from '@/index.d.ts';
 import moment from 'moment';
 

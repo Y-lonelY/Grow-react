@@ -6,7 +6,7 @@ import { FormComponentProps } from 'antd/es/form';
 import { connect } from 'react-redux';
 import { changeFocusList, changeFocusType } from '@/store/Exercise/action';
 import { focusProps, focusItem } from '@/index.d.ts';
-import { addFocusRecord, getFocusList, editFocusRecord } from '@/service/exerciseService';
+import { addFocusRecord, getFocusList, editFocusRecord } from '@/service/homepage/focusService';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
 

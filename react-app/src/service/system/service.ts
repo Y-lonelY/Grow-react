@@ -1,4 +1,4 @@
-import { post } from '../cluster/request';
+import { post } from '@/cluster/request';
 import { config } from '@/config/sysConfig';
 import { ErrorParams } from '@/index.d.ts';
 

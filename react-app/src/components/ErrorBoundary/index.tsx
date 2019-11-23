@@ -1,6 +1,6 @@
 import React from 'react';
 import { ErrorParams } from '@/index.d.ts';
-import { addErrorRecord } from '@/service/systemService';
+import { addErrorRecord } from '@/service/system/service';
 
 interface ErrorBoundaryState {
     hasError: boolean;

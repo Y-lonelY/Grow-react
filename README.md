@@ -120,6 +120,12 @@
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
+### 2019-11-23
+
+[react]
+- 调整 service 架构，根据 module 进行区分
+- 添加 triviaService
+
 ### 2019-11-22
 
 [koa]
