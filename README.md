@@ -120,6 +120,11 @@
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
+### 2019-11-24
+
+[react]
+- 使用 useReducer 来控制多个 state，同时结合 context 来使其在组件内共享
+
 ### 2019-11-23
 
 [react]

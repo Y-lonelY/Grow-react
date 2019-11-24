@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useReducer } from 'react';
 import { Button, Drawer } from 'antd';
+import { TriviaContext } from './context';
+import { DrawerContent } from './Drawer';
 import { LocaleContext } from '@/cluster/context';
 import { Header } from '@/components/Override';
 import { getTriviaList } from '@/service/homepage/triviaService';
@@ -20,24 +22,62 @@ function RenderEmpty(props) {
     )
 }
 
+function reducer(state, action) {
+    switch (action.type) {
+        case 'showPanel':
+            return {
+                ...state,
+                visible: true,
+                panelType: action.panelType,
+                current: action.current ? action.current : -127
+            };
+        case 'triviaList':
+            return {
+                ...state,
+                triviaList: action.triviaList
+            };
+        case 'closePanel':
+            return {
+                ...state,
+                visible: false
+            };
+        default:
+            break;
+    }
+}
+
 function TriviaView(props) {
     const { locale, assets } = useContext(LocaleContext);
-    const [visible, setVisible] = useState(false);
-    const [triviaList, setTriviaList] = useState([]);
+    const initState = {
+        triviaList: [],
+        type: 'add',
+        current: -127,
+        visible: false
+    };
+    const [state, dispatch] = useReducer(reducer, initState)
 
     const initTriviaList = async (params = { group: -127 }) => {
         const res = await getTriviaList(params);
         if (res.success) {
-            setTriviaList(res.data.list);
+            dispatch({
+                type: 'triviaList',
+                triviaList: res.data.list
+            });
         }
     }
 
     const drawerClose = () => {
-        setVisible(false);
+        dispatch({
+            type: 'closePanel'
+        });
     }
 
     const showPannel = (type: string) => {
-        setVisible(true);
+        dispatch({
+            type: 'showPanel',
+            panelType: 'add',
+            current: -127
+        });
     }
 
     useEffect(() => {
@@ -45,18 +85,22 @@ function TriviaView(props) {
     }, []);
 
     return (
-        <div className='triviaView'>
-            <Header {...props.head} />
-            <RenderEmpty close={showPannel} />
-            <Drawer
-                className='triviaDrawer'
-                width={400}
-                closable={false}
-                visible={visible}
-                onClose={drawerClose}>
-
-            </Drawer>
-        </div>
+        <TriviaContext.Provider value={{ state, dispatch }}>
+            <div className='triviaView'>
+                <Header {...props.head} />
+                {state.triviaList.length > 0 ?
+                    <div>111</div> : <RenderEmpty close={showPannel} />
+                }
+                <Drawer
+                    className='triviaDrawer'
+                    width={400}
+                    closable={false}
+                    visible={state.visible}
+                    onClose={drawerClose}>
+                    <DrawerContent />
+                </Drawer>
+            </div>
+        </TriviaContext.Provider>
     );
 }
 
