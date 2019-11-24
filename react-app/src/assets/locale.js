@@ -1,5 +1,7 @@
 export const locale = {
     'zh_cn': {
+        group: '分组',
+        link: '链接',
         mainTitle: 'growth',
         mock: '虚拟数据',
         add: '添加',
@@ -17,6 +19,9 @@ export const locale = {
         denormalization: '去归一化',
         update: '同步',
         all: '全部',
+        placeholder: {
+            link: '请输入相关链接'
+        },
         headerItems: [{
             id: 1,
             label: '勤练',
@@ -92,6 +97,8 @@ export const locale = {
         }
     },
     'en_us': {
+        group: 'group',
+        link: 'link',
         mainTitle: 'growth',
         mock: 'use mock',
         add: 'add',
@@ -109,6 +116,9 @@ export const locale = {
         denormalization: 'denormalization',
         update: 'update',
         all: 'all options',
+        placeholder: {
+            link: 'input related link'
+        },
         headerItems: [{
             id: 1,
             label: 'practice',

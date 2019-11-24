@@ -8,13 +8,8 @@ interface TriviaContext {
 
 export const TriviaContext = React.createContext<TriviaContext>({
     state: {
-        triviaList: [{
-            details: '',
-            link: '',
-            user: 'yh',
-            group: 1,
-            name: 'unknown',
-        }],
+        triviaList: [],
+        groupList: [],
         panelType: '',
         current: -127,
         visible: true,

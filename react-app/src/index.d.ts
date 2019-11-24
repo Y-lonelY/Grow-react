@@ -216,8 +216,15 @@ export interface TriviaData {
     last_update?: string;
 }
 
+export interface TriviaGroupData {
+    id?: number;
+    name?: string;
+    status?: number;
+}
+
 export interface TriviaState {
-    triviaList: TriviaData[];
+    triviaList: TriviaData[] | [];
+    groupList: TriviaGroupData[];
     panelType: string;
     current: number;
     visible: boolean;

@@ -126,6 +126,7 @@
 - 使用 useReducer 来控制多个 state，同时结合 context 来使其在组件内共享
 - react hook 结合 typescript 使用，注意运用范性
 - 添加 drawer 组件，区分 add/edit 展示
+- 展示和编辑页面添加 group 筛选
 
 ### 2019-11-23
 

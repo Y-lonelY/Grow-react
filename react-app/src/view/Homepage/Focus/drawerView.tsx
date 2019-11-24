@@ -73,7 +73,7 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                                     message: 'title is required!',
                                     max: 255
                                 }]
-                            })(<Input placeholder={`${assets.add}${assets.title}`} size='small' />)
+                            })(<Input placeholder={`${assets.add} ${assets.title}`} size='small' />)
                             }
                         </Form.Item>
                         <Form.Item label={assets.start}>
@@ -95,7 +95,7 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                         <Form.Item label={assets.details}>
                             {getFieldDecorator('details', {
                                 initialValue: initValues.details
-                            })(<TextArea rows={3} placeholder={`${assets.add}${assets.details}`} />)
+                            })(<TextArea rows={3} placeholder={`${assets.add} ${assets.details}`} />)
                             }
                         </Form.Item>
                         <Form.Item label={assets.end}>
