@@ -38,15 +38,16 @@ class FocusView extends React.Component<focusProps, focusState> {
                 </div>
             );
         };
+        let headConfig = this.props.head;
 
         if (list.length > 0) {
-            this.props.head.showAddBtn = true;
-            this.props.head.addEvent = this.showPannel;
+            headConfig.showAddBtn = true;
+            headConfig.addEvent = this.showPannel;
         }
 
         return (
             <div className='focusView'>
-                <Header {...this.props.head} />
+                <Header {...headConfig} />
                 {list.length > 0 ?
                     <List
                         grid={{ gutter: 16, column: 6 }}

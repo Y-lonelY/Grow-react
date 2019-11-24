@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext, useReducer } from 'react';
-import { Button, Drawer } from 'antd';
+import { Button, Drawer, List, Card, Typography, Icon, Col, Row } from 'antd';
 import { TriviaContext } from './context';
 import { DrawerContent } from './Drawer';
 import { LocaleContext } from '@/cluster/context';
 import { Header } from '@/components/Override';
 import { getTriviaList } from '@/service/homepage/triviaService';
+import { TriviaState } from '@/index.d.ts';
 
 function RenderEmpty(props) {
     return (
@@ -15,14 +16,14 @@ function RenderEmpty(props) {
                     className='add'
                     type='default'
                     size='small'
-                    onClick={props.close.bind('add')}>添加</Button>
+                    onClick={props.event.bind('add')}>添加</Button>
                 知识碎片，但是切忌知识焦虑！
             </p>
         </div>
     )
 }
 
-function reducer(state, action) {
+function reducer(state: TriviaState, action): TriviaState {
     switch (action.type) {
         case 'showPanel':
             return {
@@ -48,14 +49,15 @@ function reducer(state, action) {
 
 function TriviaView(props) {
     const { locale, assets } = useContext(LocaleContext);
+    let headConfig = props.head;
     const initState = {
         triviaList: [],
-        type: 'add',
+        panelType: 'add',
         current: -127,
         visible: false
     };
     const [state, dispatch] = useReducer(reducer, initState)
-
+    const { Paragraph } = Typography;
     const initTriviaList = async (params = { group: -127 }) => {
         const res = await getTriviaList(params);
         if (res.success) {
@@ -64,32 +66,72 @@ function TriviaView(props) {
                 triviaList: res.data.list
             });
         }
-    }
+    };
 
     const drawerClose = () => {
         dispatch({
             type: 'closePanel'
         });
-    }
+    };
 
-    const showPannel = (type: string) => {
+    const showPannel = (type?: string, id = -127) => {
         dispatch({
             type: 'showPanel',
-            panelType: 'add',
-            current: -127
+            panelType: type,
+            current: id
         });
+    };
+
+    const jumpLink = (link: string): void => {
+        window.open(link, 'blank');
     }
 
     useEffect(() => {
         initTriviaList();
     }, []);
 
+    if (state.triviaList.length > 0) {
+        headConfig.showAddBtn = true;
+        headConfig.addEvent = showPannel;
+    }
+
     return (
         <TriviaContext.Provider value={{ state, dispatch }}>
             <div className='triviaView'>
-                <Header {...props.head} />
+                <Header {...headConfig} />
                 {state.triviaList.length > 0 ?
-                    <div>111</div> : <RenderEmpty close={showPannel} />
+                    <List
+                        className='list'
+                        grid={{ gutter: 16, column: 4 }}
+                        dataSource={state.triviaList}
+                        renderItem={item => (
+                            <List.Item>
+                                <Card
+                                    className='card'
+                                    size='small'
+                                    hoverable={true}>
+                                    <Row className='name' type='flex' justify='space-between'>
+                                        <Col span={16}>
+                                            <span className='label'>{item.name}</span>
+                                        </Col>
+                                        <Col className='btn-box' span={8}>
+                                            {(item.link && item.link.length > 0) &&
+                                                <Button size='small' type='link' onClick={jumpLink.bind(this, item.link)}>
+                                                    <Icon type='link' />
+                                                </Button>
+                                            }
+                                            <Button size='small' type='link' onClick={showPannel.bind(this, 'edit', item.id)}>
+                                                <Icon type='form' />
+                                            </Button>
+                                        </Col>
+                                    </Row>
+                                    <Paragraph className='details' copyable>{item.details}</Paragraph>
+                                    <Row className='footer' type='flex' justify='end'>
+                                        <Col className='message'>{item.user} 创建于 {item.last_update}</Col>
+                                    </Row>
+                                </Card>
+                            </List.Item>
+                        )} /> : <RenderEmpty event={showPannel} />
                 }
                 <Drawer
                     className='triviaDrawer'
@@ -97,7 +139,7 @@ function TriviaView(props) {
                     closable={false}
                     visible={state.visible}
                     onClose={drawerClose}>
-                    <DrawerContent />
+                    <DrawerContent className='content' />
                 </Drawer>
             </div>
         </TriviaContext.Provider>

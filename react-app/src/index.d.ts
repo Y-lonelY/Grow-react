@@ -205,6 +205,23 @@ export interface focusProps {
     changeFocusType: (type: string) => focusAction;
 }
 
+// trivia module
+export interface TriviaData {
+    id?: number;
+    details: string;
+    link: string;
+    user: string;
+    group: number;
+    name: string;
+    last_update?: string;
+}
+
+export interface TriviaState {
+    triviaList: TriviaData[];
+    panelType: string;
+    current: number;
+    visible: boolean;
+}
 
 // 用于各个模块的action.type类型检查
 

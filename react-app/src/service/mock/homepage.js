@@ -54,8 +54,8 @@ export const triviaList = {
         "list": [
             {
                 "id": 1,
-                "details": "test",
-                "link": "test",
+                "details": "React 会等待浏览器完成画面渲染之后才会延迟调用 useEffect",
+                "link": "https://zh-hans.reactjs.org/docs/hooks-reference.html#usestate",
                 "user": "yh",
                 "group": 1,
                 "name": "unknown",
@@ -63,7 +63,7 @@ export const triviaList = {
             },
             {
                 "id": 2,
-                "details": "t",
+                "details": "Hook 是一个特殊的函数，它可以让你“钩入” React 的特性，也就是说，可以让本身不具备 state 属性的函数组件，能够使用 state 等 react 特性Hook 是一个特殊的函数，它可以让你“钩入” React 的特性，也就是说，可以让本身不具备 state 属性的函数组件，能够使用 state 等 react 特性",
                 "link": null,
                 "user": "yh",
                 "group": 1,

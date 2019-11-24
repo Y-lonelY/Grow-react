@@ -80,7 +80,7 @@ export const locale = {
                         fontSize: '18px'
                     }
                 },
-                title: '碎片',
+                title: '知识碎片',
                 showAddBtn: false,
             }
         },
