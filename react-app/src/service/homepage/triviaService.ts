@@ -5,6 +5,11 @@ import { message } from 'antd';
 
 const useMock = config.useMock === 'false' ? false : true;
 
+/**
+ * 添加 trivia group record
+ * @param {name} 记录名称
+ * @param {status} 是否允许修改 0-允许修改 1-不允许修改
+ */
 export const addTriviaGroupItem = async (params) => {
     const res = useMock ? await addData : await post('trivia/group/add', params);
     if (!res.success) {

@@ -101,7 +101,7 @@ export async function getTriviaList(params) {
     let list = [];
     let where_sql = '';
     if (params.group !== -127) {
-        where_sql = `AND t1.\`group\` = 1 `;
+        where_sql = `AND t1.\`group\` = ${params.group} `;
     }
     const sql = `SELECT
     t1.id,

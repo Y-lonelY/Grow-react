@@ -20,7 +20,8 @@ export const locale = {
         update: '同步',
         all: '全部',
         placeholder: {
-            link: '请输入相关链接'
+            link: '请输入相关链接',
+            addGroup: '输入分组'
         },
         headerItems: [{
             id: 1,
@@ -117,7 +118,8 @@ export const locale = {
         update: 'update',
         all: 'all options',
         placeholder: {
-            link: 'input related link'
+            link: 'input related link',
+            addGroup: 'input group name'
         },
         headerItems: [{
             id: 1,

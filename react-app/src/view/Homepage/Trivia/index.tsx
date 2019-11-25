@@ -178,7 +178,7 @@ function TriviaView(props) {
                     closable={false}
                     visible={state.visible}
                     onClose={drawerClose}>
-                    <DrawerContent className='content' />
+                    <DrawerContent className='content' initTriviaGroup={initTriviaGroup} />
                 </Drawer>
             </div>
         </TriviaContext.Provider>
