@@ -44,6 +44,15 @@ export const getTriviaList = async (params) => {
     return res;
 }
 
+/**
+ * 修改 trivia record
+ * @id 记录 id
+ * @details 详情
+ * @link 相关连接
+ * @status 是否展示
+ * @user 最后修改者
+ * @group 所在分组
+ */
 export const updateTrivia = async (params) => {
     const res = useMock ? await addData : await post('trivia/update', params);
     if (!res.success) {
@@ -52,6 +61,14 @@ export const updateTrivia = async (params) => {
     return res;
 }
 
+/**
+ * 添加 trivia record
+ * @details 详情
+ * @link 相关连接
+ * @status 是否展示
+ * @user 最后修改者
+ * @group 所在分组
+ */
 export const addTrivia = async (params) => {
     const res = useMock ? await addData : await post('trivia/add', params);
     if (!res.success) {

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Form, Input, Row, Col, Button, Icon, Select, Divider } from 'antd';
+import { Form, Input, Row, Col, Button, Icon, Select, Divider, message } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
 import { LocaleContext } from '@/cluster/context';
 import { TriviaContext } from './context';
-import { addTriviaGroupItem, updateTriviaGroupItem } from '@/service/homepage/triviaService';
+import { addTriviaGroupItem, updateTriviaGroupItem, addTrivia, updateTrivia } from '@/service/homepage/triviaService';
 import { TriviaState, TriviaData } from '@/index.d.ts';
 
 interface TriviaDrawerProps extends FormComponentProps {
@@ -46,10 +46,12 @@ function Drawer(props) {
         wrapperCol: { span: 20 }
     };
     const type = state.panelType;
-    const { getFieldDecorator, validateFields } = props.form;
+    const { getFieldDecorator, validateFields, resetFields } = props.form;
     const setInitFormData = () => {
-        state.triviaList.forEach(item => {
+        const list: TriviaData[] = state.triviaList;
+        list.forEach(item => {
             if (item.id === state.current) {
+                resetFields();
                 setFormData(item);
             }
         })
@@ -112,16 +114,52 @@ function Drawer(props) {
             });
         }
         if (res.success) {
-            props.initTriviaGroup();
+            await props.initTriviaGroup();
             addGroupItem();
         }
     }
 
     const submit = (e) => {
-        let params = {};
-        validateFields((err, values) => {
+        validateFields(async (err, values) => {
             if (!err) {
-                console.log(values);
+                let params = {
+                    status: 1,
+                    user: 'yh',
+                };
+                console.log(state);
+                if (state.panelType === 'add') {
+                    params['details'] = values.details;
+                    params['group'] = values.group;
+                    params['link'] = values.link;
+                    console.log(params);
+                    const res = await addTrivia(params);
+                    if (res.success) {
+                        dispatch({
+                            type: 'closePanel'
+                        });
+                        message.success('添加成功', 2);
+                        dispatch({
+                            type: 'groupChange',
+                            group: values.group
+                        });
+                    }
+                } else if (state.panelType === 'edit') {
+                    params['details'] = values.details;
+                    params['group'] = values.group;
+                    params['link'] = values.link;
+                    params['id'] = Number(state.current);
+                    const res = await updateTrivia(params);
+                    if (res.success) {
+                        dispatch({
+                            type: 'closePanel'
+                        });
+                        message.success('更新成功', 2);
+                        dispatch({
+                            type: 'groupChange',
+                            group: values.group
+                        });
+                    }
+                }
             }
         });
     };

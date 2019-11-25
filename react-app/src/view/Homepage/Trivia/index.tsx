@@ -4,7 +4,7 @@ import { TriviaContext } from './context';
 import { DrawerContent } from './Drawer';
 import { LocaleContext } from '@/cluster/context';
 import { Header } from '@/components/Override';
-import { getTriviaList, getTriviaGroupList } from '@/service/homepage/triviaService';
+import { getTriviaList, getTriviaGroupList, updateTrivia } from '@/service/homepage/triviaService';
 import { TriviaState } from '@/index.d.ts';
 
 const { Option } = Select;
@@ -18,7 +18,7 @@ function RenderEmpty(props) {
                     className='add'
                     type='default'
                     size='small'
-                    onClick={props.event.bind('add')}>添加</Button>
+                    onClick={props.event.bind(this, 'add')}>添加</Button>
                 知识碎片，但是切忌知识焦虑！
             </p>
         </div>
@@ -49,24 +49,33 @@ function reducer(state: TriviaState, action): TriviaState {
                 ...state,
                 groupList: action.groupList
             };
+        case 'groupChange':
+            return {
+                ...state,
+                group: action.group
+            };
         default:
             break;
     }
 }
 
 function TriviaView(props) {
-    const { locale, assets } = useContext(LocaleContext);
+    const { assets } = useContext(LocaleContext);
     let headConfig = props.head;
     const initState = {
         triviaList: [],
         groupList: [],
+        group: -127,
         panelType: 'add',
         current: -127,
         visible: false
     };
     const [state, dispatch] = useReducer(reducer, initState)
     const { Paragraph } = Typography;
-    const initTriviaList = async (params = { group: -127 }) => {
+    const initTriviaList = async () => {
+        const params = {
+            group: state.group
+        };
         const res = await getTriviaList(params);
         if (res.success) {
             dispatch({
@@ -97,18 +106,33 @@ function TriviaView(props) {
         });
     };
     const selectTrivia = (value: string) => {
-        initTriviaList({
+        dispatch({
+            type: 'groupChange',
             group: Number(value)
         });
     }
     const jumpLink = (link: string): void => {
         window.open(link, 'blank');
     }
+    const deleteTrivia = async (item) => {
+        const params = Object.assign({}, item);
+        params.status = 0;
+        delete params.last_update;
+        delete params.name;
+
+        const res = await updateTrivia(params);
+        if (res.success) {
+            initTriviaList();
+        }
+    }
+
+    useEffect(() => {
+        initTriviaGroup();
+    }, []);
 
     useEffect(() => {
         initTriviaList();
-        initTriviaGroup();
-    }, []);
+    }, [state.group]);
 
     if (state.triviaList.length > 0) {
         headConfig.showAddBtn = true;
@@ -119,23 +143,25 @@ function TriviaView(props) {
         <TriviaContext.Provider value={{ state, dispatch }}>
             <div className='triviaView'>
                 <Header {...headConfig} />
+                <Row>
+                    <Col className='headerBar'>
+                        <Select
+                            className='triviaSelect'
+                            defaultValue={assets.all}
+                            size='small'
+                            onChange={selectTrivia}
+                            showSearch>
+                            <Option value='-127'>{assets.all}</Option>
+                            {state.groupList.map((item, index) => {
+                                return (
+                                    <Option value={item.id} key={index}>{item.name}</Option>
+                                );
+                            })}
+                        </Select>
+                    </Col>
+                </Row>
                 {state.triviaList.length > 0 ?
                     <Row>
-                        <Col className='headerBar'>
-                            <Select
-                                className='triviaSelect'
-                                defaultValue='-127'
-                                size='small'
-                                onChange={selectTrivia}
-                                showSearch>
-                                <Option value='-127'>{assets.all}</Option>
-                                {state.groupList.map((item, index) => {
-                                    return (
-                                        <Option value={item.id} key={index}>{item.name}</Option>
-                                    );
-                                })}
-                            </Select>
-                        </Col>
                         <Col>
                             <List
                                 className='list'
@@ -153,12 +179,15 @@ function TriviaView(props) {
                                                 </Col>
                                                 <Col className='btn-box' span={8}>
                                                     {(item.link && item.link.length > 0) &&
-                                                        <Button size='small' type='link' onClick={jumpLink.bind(this, item.link)}>
+                                                        <Button className='button' size='small' type='link' onClick={jumpLink.bind(this, item.link)}>
                                                             <Icon type='link' />
                                                         </Button>
                                                     }
-                                                    <Button size='small' type='link' onClick={showPannel.bind(this, 'edit', item.id)}>
+                                                    <Button className='button' size='small' type='link' onClick={showPannel.bind(this, 'edit', item.id)}>
                                                         <Icon type='form' />
+                                                    </Button>
+                                                    <Button className='button' size='small' type='link' onClick={deleteTrivia.bind(this, item)}>
+                                                        <Icon type='delete' />
                                                     </Button>
                                                 </Col>
                                             </Row>
@@ -178,7 +207,9 @@ function TriviaView(props) {
                     closable={false}
                     visible={state.visible}
                     onClose={drawerClose}>
-                    <DrawerContent className='content' initTriviaGroup={initTriviaGroup} />
+                    <DrawerContent
+                        className='content'
+                        initTriviaGroup={initTriviaGroup} />
                 </Drawer>
             </div>
         </TriviaContext.Provider>

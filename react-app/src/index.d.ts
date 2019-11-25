@@ -207,7 +207,7 @@ export interface focusProps {
 
 // trivia module
 export interface TriviaData {
-    id?: number;
+    id: number;
     details: string;
     link: string;
     user: string;
@@ -225,6 +225,7 @@ export interface TriviaGroupData {
 export interface TriviaState {
     triviaList: TriviaData[] | [];
     groupList: TriviaGroupData[];
+    group: number;
     panelType: string;
     current: number;
     visible: boolean;
