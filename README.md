@@ -129,6 +129,9 @@
 - 解决 select 受控组件展示选中项的问题
 - app.scss 添加 antd 公共样式的修改
 
+[koa]
+- focus list 按照添加时间倒序排列
+
 沉淀 react hook 在实际开发中的应用
 
 学习 white-space 属性

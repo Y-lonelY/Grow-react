@@ -73,7 +73,6 @@ function TriviaView(props) {
         groupList: [],
         group: -127,
         groupMap: {},
-        groupColors: {},
         panelType: 'add',
         current: -127,
         visible: false

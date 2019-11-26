@@ -24,9 +24,11 @@ async function addFocuxRecord(params) {
 async function getFocusRecord(params) {
     let list = [];
     let sql = 'SELECT * FROM `gro-up`.`focus`';
+    let where_sql = '';
     if (params.status !== -127) {
-        sql = sql + ` WHERE status = ${params.status}`;
+        where_sql = ` WHERE status = ${params.status}`;
     }
+    sql = sql + where_sql + ' ORDER BY `start_date` DESC'
     const res = await sequelizeCase.query({ sql: sql, type: 'select' });
     list = res.map(item => {
         delete item.last_update;
