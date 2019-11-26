@@ -50,10 +50,10 @@ class App extends React.Component<{}, AppState> {
                 <BrowserRouter>
                     <LocaleContext.Provider value={this.state}>
                         <ConfigProvider locale={this.state.locale === 'zh_cn' ? zh_CN : en_US}>
-                            <div className={`homeBox ${systemConfig.hugeScreen ? 'max' : 'mac'}`}>
-                                <Layout className="home-con">
+                            <div className={`main ${systemConfig.hugeScreen ? 'max' : 'mac'}`}>
+                                <Layout className="layout">
                                     <FlowHeader></FlowHeader>
-                                    <Content className='dash-content'>
+                                    <Content className='content'>
                                         {/* 路由主体 */}
                                         <Router />
                                         {/* 路由主体 */}

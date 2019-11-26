@@ -120,6 +120,19 @@
 4. log 日志集成
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
+
+### 2019-11-26
+
+[react]
+- 优化 focusView 样式，展示四行details
+- 添加 languagesColors 用于控制 label 展示
+- 解决 select 受控组件展示选中项的问题
+- app.scss 添加 antd 公共样式的修改
+
+沉淀 react hook 在实际开发中的应用
+
+学习 white-space 属性
+
 ### 2019-11-25
 
 [react]

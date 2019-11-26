@@ -1,11 +1,11 @@
 @import '@/common.scss';
 
-.homeBox {
-    .home-con {
+.main {
+    .layout {
         background: {
             color: #ffffff;
         }
-        .dash-content {
+        .content {
             margin: 10px auto;
             width: 100%;
             padding: 0 50px;
@@ -13,6 +13,13 @@
                 color: #ffffff;
             }
         }
+    }
+
+    // antd change style
+    .ant-select {
+        font: {
+            size: 12px;
+        };
     }
 }
 

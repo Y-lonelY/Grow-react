@@ -10,6 +10,7 @@ export const TriviaContext = React.createContext<TriviaContext>({
     state: {
         triviaList: [],
         groupList: [],
+        groupMap: {},
         group: -127,
         panelType: '',
         current: -127,

@@ -226,6 +226,7 @@ export interface TriviaState {
     triviaList: TriviaData[] | [];
     groupList: TriviaGroupData[];
     group: number;
+    groupMap: {};
     panelType: string;
     current: number;
     visible: boolean;

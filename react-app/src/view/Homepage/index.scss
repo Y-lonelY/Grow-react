@@ -19,12 +19,15 @@
 
     .card {
       border-radius: 8px;
-      height: 144px;
+      height: 150px;
       .start {
         font-size: 12px;
       }
+      .ant-card-body {
+        padding: 12px 12px 0 12px;
+      }
       .details {
-        max-height: 36px;
+        max-height: 54px;
         font-size: 12px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -53,12 +56,13 @@
     }
     .list {
       .card {
+        border-radius: 8px;
         .name {
           .label {
             padding: 2px 5px;
             text-transform: capitalize;
             border-radius: 3px;
-            background-color: $gray;
+            color: #fff;
           }
           .btn-box {
             display: flex;
@@ -66,12 +70,17 @@
             flex-wrap: nowrap;
             justify-content: flex-end;
             .button {
+              color: rgba(0, 0, 0, 0.65);
               padding: 0 3px;
+              &:hover {
+                color: $blue;
+              }
             }
           }
         }
         .details {
-          height: 96px;
+          height: 138px;
+          margin-top: 8px;
           overflow: auto;
           text-indent: 12px;
           font-size: 12px;
@@ -85,7 +94,7 @@
         }
         .footer {
           .message {
-            color: $vlone;
+            color: $blue;
             font-size: 12px;
           }
         }
@@ -101,6 +110,7 @@
     .ant-input,
     .ant-calendar-picker-input,
     .ant-btn-sm,
+    .ant-select,
     .ant-radio-wrapper {
       font-size: 12px;
     }

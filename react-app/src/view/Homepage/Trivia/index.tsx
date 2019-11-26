@@ -5,6 +5,7 @@ import { DrawerContent } from './Drawer';
 import { LocaleContext } from '@/cluster/context';
 import { Header } from '@/components/Override';
 import { getTriviaList, getTriviaGroupList, updateTrivia } from '@/service/homepage/triviaService';
+import { languageColors } from '@/config/bizchartTheme';
 import { TriviaState } from '@/index.d.ts';
 
 const { Option } = Select;
@@ -54,6 +55,11 @@ function reducer(state: TriviaState, action): TriviaState {
                 ...state,
                 group: action.group
             };
+        case 'setGroupMap':
+            return {
+                ...state,
+                groupMap: action.groupMap
+            };
         default:
             break;
     }
@@ -66,6 +72,8 @@ function TriviaView(props) {
         triviaList: [],
         groupList: [],
         group: -127,
+        groupMap: {},
+        groupColors: {},
         panelType: 'add',
         current: -127,
         visible: false
@@ -91,8 +99,21 @@ function TriviaView(props) {
                 groupList: res.data.list,
                 type: 'groupList'
             });
+            initGroupMap(res.data.list);
         }
     };
+    const initGroupMap = (list) => {
+        let map = {
+            '-127': assets.all,
+        };
+        list.forEach(item => {
+            map[String(item.id)] = item.name;
+        })
+        dispatch({
+            type: 'setGroupMap',
+            groupMap: map
+        });
+    }
     const drawerClose = () => {
         dispatch({
             type: 'closePanel'
@@ -147,7 +168,7 @@ function TriviaView(props) {
                     <Col className='headerBar'>
                         <Select
                             className='triviaSelect'
-                            defaultValue={assets.all}
+                            value={state.groupMap[String(state.group)]}
                             size='small'
                             onChange={selectTrivia}
                             showSearch>
@@ -175,7 +196,7 @@ function TriviaView(props) {
                                             hoverable={true}>
                                             <Row className='name' type='flex' justify='space-between'>
                                                 <Col span={16}>
-                                                    <span className='label'>{item.name}</span>
+                                                    <span className='label' style={{ backgroundColor: languageColors[item.name.toLocaleLowerCase()]}}>{item.name}</span>
                                                 </Col>
                                                 <Col className='btn-box' span={8}>
                                                     {(item.link && item.link.length > 0) &&
