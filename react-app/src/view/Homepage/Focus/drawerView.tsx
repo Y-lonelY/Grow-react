@@ -5,10 +5,10 @@ import { formatSeconds } from '@/components/Utils';
 import { FormComponentProps } from 'antd/es/form';
 import { connect } from 'react-redux';
 import { changeFocusList, changeFocusType } from '@/store/Exercise/action';
-import { focusProps, focusItem } from '@/index.d.ts';
 import { addFocusRecord, getFocusList, editFocusRecord } from '@/service/homepage/focusService';
-import locale from 'antd/es/date-picker/locale/zh_CN';
+import { priorityColors } from '@/config/colors';
 import moment from 'moment';
+import { focusProps, focusItem } from '@/index.d.ts';
 
 interface DrawerViewProps extends FormComponentProps, focusProps {
     className?: string;
@@ -85,7 +85,6 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                                 }]
                             })(<DatePicker
                                 size='small'
-                                locale={locale}
                                 allowClear={false}
                                 showToday={false}
                                 disabledDate={(date) => { return date && date > moment().endOf('days') }}
@@ -103,7 +102,6 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
                                 initialValue: initValues.end_date,
                             })(<DatePicker
                                 size='small'
-                                locale={locale}
                                 allowClear={true}
                             />)
                             }
@@ -295,7 +293,7 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
             const title = this.state.data.title;
             return (
                 <Row type='flex'>
-                    <div className={`priority type-${priority}`}>{assets.priorityList[priority]}</div>
+                    <div className='priority' style={{ backgroundColor: priorityColors[priority - 1]}}>{assets.priorityList[priority]}</div>
                     <div className="title">{title}</div>
                 </Row>
             );

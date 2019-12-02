@@ -8,7 +8,7 @@ import { changeProgramOverview } from '@/store/Exercise/action';
 import { StackedColumn } from '@/components/Chart';
 import ChartBar from '@/components/ChartBar';
 import { getProgramOverview, asyncWakatime } from '@/service/practice/service';
-import { rankBlueColor } from '@/config/bizchartTheme';
+import { rankBlueColor } from '@/config/colors';
 import { programOverviewProps, programOverviewState } from '@/index.d.ts';
 import moment from 'moment';
 

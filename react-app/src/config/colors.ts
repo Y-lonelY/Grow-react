@@ -22,3 +22,7 @@ export const languageColors = {
   'react': '#61dafb',
   'react hook': '#61dafb',
 }
+
+export const priorityColors: string[] = [
+  '#f5222d', '#ef613e', '#1890ff', '#52c41a'
+];

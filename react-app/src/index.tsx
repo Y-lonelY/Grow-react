@@ -4,7 +4,7 @@ import App from '@/app';
 import { Provider } from 'react-redux';
 import { hot } from 'react-hot-loader/root';
 import store from '@/store/store';
-import { Theme } from '@/config/bizchartTheme';
+import { Theme } from '@/config/colors';
 import * as serviceWorker from '@/serviceWorker';
 import '@/index.css';
 // @ts-ignore

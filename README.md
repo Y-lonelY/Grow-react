@@ -121,6 +121,16 @@
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
 
+
+
+
+
+### 2019-12-01
+
+[react]
+- 了解 white-space，修改 trivia 样式
+- 修改 focus title 样式
+
 ### 2019-11-26
 
 [react]

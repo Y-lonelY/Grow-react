@@ -20,6 +20,13 @@
     .card {
       border-radius: 8px;
       height: 150px;
+      .dark {
+        color: rgba(0, 0, 0, 0.65);
+        padding: 0 3px;
+        &:hover {
+          color: $blue;
+        }
+      }
       .start {
         font-size: 12px;
       }
@@ -69,7 +76,7 @@
             flex-direction: row;
             flex-wrap: nowrap;
             justify-content: flex-end;
-            .button {
+            .dark {
               color: rgba(0, 0, 0, 0.65);
               padding: 0 3px;
               &:hover {
@@ -84,6 +91,7 @@
           overflow: auto;
           text-indent: 12px;
           font-size: 12px;
+          white-space: pre-line;
           &:first-letter {
             font-size: 16px;
           }
@@ -142,19 +150,6 @@
         border-radius: 4px;
         color: #fff;
         font-size: 12px;
-
-        &.type-1 {
-          background-color: $error;
-        }
-        &.type-2 {
-          background-color: $vlone;
-        }
-        &.type-3 {
-          background-color: $blue;
-        }
-        &.type-4 {
-          background-color: $green;
-        }
       }
     }
     .show {

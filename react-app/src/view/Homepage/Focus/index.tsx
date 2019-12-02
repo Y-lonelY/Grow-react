@@ -2,10 +2,11 @@ import React from 'react';
 import { Button, Drawer, List, Card, Icon } from 'antd';
 import { Header } from '@/components/Override';
 import { connect } from 'react-redux';
-import { focusProps } from '@/index.d.ts';
 import { changeFocusList, changeFocusType } from '@/store/Exercise/action';
 import { getFocusList } from '@/service/homepage/focusService';
 import DrawerView from './drawerView';
+import { priorityColors } from '@/config/colors';
+import { focusProps } from '@/index.d.ts';
 
 interface focusState {
     visible: boolean;
@@ -58,7 +59,8 @@ class FocusView extends React.Component<focusProps, focusState> {
                                     size='small'
                                     className='card'
                                     hoverable={true}
-                                    extra={<Button size='small' onClick={this.showPannel.bind(this, 'show', item.id)} type='link'><Icon type="form" /></Button>}
+                                    extra={<Button className='dark' size='small' onClick={this.showPannel.bind(this, 'show', item.id)} type='link'><Icon type="form" /></Button>}
+                                    headStyle={{ color: priorityColors[item.priority - 1] }}
                                     title={item.title}>
                                     <p className='start'>{item.start_date}</p>
                                     <p className='details'>{item.details}</p>

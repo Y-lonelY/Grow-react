@@ -5,7 +5,7 @@ import { DrawerContent } from './Drawer';
 import { LocaleContext } from '@/cluster/context';
 import { Header } from '@/components/Override';
 import { getTriviaList, getTriviaGroupList, updateTrivia } from '@/service/homepage/triviaService';
-import { languageColors } from '@/config/bizchartTheme';
+import { languageColors } from '@/config/colors';
 import { TriviaState } from '@/index.d.ts';
 
 const { Option } = Select;
@@ -199,14 +199,14 @@ function TriviaView(props) {
                                                 </Col>
                                                 <Col className='btn-box' span={8}>
                                                     {(item.link && item.link.length > 0) &&
-                                                        <Button className='button' size='small' type='link' onClick={jumpLink.bind(this, item.link)}>
+                                                        <Button className='dark' size='small' type='link' onClick={jumpLink.bind(this, item.link)}>
                                                             <Icon type='link' />
                                                         </Button>
                                                     }
-                                                    <Button className='button' size='small' type='link' onClick={showPannel.bind(this, 'edit', item.id)}>
+                                                    <Button className='dark' size='small' type='link' onClick={showPannel.bind(this, 'edit', item.id)}>
                                                         <Icon type='form' />
                                                     </Button>
-                                                    <Button className='button' size='small' type='link' onClick={deleteTrivia.bind(this, item)}>
+                                                    <Button className='dark' size='small' type='link' onClick={deleteTrivia.bind(this, item)}>
                                                         <Icon type='delete' />
                                                     </Button>
                                                 </Col>

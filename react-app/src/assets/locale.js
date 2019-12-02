@@ -81,7 +81,7 @@ export const locale = {
             },
             trivia: {
                 icon: {
-                    type: 'icon-mubiao',
+                    type: 'icon-zhishi',
                     style: {
                         fontSize: '18px'
                     }
@@ -179,7 +179,7 @@ export const locale = {
             },
             trivia: {
                 icon: {
-                    type: 'icon-mubiao',
+                    type: 'icon-zhishi',
                     style: {
                         fontSize: '18px'
                     }

@@ -9,7 +9,7 @@ import GoalListView from './goalListView';
 import { Polyline, Pie } from '@/components/Chart';
 import ChartBar from "@/components/ChartBar";
 import { getDailyExerciseList, addExerciseList, getGoalList } from '@/service/practice/service';
-import { colors } from '@/config/bizchartTheme';
+import { colors } from '@/config/colors';
 import { ExerciseProps, ExerciseState, PolylineData, ExerciseTableData, PieData } from '@/index.d.ts';
 import moment from 'moment';
 
