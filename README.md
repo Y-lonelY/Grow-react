@@ -123,7 +123,12 @@
 
 
 
+### 2019-12-08
 
+将项目放在腾讯云服务器
+- 完成项目的 install
+- 完成 mysql 服务的安装和启动
+- 完成 mysql 数据同步
 
 ### 2019-12-01
 
@@ -179,6 +184,8 @@
 - 修改 mysqlSequelize 封装内容
 - group 的list/update/add api 开发
 - trivia list/add/update api 开发
+- 修改本地数据库密码使其密码统一
+- 添加 node forever 守护进程，修改 koa-app 执行脚本
 
 ### 2019-11-21
 

@@ -14,7 +14,7 @@ config = {
     'host': 'localhost',
     'port': 3306,
     'user': 'root',
-    'password': 'ylone666',
+    'password': 'theless14more',
     'db': 'gro-up',
     'charset': 'utf8mb4'
 }
