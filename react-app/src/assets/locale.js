@@ -29,17 +29,12 @@ export const locale = {
             type: 'item',
             target: '/practice',
         }, {
-            id: 2,
-            label: '项目',
-            type: 'item',
-            target: null
-        }, {
             type: 'seperator'
         }, {
             id: 3,
             label: '博客',
             type: 'link',
-            target: 'https://y-lonely.github.io/BlogFlows/',
+            target: 'http://122.51.215.237:7771/',
             icon: 'blog'
         }, {
             id: 4,
@@ -127,17 +122,12 @@ export const locale = {
             type: 'item',
             target: '/practice',
         }, {
-            id: 2,
-            label: 'project',
-            type: 'item',
-            target: null
-        }, {
             type: 'seperator'
         }, {
             id: 3,
             label: 'blog',
             type: 'link',
-            target: 'https://y-lonely.github.io/BlogFlows/',
+            target: 'http://122.51.215.237:7771/',
             icon: 'blog'
         }, {
             id: 4,

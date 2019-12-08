@@ -21,7 +21,7 @@ async function getGoalList(params = { status: 3 }) {
             break;
     }
 
-    const sql = 'SELECT * FROM exc_goal WHERE ' + status_sql + ' ORDER BY start_date DESC';
+    const sql = 'SELECT * FROM exc_goal WHERE ' + status_sql + ' ORDER BY start_date DESC LIMIT 6';
     const res = await sequelizeCase.query({
         sql: sql,
         type: "select"
