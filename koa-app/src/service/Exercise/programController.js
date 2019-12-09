@@ -24,7 +24,7 @@ async function setWakaTime() {
         }
         const cmd = `python3 scripts/wakatime/wakatime.py ${params.start} ${params.end} True`;
         const { stdout, stderr } = await exec(cmd);
-        if (stderr !== '') {
+        if (stderr !== '' && !stderr.includes('InsecureRequestWarning')) {
             console.log(`stderr: ${stderr}`);
             res.label = false;
         }

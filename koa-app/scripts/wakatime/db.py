@@ -7,7 +7,7 @@ db function
 
 __author__ = 'yanGo'
 
-# pip install PyMysql
+# pip3 install PyMysql
 import pymysql
 
 config = {

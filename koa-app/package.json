@@ -34,7 +34,7 @@
     
     "pro-stop": "forever stop dist/index.js",
     "pro-start": "npx babel src --out-dir dist && forever start dist/index.js",
-    "pro-restart": "npx babel src --out-dir dist & forever start dist/index.js"
+    "pro-restart": "npx babel src --out-dir dist && forever start dist/index.js"
   },
   "author": "YlonelY",
   "license": "ISC"
