@@ -1,11 +1,10 @@
 import HomepageView from '@/view/Homepage';
-import PracticeView from '@/view/Practice'
-import ChartBarView from '@/components/ChartBar'
+import PracticeView from '@/view/Practice';
+import { asyncComponent } from './AsyncComponent';
 
 interface routeConfigItem {
     key: number;
     title?: string;
-    exact: boolean;
     path: string;
     component: any;
 }
@@ -17,14 +16,12 @@ interface RouterConfig {
 const config: RouterConfig = {
     routeConfig: [{
         key: 1,
-        exact: true,
         path: '/',
         component: HomepageView
     }, {
         key: 2,
-        exact: true,
         path: '/practice',
-        component: PracticeView
+        component: asyncComponent(() => import ('@/view/Practice'))
     }],
 }
 

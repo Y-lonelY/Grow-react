@@ -18,7 +18,12 @@ function Router(props) {
         <Switch>
             {
                 paths && paths.map(item => {
-                    return <Route path={item.path} component={item.component} key={"key" + item.key} exact={item.exact}></Route>
+                    // exact 表示精确匹配时，才对组件进行渲染
+                    return <Route
+                        path={item.path}
+                        component={item.component}
+                        key={"key" + item.key}
+                        exact={true}></Route>
                 })
             }
         </Switch>
