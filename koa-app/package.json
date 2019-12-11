@@ -11,6 +11,7 @@
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-compose": "^4.1.0",
+    "koa-compress": "^3.0.0",
     "koa-router": "^7.4.0",
     "multer": "^1.4.2",
     "mysql2": "^1.6.5",
@@ -31,7 +32,6 @@
     "start": "node dist/index.js",
     "server": "npx babel src --out-dir dist && node dist/index.js",
     "dev": "npx babel src --watch --out-dir dist & npx nodemon dist/index.js",
-    
     "pro-stop": "forever stop dist/index.js",
     "pro-start": "npx babel src --out-dir dist && forever start dist/index.js",
     "pro-restart": "npx babel src --out-dir dist && forever start dist/index.js"
