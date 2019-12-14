@@ -29,8 +29,6 @@ programRouter.post('/overview', async ctx => {
 
     const params = await scheme.validateAsync(ctx.request.body);
 
-    ctx.response.type = 'json';
-
     results['data']['lang']['list'] = await ProgramController.getProgramList({...params, type: 'lang'});
     results['data']['lang']['name'] = await ProgramController.getProgramName({...params, type: 'lang'});
     results['data']['project']['list'] = await ProgramController.getProgramList({...params, type: 'project'});
@@ -48,16 +46,11 @@ programRouter.get('/wakatime', async ctx => {
     };
     ctx.response.type = 'json';
 
-    try {
-        const res = await ProgramController.setWakaTime();
-        results['success'] = res.label;
-        results['message'] = res.msg;
-    } catch (e) {
-        console.log(e);
-        results['message'] = ErrorMessage[1002];
-    } finally {
-        ctx.body = results;
-    }
+    const res = await ProgramController.setWakaTimeByNode();
+    results['success'] = res.label;
+    results['message'] = res.msg;
+
+    ctx.body = results;
 });
 
 const router = new Router;

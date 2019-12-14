@@ -1,5 +1,4 @@
 import HomepageView from '@/view/Homepage';
-import PracticeView from '@/view/Practice';
 import { asyncComponent } from './AsyncComponent';
 
 interface routeConfigItem {

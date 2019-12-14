@@ -214,12 +214,14 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
             programCircle: true
         });
         try {
-            const res = await this.props.asyncProgram();
+            await this.props.asyncProgram();
+        } catch (e) {
+            throw (e);
+        } finally {
+            // 保证请求完毕，不管结果，都会停止动画效果
             this.setState({
                 programCircle: false
             });
-        } catch (e) {
-            throw (e);
         }
     }
 

@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { message } from 'antd';
 
 // 请求列表
 let requestList = [];
@@ -11,7 +12,7 @@ let source = CancelToken.source();
 let service = Axios.create({
     baseURL: "/service/",
     timeout: 4000,
-    headers: {'X-Requested-With': 'XMLHttpRequest'},
+    headers: { 'X-Requested-With': 'XMLHttpRequest' },
 });
 
 // 设置请求拦截器
@@ -28,7 +29,7 @@ service.interceptors.request.use(config => {
     }
     return config;
 }, error => {
-    throw(error);
+    throw (error);
 });
 
 // 设置响应拦截器
@@ -52,24 +53,26 @@ service.interceptors.response.use(response => {
  */
 async function get(url, config = {}) {
     try {
-        const response =  await service.get(url, config);
+        const response = await service.get(url, config);
         // 返回服务器传值
         return response.data;
-    } catch (e) {
-        throw(e);
+    // catch Promise.reject() 情况
+    } catch (error) {
+        const err = error.toString();
+        message.error(err);
     }
 }
 
 /**
  * params 用来接收查询参数
  */
-async function post(url, params, config={}) {
+async function post(url, params, config = {}) {
     try {
         const response = await service.post(url, params, config);
         // 返回服务器传值
         return response.data;
     } catch (e) {
-        throw(e);
+        throw (e);
     }
 }
 

@@ -134,18 +134,13 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
 
     /**
      * 同步编程参数
+     * 这个接口通过 res.message 来进行控制
      */
     asyncProgram = async () => {
-        try {
-            const res = await asyncWakatime();
-            if (res.success) {
-                message.success(res.message, 2);
-                this.initData();
-            } else {
-                message.error('同步失败');
-            }
-        } catch (e) {
-            throw (e);
+        const res = await asyncWakatime();
+        if (res && res.success) {
+            message.success(res.message, 2);
+            this.initData();
         }
     }
 

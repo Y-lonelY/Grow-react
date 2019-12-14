@@ -1,4 +1,4 @@
-import { post, get } from '../../cluster/request';
+import { post, get } from '@/cluster/request';
 import { exerciseList, addData, goalList, programOverview, wakaTimeData } from '../mock/practice';
 import { config } from '@/config/sysConfig';
 import { message } from 'antd';
@@ -48,10 +48,8 @@ export async function getProgramOverview(params) {
 }
 
 // 同步 wakatime 数据，设置用不超时
+// 如果返回500，则 res === undefined
 export async function asyncWakatime() {
     const res = useMock ? await wakaTimeData : await get("program/wakatime", { timeout: 0 });
-    if (!res.success) {
-        message.error('同步失败');
-    }
     return res;
 }

@@ -38,8 +38,8 @@ class Wakatime(object):
         }
 
         try:
-            # 屏蔽 ssl 整数
-            res = requests.get(self.url, params, verify=False)
+            # verify=False 屏蔽 ssl 整数
+            res = requests.get(self.url, params)
             if res.status_code == 200:
                 result = json.loads(res.text)
                 if should_insert:

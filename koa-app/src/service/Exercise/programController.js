@@ -1,6 +1,7 @@
 import sequelizeCase from "M/mysqlSequelize";
 import util from 'util';
 import moment from 'moment';
+import request from 'request-promise';
 
 const exec = util.promisify(require('child_process').exec);
 
@@ -31,6 +32,69 @@ async function setWakaTime() {
     } catch (e) {
         console.log(e);
         res.label = false;
+    } finally {
+        return res;
+    }
+}
+
+async function getWakaData({ start, end }) {
+    let params = {
+        'api_key': 'aa7000e7-273a-4cbe-862c-c3ff4faf2daf',
+        'cache': true,
+        start,
+        end
+    };
+    let option = {
+        uri: 'https://wakatime.com/api/v1/users/current/summaries',
+        qs: params,
+        headers: {
+            'User-Agent': 'Request-Promise'
+        },
+        json: true
+    };
+    const data = (await request(option)).data;
+    data.forEach(item => {
+        const date = item['range']['date'];
+        const lang = item['languages'];
+        const pros = item['projects'];
+        insertDatabase('waka_lang', date, lang);
+        insertDatabase('waka_project', date, pros);
+    });
+}
+
+async function insertDatabase(name, date, data) {
+    if (Array.isArray(data) && data.length > 0) {
+        data.forEach(async item => {
+            // 大于 100s 的才做记录
+            if (Number(item.total_seconds) > 100) {
+                const sql = `INSERT INTO \`gro-up\`.\`${name}\`(\`date\`, \`name\`, \`total_seconds\`, \`text\`)
+                VALUES('${date}', '${item.name}', ${Number(item.total_seconds)}, '${item.text}');
+                `;
+                await sequelizeCase.query({ sql: sql, type: 'insert' });
+            }
+        });
+    }
+}
+
+export async function setWakaTimeByNode() {
+    var res = {
+        label: true,
+        msg: '同步完成'
+    };
+    const params = await getDateRange();
+    if (params && moment(params.end).isBefore(params.start)) {
+        return {
+            label: true,
+            msg: '已同步'
+        }
+    }
+    try {
+        await getWakaData(params);
+    } catch (e) {
+        res = {
+            label: false,
+            msg: '同步错误'
+        };
     } finally {
         return res;
     }
@@ -74,7 +138,7 @@ async function getProgramName(params) {
         + ` WHERE date BETWEEN '${params.start}' AND '${params.end}'`
         + ` ORDER BY name`;
     const nameList = await sequelizeCase.query({ sql: sql, type: 'select' });
-    
+
     list = nameList;
     return list;
 }
