@@ -34,7 +34,7 @@ interface initValue {
 
 const { TextArea } = Input;
 
-class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
+class DrawerForm extends React.PureComponent<DrawerViewProps, DrawerViewState> {
 
     static contextType = LocaleContext;
 
@@ -258,7 +258,7 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
             params = this.getEditInitValue();
         }
         this.setState({
-            initValue: params
+            initValue: Object.assign({}, params)
         });
     }
 
@@ -268,7 +268,7 @@ class DrawerForm extends React.Component<DrawerViewProps, DrawerViewState> {
         list.forEach(item => {
             if (item.id === this.props.current) {
                 this.setState({
-                    data: item
+                    data: Object.assign({}, item)
                 }, () => {
                     this.updateInitValues();
                 });

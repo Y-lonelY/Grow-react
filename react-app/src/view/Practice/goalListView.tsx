@@ -4,15 +4,19 @@ import { SuperEmpty, SuperIcon } from '@/components/Override';
 import { connect } from 'react-redux';
 import { changeGoalList } from '@/store/Exercise/action';
 import { getGoalList } from '@/service/practice/service';
-import { GoalListProps, GoalListState } from '@/index.d.ts';
+import { GoalListProps } from '@/index.d.ts';
 import moment from 'moment';
 
 const { Panel } = Collapse;
 
+interface GoalListState {
+    expandIndex: string
+}
+
 /**
  * 业务和业务耦合，复用性较低，所以放在 view layer
  */
-class GoalListView extends React.Component<GoalListProps, GoalListState> {
+class GoalListView extends React.PureComponent<GoalListProps, GoalListState> {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,6 +24,7 @@ class GoalListView extends React.Component<GoalListProps, GoalListState> {
         }
     }
     render() {
+        // 渲染左侧边栏
         const panelList = this.props.goalListData.map((item, index) => {
             const hasAchived = Number(item.summary) < Number(item.goal) ? false : true;
             const percent = Math.round(Number(item.summary) / Number(item.goal) * 100);

@@ -6,7 +6,7 @@ import './index.scss';
 
 const { Footer } = Layout;
 
-class FlowFooter extends React.Component {
+class FlowFooter extends React.PureComponent {
 
     static contextType = LocaleContext;
 

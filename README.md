@@ -121,6 +121,16 @@
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
 
+### 2019-12-13
+
+wakatime api 由python3更新为node request获取模式，原因是腾讯云服务器上，python3 的ssl有问题，最近不想花太多经历去研究那个
+- 腾讯云调通wakatime api
+
+在开发过程中，遇到了404和502错误，进行一下记录
+
+header, footer,focusview, exerciseView PureComponent 优化
+
+
 ### 2019-12-11
 
 首屏性能优化

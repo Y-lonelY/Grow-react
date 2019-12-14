@@ -14,7 +14,7 @@ interface focusState {
     current: number;
 }
 
-class FocusView extends React.Component<focusProps, focusState> {
+class FocusView extends React.PureComponent<focusProps, focusState> {
     constructor(props) {
         super(props);
         this.state = {

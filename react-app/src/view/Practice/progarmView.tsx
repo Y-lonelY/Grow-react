@@ -9,7 +9,7 @@ import { StackedColumn } from '@/components/Chart';
 import ChartBar from '@/components/ChartBar';
 import { getProgramOverview, asyncWakatime } from '@/service/practice/service';
 import { rankBlueColor } from '@/config/colors';
-import { programOverviewProps, programOverviewState } from '@/index.d.ts';
+import { programOverviewProps, ProgramItem } from '@/index.d.ts';
 import moment from 'moment';
 
 
@@ -18,7 +18,13 @@ interface ProgramQueryParams {
     end: string;
 }
 
-class ProgramView extends React.Component<programOverviewProps, programOverviewState> {
+interface programOverviewState {
+    list: ProgramItem[];
+    type: string;
+    selectorValue: string | number;
+}
+
+class ProgramView extends React.PureComponent<programOverviewProps, programOverviewState> {
     params: ProgramQueryParams = {
         start: moment().subtract(30, 'days').format('YYYY-MM-DD'),
         end: moment().format('YYYY-MM-DD'),
@@ -101,7 +107,7 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
         if (res.success) {
             this.props.changeProgramOverview(res.data);
             this.setState({
-                list: res.data[this.state.type].list
+                list: res.data[this.state.type].list.concat()
             });
         }
     }
@@ -124,7 +130,7 @@ class ProgramView extends React.Component<programOverviewProps, programOverviewS
     // event: lang/project 切换
     programSwitchChange = (value: boolean) => {
         const type = value ? 'lang' : 'project';
-        const list = this.props.programOverviewData[type].list;
+        const list = this.props.programOverviewData[type].list.concat();
         this.setState({
             type: type,
             list: list,

@@ -16,7 +16,7 @@ interface FlowHeaderState {
     current: number;
 };
 
-class FlowHeader extends React.Component<FlowHeaderProps, FlowHeaderState> {
+class FlowHeader extends React.PureComponent<FlowHeaderProps, FlowHeaderState> {
 
     static contextType = LocaleContext
 

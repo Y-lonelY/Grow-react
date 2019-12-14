@@ -28,7 +28,7 @@ let defaultGoalListState: TS.GoalListItem[] = [];
 export const goalListData: (state: TS.GoalListItem[], action: TS.GoalListAction) => TS.GoalListItem[] = (state = defaultGoalListState, action) => {
     switch(action.type) {
         case TS.ExerciseTypes.GOALLIST:
-            return action.goalList;
+            return [...action.goalList];
         default:
             return state;
     };

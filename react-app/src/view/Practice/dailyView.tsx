@@ -10,7 +10,7 @@ import { Polyline, Pie } from '@/components/Chart';
 import ChartBar from "@/components/ChartBar";
 import { getDailyExerciseList, addExerciseList, getGoalList } from '@/service/practice/service';
 import { colors } from '@/config/colors';
-import { ExerciseProps, ExerciseState, PolylineData, ExerciseTableData, PieData } from '@/index.d.ts';
+import { ExerciseProps, PolylineData, ExerciseTableData, PieData } from '@/index.d.ts';
 import moment from 'moment';
 
 interface queryInterface {
@@ -18,11 +18,20 @@ interface queryInterface {
     end: string;
 }
 
+interface ExerciseState {
+    showChart: boolean;
+    normalize: boolean;
+    chart: PolylineData[];
+    table: ExerciseTableData[];
+    avgData: PieData;
+    defaultDateRange: [moment.Moment, moment.Moment]
+}
+
 /**
  * Exercise daily Component
  * 通过 redux 来实现通信
  */
-class DailyView extends React.Component<ExerciseProps, ExerciseState> {
+class DailyView extends React.PureComponent<ExerciseProps, ExerciseState> {
 
     // 查询参数
     params: queryInterface = {
@@ -139,7 +148,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
             if (res.success) {
                 // 更新 redux store
                 this.props.changeChart(res.list, res.sum);
-                const polyData = this.handlePolylineData()
+                const polyData = Object.assign({}, this.handlePolylineData());
                 this.setState(polyData)
             }
         } catch (e) {
@@ -158,7 +167,7 @@ class DailyView extends React.Component<ExerciseProps, ExerciseState> {
         if (res.success) {
             // 更新 redux store
             this.props.changeChart(res.list, res.sum);
-            const polyData = this.handlePolylineData();
+            const polyData = Object.assign({}, this.handlePolylineData());
             this.setState(polyData);
 
             if (changeDateLabel) {

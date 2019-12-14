@@ -126,10 +126,6 @@ export interface GoalListProps {
     updateDate: (params: { start: string, end: string}, changeDateLabel?: boolean) => void
 }
 
-export interface GoalListState {
-    expandIndex: string
-}
-
 /**
  * program module
  */
@@ -169,12 +165,6 @@ export interface programOverviewProps {
     changeProgramOverview: (params: programOverviewTemplate) => programOverviewAction;
 }
 
-export interface programOverviewState {
-    list: ProgramItem[];
-    type: string;
-    selectorValue: string | number;
-}
-
 
 // focus module
 export interface focusItem {
@@ -202,6 +192,7 @@ export interface focusProps {
         currentType: string
     };
     changeFocusList: (list: focusItem[]) => focusAction;
+    // 改变表单类型
     changeFocusType: (type: string) => focusAction;
 }
 
