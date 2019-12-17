@@ -1,6 +1,14 @@
 @import '@/common.scss';
 
 .main {
+    // 修改 antd 公共样式
+    .ant-input,
+    .ant-calendar-picker-input,
+    .ant-btn-sm,
+    .ant-select,
+    .ant-radio-wrapper {
+      font-size: 12px;
+    }
     .layout {
         background: {
             color: #ffffff;
@@ -20,6 +28,17 @@
         font: {
             size: 12px;
         };
+    }
+}
+
+// 针对 antd 弹窗 drawer 等
+.ant-drawer {
+    .ant-input,
+    .ant-calendar-picker-input,
+    .ant-btn-sm,
+    .ant-select,
+    .ant-radio-wrapper {
+      font-size: 12px;
     }
 }
 

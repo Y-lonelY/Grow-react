@@ -121,7 +121,22 @@
 5. mock data 集成，目前直接引入 json 文件作为假数据
 
 
-### 2019-12-13
+### 2019-12-16
+
+react refs 转发 `forwardRef((props, ref) => {})` 学习
+
+学习 promise
+
+leetcode 联系
+
+### 2019-12-15
+
+react refs 学习
+
+- 通过类型断言 `let node = document.querySelector('#title') as HTMLInputElement;` 解决 TS 报错 `Property 'xxx' does not exist on type 'Element'` 
+- list 类型断言 `let block = document.querySelectorAll(".block") as NodeListOf<HTMLElement>;`
+
+### 2019-12-14
 
 wakatime api 由python3更新为node request获取模式，原因是腾讯云服务器上，python3 的ssl有问题，最近不想花太多经历去研究那个
 - 腾讯云调通wakatime api

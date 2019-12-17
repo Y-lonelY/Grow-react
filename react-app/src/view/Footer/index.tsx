@@ -16,7 +16,10 @@ class FlowFooter extends React.PureComponent {
             <Footer className='flow-footer'>
                 <Divider className="footer-seprator">Respect everything that happens</Divider>
                 <Row className='main-footer' type='flex' justify='start'>
-                    <Col span={20}>
+                    <Col span={18}>
+                    </Col>
+                    <Col span={2}>
+                        <Button type='default' size='small'>About</Button>
                     </Col>
                     <Col span={4}>
                         <Switch
