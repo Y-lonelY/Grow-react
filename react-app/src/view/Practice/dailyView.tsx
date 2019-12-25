@@ -107,10 +107,13 @@ class DailyView extends React.PureComponent<ExerciseProps, ExerciseState> {
                             switchChange={this.switchChange}
                             defaultDateRange={this.state.defaultDateRange}
                             rangeDateChange={this.rangeDateChange}
-                            addSubmit={this.addExercise}
+                            addBox={{
+                                showAddButton: true,
+                                initValue: this.props.exerciseData.dailyList.slice(0, 1)[0],
+                                addSubmit: this.addExercise
+                            }}
                             normalizeEvent={this.chartNormalize}
                             showNormalize
-                            showAddButton
                             datePicker
                             tableSwitch />
                         {this.state.showChart ?
@@ -143,16 +146,13 @@ class DailyView extends React.PureComponent<ExerciseProps, ExerciseState> {
 
     // api request
     async componentDidMount() {
-        try {
-            const res = await getDailyExerciseList(this.params);
-            if (res.success) {
-                // 更新 redux store
-                this.props.changeChart(res.list, res.sum);
-                const polyData = Object.assign({}, this.handlePolylineData());
-                this.setState(polyData)
-            }
-        } catch (e) {
-            throw e;
+        const res = await getDailyExerciseList(this.params);
+
+        if (res.success) {
+            // 更新 redux store
+            this.props.changeChart(res.list, res.sum);
+            const polyData = Object.assign({}, this.handlePolylineData());
+            this.setState(polyData)
         }
     }
 
@@ -247,7 +247,7 @@ class DailyView extends React.PureComponent<ExerciseProps, ExerciseState> {
     }
 
     // add exercise record
-    addExercise = async (date, leg, chest, belly) => {
+    addExercise = async (date, {leg, chest, belly}) => {
         let params = {
             date: date,
             leg: Number(leg),

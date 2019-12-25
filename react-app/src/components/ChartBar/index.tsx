@@ -2,15 +2,23 @@ import React from "react";
 import { Row, Col, Switch, Icon, DatePicker, Button, Popover, Tooltip, Select } from "antd";
 import { LocaleContext } from '@/cluster/context';
 import AddListFormInstance from './AddListForm';
-import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
 import './index.scss';
 
 // create interface to adapt props
 interface ChartBarProps {
     title: string;
-    showAddButton?: boolean;
-    addSubmit?: (date: string, leg: string, belly: string, chest: string) => void;
+    addBox?: {
+        showAddButton: boolean;
+        initValue: {
+            id: number,
+            date: string,
+            leg: string,
+            belly: string,
+            chest: string
+        };
+        addSubmit: (date: string, params: { leg: string, belly: string, chest: string }) => void; 
+    }
     showUpdate?: boolean;
     asyncProgram?: () => void;
     showNormalize?: boolean;
@@ -81,11 +89,11 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
                     <Col className='chartBarBox' span={18}>
 
                         {/* 添加记录按钮 */}
-                        {this.props.showAddButton &&
+                        {(this.props.addBox && this.props.addBox.showAddButton) &&
                             <Popover
                                 trigger="click"
                                 placement="bottom"
-                                content={<AddListFormInstance submit={this.addSubmit} />}
+                                content={<AddListFormInstance submit={this.addSubmit} initValue={this.props.addBox.initValue} />}
                                 visible={this.state.popoverShow}
                                 onVisibleChange={this.handlePopoverShow}>
                                 <Button
@@ -186,11 +194,11 @@ class ChartBar extends React.Component<ChartBarProps, ChartBarState> {
     }
 
     // 添加按钮提交事件
-    addSubmit = (date, leg, belly, chest) => {
+    addSubmit = (date, data) => {
         this.setState({
             popoverShow: false
         });
-        this.props.addSubmit(date, leg, belly, chest);
+        this.props.addBox.addSubmit(date, data);
     }
 
     // 隐藏/展示tips

@@ -5,18 +5,21 @@ import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
 
 interface AddListFormProps extends FormComponentProps {
-    submit: (date: string, leg: string, belly: string, chest: string) => void
+    submit: (date: string, params: { leg: string, belly: string, chest: string }) => void;
+    initValue: {leg: number | string, belly: number | string, chest: number | string};
 }
 
 class AddListForm extends React.Component<AddListFormProps, {}> {
 
     render() {
         const { getFieldDecorator } = this.props.form;
+        const { leg, belly, chest } = this.props.initValue;
+        // 这里的 initvalue 可以根据上一次的结果来进行初始化
         const initValue = {
             date: moment(),
-            leg: '80',
-            belly: '80',
-            chest: '80'
+            leg,
+            belly,
+            chest
         };
 
         return (
@@ -77,14 +80,10 @@ class AddListForm extends React.Component<AddListFormProps, {}> {
         );
     }
 
-    componentDidMount() {
-
-    }
-
     check = () => {
         this.props.form.validateFields((errors, values) => {
           if (!errors) {
-            this.props.submit(moment(values.date).format('YYYY-MM-DD'), values.leg, values.belly, values.chest);
+            this.props.submit(moment(values.date).format('YYYY-MM-DD'), {...values});
           }
         });
     };
