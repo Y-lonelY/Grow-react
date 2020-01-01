@@ -1,5 +1,5 @@
 import React from 'react';
-import { TriviaState, TriviaData } from '@/index.d.ts';
+import { TriviaState } from '@/index.d.ts';
 
 interface TriviaContext {
     state: TriviaState;

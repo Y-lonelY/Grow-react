@@ -7,8 +7,10 @@ const IconFont = Icon.createFromIconfontCN({
     scriptUrl: '//at.alicdn.com/t/font_1509932_oht5zv0wqxm.js',
 });
 
-// override antd Empty
-export function SuperEmpty(props) {
+/**
+ * 自定义Empty
+ */
+function SuperEmptyMemo(props) {
     let styleObject = {
         marginTop: props.mTop ? props.mTop : '32px'
     };
@@ -22,11 +24,13 @@ export function SuperEmpty(props) {
     );
 }
 
+export const SuperEmpty = React.memo(SuperEmptyMemo);
+
 /**
  * header
  * 对于 function 组件通过 LocaleContext.Consumer 来获取 context
  */
-export function Header(props) {
+function HeaderMemo(props) {
     return (
         <LocaleContext.Consumer>
             {/* value 在这里代表 this.context */}
@@ -55,7 +59,13 @@ export function Header(props) {
     );
 }
 
-export function SuperIcon(props) {
+export const Header = React.memo(HeaderMemo);
+
+
+/**
+ * 自定义icon
+ */
+function SuperIconMemo(props) {
     return (
         <IconFont
             className={props.className}
@@ -63,3 +73,5 @@ export function SuperIcon(props) {
             style={props.style} />
     );
 }
+
+export const SuperIcon = React.memo(SuperIconMemo);
