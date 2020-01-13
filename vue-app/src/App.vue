@@ -1,16 +1,26 @@
 <template>
   <div id="app">
-    <LifeCircle />
+    <!-- <LifeCircle /> -->
+    <!-- <router-view></router-view> -->
+    <SlotParent />
   </div>
 </template>
 
 <script>
-import LifeCircle from "./bootcamp/LifeCircle";
+// lifecircle
+// import LifeCircle from "./bootcamp/LifeCircle";
+// slot
+import SlotParent from './bootcamp/Slot/SlotParent';
 
 export default {
   name: "app",
   components: {
-    LifeCircle
+    // LifeCircl
+    SlotParent
+  },
+  mounted: function() {
+    console.log(this);
+    this.$test();
   }
 };
 </script>
