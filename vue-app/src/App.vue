@@ -1,31 +1,18 @@
 <template>
   <div id="app">
-    <!-- <LifeCircle /> -->
-    <!-- <router-view></router-view> -->
-    <!-- <SlotParent /> -->
-    <VuexTest />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-// lifecircle
-// import LifeCircle from "./bootcamp/LifeCircle";
-// slot
-// import SlotParent from './bootcamp/Slot/SlotParent';
-import VuexTest from './bootcamp/Vuex';
-
 export default {
   name: "app",
   components: {
-    // LifeCircl
-    // SlotParent
-    VuexTest
   },
-  mounted: function() {
-    console.log(this);
-    this.$test();
+  mounted() {
+    this.$test()
   }
-};
+}
 </script>
 
 <style>
