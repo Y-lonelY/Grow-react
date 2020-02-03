@@ -3,7 +3,6 @@ export const locale = {
         group: '分组',
         link: '链接',
         mainTitle: 'growth',
-        mock: '虚拟数据',
         add: '添加',
         edit: '编辑',
         cancel: '取消',
@@ -19,6 +18,10 @@ export const locale = {
         denormalization: '去归一化',
         update: '同步',
         all: '全部',
+        footerModule: {
+            mock: '虚拟数据',
+            about: '关于',
+        },
         placeholder: {
             link: '请输入相关链接',
             addGroup: '输入分组'
@@ -96,7 +99,6 @@ export const locale = {
         group: 'group',
         link: 'link',
         mainTitle: 'growth',
-        mock: 'use mock',
         add: 'add',
         edit: 'edit',
         cancel: 'cancel',
@@ -112,6 +114,10 @@ export const locale = {
         denormalization: 'denormalization',
         update: 'update',
         all: 'all options',
+        footerModule: {
+            mock: 'use mock',
+            about: 'about',
+        },
         placeholder: {
             link: 'input related link',
             addGroup: 'input group name'

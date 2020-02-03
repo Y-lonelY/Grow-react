@@ -13,7 +13,7 @@ import { locale as customizeLocale } from '@/assets/locale';
 import { ConfigProvider } from 'antd';
 import zh_CN from 'antd/es/locale-provider/zh_CN';
 import en_US from 'antd/es/locale-provider/en_US';
-import moment, { locale } from 'moment';
+import moment from 'moment';
 import 'moment/locale/zh-cn';
 import '@/app.scss';
 

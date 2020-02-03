@@ -14,7 +14,7 @@ import { setTheme } from 'bizcharts';
 setTheme(Theme)
 
 // set hot load module
-hot(App)
+// hot(App)
 
 ReactDOM.render(
     <Provider store={store}>

@@ -3,7 +3,6 @@
     <div class="title">
       <span class="label">form test</span>
     </div>
-    <input type="text" ref='inputRef'>
     <a-form layout="horizontal" :form="form" @submit="handleSubmit">
       <a-form-item label="name" :labelCol="{span: 5}" :wrapperCol="{span: 12}">
         <a-input placeholder="userName" size="small" v-decorator="['username']"></a-input>
@@ -39,9 +38,6 @@ export default Vue.extend({
         }
       })
     }
-  },
-  mounted() {
-      this.$refs.inputRef.focus()
   }
 })
 </script>
