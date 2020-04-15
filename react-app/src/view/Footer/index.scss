@@ -2,7 +2,7 @@
 
 .flow-footer {
     &.ant-layout-footer {
-        background: #ffffff;
+        background: #000000;
     }
 
     .footer-seprator {
@@ -15,10 +15,28 @@
     .main-footer {
         .cm {
             padding: 10px;
+            .title {
+                color: #fff;
+                margin: 0 auto 24px;
+                font-weight: 500;
+                font-size: 16px;
+            }
+            &.mid {
+                border-left: 1px solid $gray;
+                border-right: 1px solid $gray;
+            }
         }
-        .footer-switch-label {
-            font-size: 12px;
-            color: $ftc-gray;
+
+        .ft-item {
+            color: rgba(255, 255, 255, 0.4);
+            .ft-seperator {
+                margin: {
+                    right: 0.5em;
+                }
+            }
+            .ft-label {
+                font-size: 12px;
+            }
         }
     }
 }

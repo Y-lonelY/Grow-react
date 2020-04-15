@@ -5,6 +5,7 @@ import { config, setUseMock } from "@/config/sysConfig"
 import "./index.scss"
 
 interface FlowFooterState {
+  mockMode: boolean
   visible: boolean
 }
 
@@ -16,6 +17,7 @@ class FlowFooter extends React.PureComponent<{}, FlowFooterState> {
   constructor(props) {
     super(props)
     this.state = {
+      mockMode: config.useMock === "true" ? true : false,
       visible: false
     }
   }
@@ -28,8 +30,9 @@ class FlowFooter extends React.PureComponent<{}, FlowFooterState> {
           Respect everything that happens
         </Divider>
         <Row className="main-footer" type="flex" justify="start">
-          <Col className="cm" span={6}></Col>
-          <Col className="cm" span={14}>
+          <Col className="cm" span={8}></Col>
+          <Col className="cm mid" span={8}>
+            <h2 className="title">关于</h2>
             <Button type="link" size="small" onClick={this.showAboutPanel}>
               About
             </Button>
@@ -45,15 +48,17 @@ class FlowFooter extends React.PureComponent<{}, FlowFooterState> {
               <p>Some contents...</p>
             </Modal>
           </Col>
-          <Col className="cm" span={4}>
-            <Switch
-              size="small"
-              checkedChildren={<Icon type="check" />}
-              unCheckedChildren={<Icon type="close" />}
-              checked={config.useMock === "true" ? true : false}
-              onChange={this.switchChange}
-            ></Switch>
-            <span className="footer-switch-label"> - {assets.mock}</span>
+          <Col className="cm" span={8}>
+            <h2 className="title">更多</h2>
+            <div className="ft-item">
+              <Button type="link" size="small" onClick={this.checkMockMode}>
+                Mock
+              </Button>
+              <span className="ft-seperator">-</span>
+              <span className="ft-label">
+                {this.state.mockMode ? assets.mockMode : assets.realMode}
+              </span>
+            </div>
           </Col>
         </Row>
       </Footer>
@@ -62,8 +67,16 @@ class FlowFooter extends React.PureComponent<{}, FlowFooterState> {
 
   componentDidMount() {}
 
-  switchChange = (checked, event) => {
-    setUseMock(checked)
+  checkMockMode = () => {
+    const mode = !this.state.mockMode
+    this.setState(
+      {
+        mockMode: mode
+      },
+      () => {
+        setUseMock(mode)
+      }
+    )
   }
 
   showAboutPanel = () => {

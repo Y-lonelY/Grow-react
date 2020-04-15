@@ -100,6 +100,9 @@ export async function setWakaTimeByNode() {
     }
 }
 
+// 当前['lang', 'project']表内最大值作为起始值，昨天作为终止值
+// 当很久没有同步的时候，会产生"Coding activity older than 2 weeks is not available on the free plan."错误
+// 因此在计算出range之后需要判断是否大于14天，如果大于，则记录最近14天的记录，后期考虑通过定时脚本来执行任务
 async function getDateRange() {
     const list = ['lang', 'project'];
     const values = [];
@@ -118,6 +121,11 @@ async function getDateRange() {
             // 拿到所有数据之后进行处理
             if (index === list.length - 1) {
                 params['start'] = moment.max(values).add(1, 'days').format('YYYY-MM-DD');
+                // 判断start-end的时间间隔
+                const diffDays = moment(params.end).diff(moment(params.start), "days")
+                if (Number(diffDays) > 14) {
+                    params.start = moment().subtract(14, 'days').format('YYYY-MM-DD')
+                }
                 return params;
             }
         }

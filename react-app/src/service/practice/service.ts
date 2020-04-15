@@ -51,5 +51,8 @@ export async function getProgramOverview(params) {
 // 如果返回500，则 res === undefined
 export async function asyncWakatime() {
     const res = useMock ? await wakaTimeData : await get("program/wakatime", { timeout: 0 });
+    if (!res.success) {
+        message.error('同步失败');
+    }
     return res;
 }

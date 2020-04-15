@@ -19,7 +19,8 @@ export const locale = {
         update: '同步',
         all: '全部',
         footerModule: {
-            mock: '虚拟数据',
+            mockMode: '虚拟数据模式',
+            realMode: '真实数据模式',
             about: '关于',
         },
         placeholder: {
@@ -115,7 +116,8 @@ export const locale = {
         update: 'update',
         all: 'all options',
         footerModule: {
-            mock: 'use mock',
+            mockMode: 'mock mode',
+            realMode: 'real mode',
             about: 'about',
         },
         placeholder: {
