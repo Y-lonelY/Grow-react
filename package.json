@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "commitizen": "^4.0.4",
+    "conventional-changelog-cli": "^2.0.31"
+  },
+  "scripts": {
+    "commit": "git-cz",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  }
+}

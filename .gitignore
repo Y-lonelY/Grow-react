@@ -1,6 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# web storm
+# webstorm
 /koa-app/.idea
 /react-app/.idea
 
