@@ -2,7 +2,7 @@ import Router from 'koa-router';
 import Compose from 'koa-compose';
 import Joi from '@hapi/joi';
 import ErrorMessage from 'config/error';
-import { addErrorsRecord } from 'S/System/errorController';
+import {addErrorsRecord} from 'S/System/errorController';
 import middle_compose from 'M/logger';
 
 const errorRouter = new Router();
@@ -35,7 +35,7 @@ errorRouter.post('/catchErrors', async ctx => {
     const params = await scheme.validateAsync(ctx.request.body);
     try {
         const addList = await addErrorsRecord(params);
-        results['success'] = Array.isArray(addList) && addList.length > 0 ? true : false;
+        results['success'] = Array.isArray(addList) && addList.length > 0;
         ctx.body = results;
     } catch (e) {
         ctx.app.emit('error', e, ctx);

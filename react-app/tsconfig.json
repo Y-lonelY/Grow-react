@@ -8,7 +8,7 @@
         // 为运行时babel生态系统兼容性发出'__importStar'和'__importDefault'助手
         "esModuleInterop": true,
         "baseUrl": "./",
-        // 模块名到基于 baseUrl 的路径映射的列表
+        // 模块名到基于 baseUrl 的路径映射的列表，配置文件别名
         "paths": {
             "@/*":["src/*"]
         }
