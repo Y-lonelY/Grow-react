@@ -678,46 +678,8 @@ Test.proptypes = {
 
 **根据官方文档，推荐使用 typescript 来执行静态类型检查，它们支持代码自动补全，同时可以在运行前识别某些类型的问题**
 
-### 2019-08-06
 
-继续学习 redux
 
-[一个 redux 学习demo](https://github.com/bailicangdu/react-pxq)
-
-### 2019-08-05
-
-开始学习 redux
-- [阮一峰:redux入门](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html)
-- [官方中文文档](http://cn.redux.js.org/docs/advanced/Middleware.html)
-
-新建 redux 学习 note
-
-### 2019-08-04
-
-在 window 下运行项目
-
-`npm install @antv/data-set --save` 添加对数据集处理
-
-[@antv/data-set](https://www.yuque.com/antv/g2-docs/api-data-set#1976bl) 类似之前做玩家级想要的，将数据转换成类似数据库表的形式进行处理的一种实现
-
-添加饼图展示锻炼情况分布
-
-### 2019-08-03
-
-进一步封装 Axios，添加请求/响应拦截器和重复请求处理
-
-添加.json假数据处理
-
-添加总数统计
-
-对象遍历不建议使用 `for...in...`，用 `Object.enteries()` 或者 `Object.keys()` 代替
-
-### 2019-08-02
-
-`await/async` 的异常捕获
-
-之前是 `await a().then().catch()` 的写法，因为 await 实际返回就是一个 Promise Object，所以沿用了其写法<br>
-之后发现，有更好的写法，就是通过 `try catch` 来进行，Promise 的 reject 异常通常能够被 catch 捕获到
 
 
 
