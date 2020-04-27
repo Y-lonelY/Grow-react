@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function asyncComponent(targetComponent) {
+export function asyncComponent(getTargetComponent) {
     class AsyncComponent extends React.Component {
         constructor(props) {
             super(props);
@@ -10,7 +10,7 @@ export function asyncComponent(targetComponent) {
         }
 
         componentDidMount() {
-            targetComponent().then(md => {
+            getTargetComponent().then(md => {
                 this.setState({
                     // 同时兼容 ES6 和 CommonJS 的模块
                     component: md.default ? md.default : md
