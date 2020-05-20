@@ -26,3 +26,16 @@ $green: #52c41a;
     white-space: nowrap;
     word-break: normal;
 }
+
+@keyframes circle {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+@mixin circle($duration: 4s) {
+  animation: circle $duration linear infinite;
+}

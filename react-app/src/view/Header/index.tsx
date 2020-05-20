@@ -2,6 +2,7 @@ import React from "react"
 import { Layout, Col, Row, Button } from "antd"
 import { withRouter } from "react-router-dom"
 import { SuperIcon } from "@/components/Override"
+import Treasure from './Treasure'
 import { LocaleContext } from "@/cluster/context"
 import Clock from "@/components/Clock"
 import "./index.scss"
@@ -81,6 +82,7 @@ class FlowHeader extends React.PureComponent<FlowHeaderProps, FlowHeaderState> {
             </Col>
             <Col span={8}>
               <div className="func-box">
+                <Treasure />
                 <Button
                   className="locale"
                   size="small"

@@ -18,6 +18,14 @@ export const locale = {
     denormalization: "去归一化",
     update: "同步",
     all: "全部",
+    tools: [
+      {
+        id: 1,
+        name: "模版生成器",
+        color: "#1890ff",
+        target: "/template",
+      },
+    ],
     footerModule: {
       mockMode: "虚拟数据模式",
       realMode: "真实数据模式",
@@ -33,12 +41,6 @@ export const locale = {
         label: "勤练",
         type: "item",
         target: "/practice",
-      },
-      {
-        id: 2,
-        label: "工具",
-        type: "item",
-        target: "/tools",
       },
       {
         type: "seperator",
@@ -126,6 +128,15 @@ export const locale = {
     denormalization: "denormalization",
     update: "update",
     all: "all options",
+    // header tools box
+    tools: [
+      {
+        id: 1,
+        name: "template",
+        color: "#1890ff",
+        target: "/template",
+      },
+    ],
     footerModule: {
       mockMode: "mock mode",
       realMode: "real mode",
@@ -141,12 +152,6 @@ export const locale = {
         label: "practice",
         type: "item",
         target: "/practice",
-      },
-      {
-        id: 2,
-        label: "tools",
-        type: "item",
-        target: "/tools",
       },
       {
         type: "seperator",
