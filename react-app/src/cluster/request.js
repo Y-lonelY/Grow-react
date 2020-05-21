@@ -1,79 +1,121 @@
-import Axios from "axios";
-import { message } from 'antd';
+import Axios from "axios"
+import { message } from "antd"
 
-// 请求列表
-let requestList = [];
+// 声明一个 Map 用于存储每个**请求**的标识和取消方法
+let pending = new Map()
 
 // 通过工厂方法创建 canceltoken，用于取消用户请求
-let CancelToken = Axios.CancelToken;
-let source = CancelToken.source();
+let CancelToken = Axios.CancelToken
+let source = CancelToken.source()
 
 // axios 实例
 let service = Axios.create({
-    baseURL: "/service/",
-    timeout: 4000,
-    headers: { 'X-Requested-With': 'XMLHttpRequest' },
-});
-
-// 设置请求拦截器
-service.interceptors.request.use(config => {
-    // 用请求 url 和 请求data 来判断是否是同一次请求
-    const currentReques = config.method + config.url + JSON.stringify(config.data);
-    // add cancel token
-    config['cancelToken'] = source.token;
-
-    if (requestList.includes(currentReques)) {
-        source.cancel('Repeat Request Canceled');
-    } else {
-        requestList.push(currentReques);
-    }
-    return config;
-}, error => {
-    throw (error);
-});
-
-// 设置响应拦截器
-service.interceptors.response.use(response => {
-    const currentReques = response.config.method + response.config.url + JSON.stringify(response.config.data);
-    requestList.splice(requestList.indexOf(currentReques), 1);
-
-    return response;
-}, error => {
-    if (Axios.isCancel(error)) {
-        requestList.length = 0;
-        // 再次尝试 cancel
-        throw new Axios.Cancel('Repeat Request Canceled');
-    }
-    return Promise.reject(error);
+  baseURL: "/service/",
+  timeout: 60000,
+  headers: { "X-Requested-With": "XMLHttpRequest" },
 })
 
+// 在 pending 内添加请求对
+const addPending = (config) => {
+  const url = [
+    config.method,
+    config.url,
+    JSON.stringify(config.params),
+    JSON.stringify(config.data),
+  ].join("&")
+  // current request config params
+  config.cancelToken =
+    config.cancelToken ||
+    new Axios.CancelToken((cancel) => {
+      if (!pending.has(url)) {
+        // 如果 pending 中不存在当前请求，则添加进去
+        pending.set(url, cancel)
+      }
+    })
+}
+
+/**
+ * 在 pending 内删除请求对
+ * 取消当前请求
+ */
+const removePending = (config) => {
+  const url = [
+    config.method,
+    config.url,
+    JSON.stringify(config.params),
+    JSON.stringify(config.data),
+  ].join("&")
+  if (pending.has(url)) {
+    // 如果在 pending 中存在当前请求标识，需要取消当前请求，并且移除
+    const cancel = pending.get(url)
+    cancel(url)
+    pending.delete(url)
+  }
+}
+
+// 清除所有的请求
+export const clearPending = () => {
+  for (const [url, cancel] of pending) {
+    cancel(url)
+  }
+  pending.clear()
+}
+
+// 设置请求拦截器
+service.interceptors.request.use(
+  (config) => {
+    removePending(config) // 在请求开始前，对之前的请求做检查取消操作
+    addPending(config) // 将当前请求添加到 pending 中
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
+
+// 设置响应拦截器
+service.interceptors.response.use(
+  (response) => {
+    removePending(response.config) // 在请求结束后，移除本次请求
+    return response
+  },
+  (error) => {
+    // 如果是 cancel 引起的错误，则再次进行尝试
+    if (Axios.isCancel(error)) {
+      // 再次尝试 cancel
+      console.error(error.message)
+    }
+    // 信息提示
+    message.error(error.message)
+    return Promise.reject(error)
+  }
+)
 
 /**
  * config.params 用来接受查询参数
+ * config: { params: {}} 放在 header 内
+ * config: { data: {}} 放在 request body 内
  */
-async function get(url, config = {}) {
-    try {
-        const response = await service.get(url, config);
-        // 返回服务器传值
-        return response.data;
-    // catch Promise.reject() 情况
-    } catch (error) {
-        const err = error.toString();
-        message.error(err);
-    }
+export async function get(url, config = {}) {
+  try {
+    const response = await service.get(url, config)
+    // 返回服务器传值
+    return response.data
+  } catch (error) {
+    const err = error.toString()
+    message.error(err)
+  }
 }
 
 /**
  * params 用来接收查询参数
  */
-async function post(url, params, config = {}) {
-    try {
-        const response = await service.post(url, params, config);
-        // 返回服务器传值
-        return response.data;
-    } catch (e) {
-        throw (e);
-    }
+export async function post(url, params, config = {}) {
+  try {
+    const response = await service.post(url, params, config)
+    // 返回服务器传值
+    return response.data
+  } catch (e) {
+    throw e
+  }
 }
-
-export { get, post };
