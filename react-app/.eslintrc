@@ -1,0 +1,28 @@
+/**
+ * 0 - 禁用此规则   warn - 输出错误信息，不影响 exit code  error - 输出错误信息， exit code 置为 1 
+ */
+
+{
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "module",
+    "parser": ["babel-eslint", "@typescript-eslint/parser"],
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
+  "rules": {
+    // 函数前添加一个空格
+    "space-before-function-paren": 1,
+    "semi": ["error", "never"],
+    "quotes": [ 1, "single", "avoid-escape" ],
+    "no-var": "error"
+  }
+}

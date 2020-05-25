@@ -12,6 +12,11 @@ import middle_compose from 'M/logger';
 // 声明一个 router 实例
 const exerciseRouter = new Router();
 
+exerciseRouter.get('/health/data', async ctx => {
+    const params = ctx.request.query;
+    const list = await daliyController.getHealthData(params)
+})
+
 /**
  * exercise/list
  * 用来查询锻炼记录

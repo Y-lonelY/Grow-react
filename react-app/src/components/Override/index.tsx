@@ -10,7 +10,7 @@ const IconFont = Icon.createFromIconfontCN({
 /**
  * 自定义Empty
  */
-function SuperEmptyMemo(props) {
+function SuperEmptyMemo (props) {
     let styleObject = {
         marginTop: props.mTop ? props.mTop : '32px'
     };

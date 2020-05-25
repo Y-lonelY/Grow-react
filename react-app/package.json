@@ -64,7 +64,6 @@
     "source-map-explorer": "^2.1.0",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "1.2.2",
-    "typescript": "^3.6.4",
     "url-loader": "1.1.2",
     "webpack": "4.28.3",
     "webpack-dev-server": "^3.9.0",
@@ -140,7 +139,10 @@
     ]
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
     "node-sass": "^4.13.0",
-    "redux-devtools": "^3.5.0"
+    "redux-devtools": "^3.5.0",
+    "typescript": "^3.9.3"
   }
 }

@@ -4,6 +4,20 @@ import { getGoalList, updateGoalRecord } from './exerciseGoalController';
 import moment from 'moment';
 
 /**
+ * get target user health data
+ * @param {user}
+ * @param {start}
+ * @param {end}
+ */
+export async function getHealthData({ user, start, end}) {
+    const sql = `SELECT id, weight, recordDate From \`gro-up\`.health_${user} WHERE`
+        + ` recordDate BETWEEN '${start}' AND '${end}' ORDER BY 'recordDate' DESC LIMIT 100;`
+    const list = await sequelizeCase.query({sql: sql, type: "select"});
+    console.log(list)
+    return list
+}
+
+/**
  * (leg/belly/chest) 数据总和
  * @param {start} params 开始时间
  * @param {end} params 结束时间
