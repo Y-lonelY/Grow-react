@@ -1,12 +1,19 @@
 /**
- * 0 - 禁用此规则   warn - 输出错误信息，不影响 exit code  error - 输出错误信息， exit code 置为 1 
+ * 0 - 禁用此规则   warn or 1 - 输出错误信息，不影响 exit code  error or 2 - 输出错误信息， exit code 置为 1 
+ * eslint-disable to disable the check
  */
 
 {
+  // eslint will stop looking in parent folders once finds a confirguration to avoid unexpected errors
+  "root": true,
   "parserOptions": {
+    // ES6 version
     "ecmaVersion": 2019,
+    // if in ECMAScript modules
     "sourceType": "module",
+    // 使用的解析器
     "parser": ["babel-eslint", "@typescript-eslint/parser"],
+    // indicate other language features you'd like to use
     "ecmaFeatures": {
       "jsx": true
     }
@@ -14,15 +21,20 @@
   "env": {
     "browser": true
   },
+  // use pre-defined rules by plugins
   "plugins": [
+    // means eslint-plugin-react
     "react",
     "@typescript-eslint"
   ],
   "rules": {
     // 函数前添加一个空格
     "space-before-function-paren": 1,
-    "semi": ["error", "never"],
     "quotes": [ 1, "single", "avoid-escape" ],
-    "no-var": "error"
-  }
+    "semi": [2, "never"],
+    "no-var": 2,
+    "indent": [2, 2]
+  },
+  // 对某一类文件的配置进行覆盖
+  "overrides": []
 }
