@@ -37,7 +37,7 @@ export const goalListData: (state: TS.GoalListItem[], action: TS.GoalListAction)
 /**
  * program module
  */
-let defaultProgramState: TS.programOverviewTemplate = {
+let defaultProgramState: TS.ProgramOverviewTemplate = {
     lang: {
         list: [],
         name: []

@@ -1,5 +1,5 @@
 /**
- * 0 - 禁用此规则   warn or 1 - 输出错误信息，不影响 exit code  error or 2 - 输出错误信息， exit code 置为 1 
+ * 0 - 禁用此规则   warn or 1 - 输出错误信息，不影响 exit code  error or 2 - 输出错误信息， exit code 置为 1
  * eslint-disable to disable the check
  */
 
@@ -21,6 +21,13 @@
   "env": {
     "browser": true
   },
+  // import module recommand rules
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   // use pre-defined rules by plugins
   "plugins": [
     // means eslint-plugin-react
@@ -28,9 +35,16 @@
     "@typescript-eslint"
   ],
   "rules": {
-    // 函数前添加一个空格
-    "space-before-function-paren": 1,
-    "quotes": [ 1, "single", "avoid-escape" ],
+    // typescript-eslint
+    // 不要显示使用 any
+    "@typescript-eslint/no-explicit-any": 0,
+    // 分隔符样式，none, Semicolon(分号), Comma(逗号)
+    "@typescript-eslint/member-delimiter-style": 0,
+    // 函数显示返回值
+    "@typescript-eslint/explicit-function-return-type": 0,
+    // tsx 文件不适用
+    // "space-before-function-paren": 1,
+    "quotes": [1, "single", "avoid-escape"],
     "semi": [2, "never"],
     "no-var": 2,
     "indent": [2, 2]

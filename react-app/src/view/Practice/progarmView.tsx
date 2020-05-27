@@ -9,7 +9,7 @@ import { StackedColumn } from '@/components/Chart';
 import ChartBar from '@/components/ChartBar';
 import { getProgramOverview, asyncWakatime } from '@/service/practice/service';
 import { rankBlueColor } from '@/config/colors';
-import { programOverviewProps, ProgramItem } from '@/index.d.ts';
+import { ProgramOverviewProps, ProgramItem } from '@/index.d.ts';
 import moment from 'moment';
 
 
@@ -24,7 +24,7 @@ interface programOverviewState {
     selectorValue: string | number;
 }
 
-class ProgramView extends React.PureComponent<programOverviewProps, programOverviewState> {
+class ProgramView extends React.PureComponent<ProgramOverviewProps, programOverviewState> {
     params: ProgramQueryParams = {
         start: moment().subtract(30, 'days').format('YYYY-MM-DD'),
         end: moment().format('YYYY-MM-DD'),

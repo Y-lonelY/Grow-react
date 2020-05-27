@@ -6,7 +6,7 @@ import { changeFocusList, changeFocusType } from '@/store/Exercise/action';
 import { getFocusList } from '@/service/homepage/focusService';
 import DrawerView from './drawerView';
 import { priorityColors } from '@/config/colors';
-import { focusProps } from '@/index.d.ts';
+import { FocusProps } from '@/index.d.ts';
 
 interface focusState {
     visible: boolean;
@@ -14,7 +14,7 @@ interface focusState {
     current: number;
 }
 
-class FocusView extends React.PureComponent<focusProps, focusState> {
+class FocusView extends React.PureComponent<FocusProps, focusState> {
     constructor(props) {
         super(props);
         this.state = {

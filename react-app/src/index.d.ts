@@ -1,59 +1,59 @@
-import moment from 'moment';
+import moment from 'moment'
 
 /**
  * errorParams
  */
 export interface ErrorParams {
-    readonly project: string;
-    id?: number;
-    username?: string;
-    path?: string;
-    referrer?: string;
-    event?: string;
-    type?: string;
-    level?: number;
-    stack?: string;
-    message?: string;
-    origin?: string;
-    useragent?: string;
-    network?: string;
-    appversion?: string;
+  readonly project: string
+  id?: number
+  username?: string
+  path?: string
+  referrer?: string
+  event?: string
+  type?: string
+  level?: number
+  stack?: string
+  message?: string
+  origin?: string
+  useragent?: string
+  network?: string
+  appversion?: string
 }
 
 /**
  * redux
  */
-export interface StoreState{
-    dailyList?: any[];
-    sumMap?: {};
+export interface StoreState {
+  dailyList?: any[]
+  sumMap?: {}
 }
 
 /**
  * header config
  */
 export interface HeaderData {
-    icon: {
-        type: string,
-        style?: {}
-    };
-    title: string;
-    showAddBtn?: boolean;
-    addEvent?: () => void;
+  icon: {
+    type: string
+    style?: {}
+  }
+  title: string
+  showAddBtn?: boolean
+  addEvent?: () => void
 }
 
 /**
  * chart
  */
 export interface PolylineData {
-    type: string,
-    date: string,
-    number: string
+  type: string
+  date: string
+  number: string
 }
 
 export interface PieData {
-    leg?: string | number;
-    belly?: string | number;
-    chest?: string | number;
+  leg?: string | number
+  belly?: string | number
+  chest?: string | number
 }
 
 /**
@@ -61,42 +61,42 @@ export interface PieData {
  */
 
 export interface ExerciseData {
-    sumMap?: PieData;
-    dailyList?: {
-        id: number,
-        date: string,
-        leg: string,
-        belly: string,
-        chest: string
-    }[];
+  sumMap?: PieData
+  dailyList?: {
+    id: number
+    date: string
+    leg: string
+    belly: string
+    chest: string
+  }[]
 }
 
 export interface ExerciseChartAction extends ExerciseData {
-    type: string;
+  type: string
 }
 
 export type ExerciseProps = {
-    head: HeaderData;
-    exerciseData: ExerciseData;
-    changeChart: (...ExerciseData) => ExerciseChartAction;
-    changeGoalList: (goalList: GoalListItem[]) => GoalListAction;
+  head: HeaderData
+  exerciseData: ExerciseData
+  changeChart: (...ExerciseData) => ExerciseChartAction
+  changeGoalList: (goalList: GoalListItem[]) => GoalListAction
 }
 
 export interface ExerciseState {
-    showChart: boolean;
-    normalize: boolean;
-    chart: PolylineData[];
-    table: ExerciseTableData[];
-    avgData: PieData;
-    defaultDateRange: [moment.Moment, moment.Moment]
+  showChart: boolean
+  normalize: boolean
+  chart: PolylineData[]
+  table: ExerciseTableData[]
+  avgData: PieData
+  defaultDateRange: [moment.Moment, moment.Moment]
 }
 
 export interface ExerciseTableData {
-    key: string;
-    date: string;
-    leg: number;
-    belly: number;
-    chest: number;
+  key: string
+  date: string
+  leg: number
+  belly: number
+  chest: number
 }
 
 /**
@@ -104,131 +104,135 @@ export interface ExerciseTableData {
  */
 
 export interface GoalListItem {
-    id: number;
-    start_date: string;
-    end_date: string | null;
-    reward: string;
-    type: string;
-    total_price: string;
-    goal: string;
-    summary: string;
-    remark: string | null;
+  id: number
+  start_date: string
+  end_date: string | null
+  reward: string
+  type: string
+  total_price: string
+  goal: string
+  summary: string
+  remark: string | null
 }
 
 export interface GoalListAction {
-    goalList: GoalListItem[];
-    type: string;
+  goalList: GoalListItem[]
+  type: string
 }
 
 export interface GoalListProps {
-    goalListData: GoalListItem[];
-    changeGoalList: (goalList: GoalListItem[]) => GoalListAction;
-    updateDate: (params: { start: string, end: string}, changeDateLabel?: boolean) => void
+  goalListData: GoalListItem[]
+  changeGoalList: (goalList: GoalListItem[]) => GoalListAction
+  updateDate: (
+    params: { start: string; end: string },
+    changeDateLabel?: boolean
+  ) => void
 }
 
 /**
  * program module
  */
 export interface ProgramItem {
-    id: number;
-    date: string;
-    name: string;
-    value: number;
+  id: number
+  date: string
+  name: string
+  value: number
 }
 
-export interface programOverviewTemplate {
-    lang: {
-        list: ProgramItem[];
-        name: {name: string, value?: string}[];
-    },
-    project: {
-        list: ProgramItem[];
-        name: {name: string, value?: string}[];
-    }
+export interface ProgramOverviewTemplate {
+  lang: {
+    list: ProgramItem[]
+    name: { name: string; value?: string }[]
+  }
+  project: {
+    list: ProgramItem[]
+    name: { name: string; value?: string }[]
+  }
 }
 
-export interface programOverviewAction {
-    lang: {
-        list: ProgramItem[];
-        name: {name: string, value?: string}[];
-    };
-    project: {
-        list: ProgramItem[];
-        name: {name: string, value?: string}[];
-    };
-    type: string;
+export interface ProgramOverviewAction {
+  lang: {
+    list: ProgramItem[]
+    name: { name: string; value?: string }[]
+  }
+  project: {
+    list: ProgramItem[]
+    name: { name: string; value?: string }[]
+  }
+  type: string
 }
 
-export interface programOverviewProps {
-    head: HeaderData;
-    programOverviewData: programOverviewTemplate;
-    changeProgramOverview: (params: programOverviewTemplate) => programOverviewAction;
+export interface ProgramOverviewProps {
+  head: HeaderData
+  programOverviewData: ProgramOverviewTemplate
+  changeProgramOverview: (
+    params: ProgramOverviewTemplate
+  ) => ProgramOverviewAction
 }
-
 
 // focus module
-export interface focusItem {
-    id?: number;
-    title?: string;
-    details?: string;
-    start_date?: string;
-    end_date?: string;
-    pictures?: string;
-    status?: number;
-    priority?: number;
+export interface FocusItem {
+  id?: number
+  title?: string
+  details?: string
+  start_date?: string
+  end_date?: string
+  pictures?: string
+  status?: number
+  priority?: number
 }
 
-export interface focusAction {
-    list?: focusItem[];
-    currentType?: string;
-    type: string;
+export interface FocusAction {
+  list?: FocusItem[]
+  currentType?: string
+  type: string
 }
 
 // 这里设置 head 为可选是因为 drawerView 模块需要继承该 interface
-export interface focusProps {
-    head?: HeaderData;
-    focusData: {
-        list: focusItem[],
-        currentType: string
-    };
-    changeFocusList: (list: focusItem[]) => focusAction;
-    // 改变表单类型
-    changeFocusType: (type: string) => focusAction;
+export interface FocusProps {
+  head?: HeaderData
+  focusData: {
+    list: FocusItem[]
+    currentType: string
+  }
+  changeFocusList: (list: FocusItem[]) => FocusAction
+  // 改变表单类型
+  changeFocusType: (type: string) => FocusAction
 }
 
 // trivia module
 export interface TriviaData {
-    id: number;
-    details: string;
-    link: string;
-    user: string;
-    group: number;
-    name: string;
-    last_update?: string;
+  id: number
+  details: string
+  link: string
+  user: string
+  group: number
+  name: string
+  last_update?: string
 }
 
 export interface TriviaGroupData {
-    id?: number;
-    name?: string;
-    status?: number;
+  id?: number
+  name?: string
+  status?: number
 }
 
 export interface TriviaState {
-    triviaList: TriviaData[] | [];
-    groupList: TriviaGroupData[];
-    group: number;
-    groupMap: {};
-    panelType: string;
-    current: number;
-    visible: boolean;
+  triviaList: TriviaData[] | []
+  groupList: TriviaGroupData[]
+  group: number
+  groupMap: {}
+  panelType: string
+  current: number
+  visible: boolean
 }
 
 // 用于各个模块的action.type类型检查
 
 export enum ExerciseTypes {
-    DAILYCHARTS = 'dailycharts',
-    GOALLIST = 'goalList',
-    PROGRAMOVERVIEW = 'program-overview',
-    FOCUSLIST = 'focusList',
-    FOCUSTYPE = 'focusType',
+  DAILYCHARTS = 'dailycharts',
+  GOALLIST = 'goalList',
+  PROGRAMOVERVIEW = 'program-overview',
+  FOCUSLIST = 'focusList',
+  FOCUSTYPE = 'focusType',
 }

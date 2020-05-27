@@ -1,11 +1,11 @@
-import React from "react"
-import { Layout, Col, Row, Button } from "antd"
-import { withRouter } from "react-router-dom"
-import { SuperIcon } from "@/components/Override"
+import React from 'react'
+import { Layout, Col, Row, Button } from 'antd'
+import { withRouter } from 'react-router-dom'
+import { SuperIcon } from '@/components/Override'
 import Treasure from './Treasure'
-import { LocaleContext } from "@/cluster/context"
-import Clock from "@/components/Clock"
-import "./index.scss"
+import { LocaleContext } from '@/cluster/context'
+import Clock from '@/components/Clock'
+import './index.scss'
 
 const { Header } = Layout
 
@@ -47,11 +47,11 @@ class FlowHeader extends React.PureComponent<FlowHeaderProps, FlowHeaderState> {
             </Col>
             <Col className="list" span={13} offset={1}>
               {headerItems.map((item, index) => {
-                if (item.type === "item") {
+                if (item.type === 'item') {
                   return (
                     <div
                       className={`${item.type} ${
-                        item.id === this.state.current ? "active" : ""
+                        item.id === this.state.current ? 'active' : ''
                       }`}
                       key={index}
                       onClick={this.handleRouter.bind(this, item.id)}
@@ -59,13 +59,13 @@ class FlowHeader extends React.PureComponent<FlowHeaderProps, FlowHeaderState> {
                       {item.label}
                     </div>
                   )
-                } else if (item.type === "seperator") {
+                } else if (item.type === 'seperator') {
                   return <div key={index} className="seperator"></div>
-                } else if (item.type === "link") {
+                } else if (item.type === 'link') {
                   return (
                     <div
                       className={`${item.type} ${
-                        item.id === this.state.current ? "active" : ""
+                        item.id === this.state.current ? 'active' : ''
                       }`}
                       key={index}
                       title={item.label}
@@ -73,7 +73,7 @@ class FlowHeader extends React.PureComponent<FlowHeaderProps, FlowHeaderState> {
                     >
                       <SuperIcon
                         type={`icon-${item.icon}`}
-                        style={{ fontSize: "14px", paddingLeft: "2px" }}
+                        style={{ fontSize: '14px', paddingLeft: '2px' }}
                       />
                     </div>
                   )
@@ -91,7 +91,7 @@ class FlowHeader extends React.PureComponent<FlowHeaderProps, FlowHeaderState> {
                 >
                   <SuperIcon
                     className="icon"
-                    type={`icon-${locale === "zh_cn" ? "en_us" : "zh_cn"}`}
+                    type={`icon-${locale === 'zh_cn' ? 'en_us' : 'zh_cn'}`}
                   />
                 </Button>
                 <Clock />
@@ -133,9 +133,9 @@ class FlowHeader extends React.PureComponent<FlowHeaderProps, FlowHeaderState> {
           this.setState({
             current: id,
           })
-          if (item.type === "link") {
-            window.open(item.target, "_blank")
-          } else if (item.type === "item") {
+          if (item.type === 'link') {
+            window.open(item.target, '_blank')
+          } else if (item.type === 'item') {
             this.props.history.push(item.target)
           }
         }
@@ -150,7 +150,7 @@ class FlowHeader extends React.PureComponent<FlowHeaderProps, FlowHeaderState> {
         current: -1,
       },
       () => {
-        this.props.history.push("/")
+        this.props.history.push('/')
       }
     )
   }
@@ -158,9 +158,9 @@ class FlowHeader extends React.PureComponent<FlowHeaderProps, FlowHeaderState> {
   toggleLocale = () => {
     const toggle = this.context.toggleLocale
     const locale = this.context.locale
-    let type = "zh_cn"
-    if (locale === "zh_cn") {
-      type = "en_us"
+    let type = 'zh_cn'
+    if (locale === 'zh_cn') {
+      type = 'en_us'
     }
     toggle(type)
   }

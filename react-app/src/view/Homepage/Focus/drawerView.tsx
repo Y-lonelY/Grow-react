@@ -25,16 +25,16 @@ import {
 } from "@/service/homepage/focusService"
 import { priorityColors } from "@/config/colors"
 import moment from "moment"
-import { focusProps, focusItem } from "@/index.d.ts"
+import { FocusProps, FocusItem } from "@/index.d.ts"
 
-interface DrawerViewProps extends FormComponentProps, focusProps {
+interface DrawerViewProps extends FormComponentProps, FocusProps {
   className?: string
   current?: number
   drawerClose: () => void
 }
 
 interface DrawerViewState {
-  data: focusItem
+  data: FocusItem
   initValue: initValue
 }
 
