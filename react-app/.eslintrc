@@ -39,15 +39,28 @@
     // 不要显示使用 any
     "@typescript-eslint/no-explicit-any": 0,
     // 分隔符样式，none, Semicolon(分号), Comma(逗号)
-    "@typescript-eslint/member-delimiter-style": 0,
+    // Prevents us from using any delimiter for interface properties.
+    "@typescript-eslint/member-delimiter-style": ["error", {
+      "multiline": {
+        "delimiter": "none",
+        "requireLast": false
+      },
+      "singleline": {
+        "delimiter": "comma",
+        "requireLast": false
+      }
+    }],
     // 函数显示返回值
     "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/camelcase": 0,
     // tsx 文件不适用
     // "space-before-function-paren": 1,
     "quotes": [1, "single", "avoid-escape"],
     "semi": [2, "never"],
     "no-var": 2,
-    "indent": [2, 2]
+    // "indent": [2, 2],
+    "no-console": 0,
+    "no-undef": 0
   },
   // 对某一类文件的配置进行覆盖
   "overrides": []

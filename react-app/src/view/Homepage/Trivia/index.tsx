@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useReducer } from "react"
+import React, { useState, useEffect, useContext, useReducer } from 'react'
 import {
   Button,
   Drawer,
@@ -8,19 +8,19 @@ import {
   Icon,
   Col,
   Row,
-  Select
-} from "antd"
-import { TriviaContext } from "./context"
-import { DrawerContent } from "./Drawer"
-import { LocaleContext } from "@/cluster/context"
-import { Header } from "@/components/Override"
+  Select,
+} from 'antd'
+import { TriviaContext } from './context'
+import { DrawerContent } from './Drawer'
+import { LocaleContext } from '@/cluster/context'
+import { Header } from '@/components/Override'
 import {
   getTriviaList,
   getTriviaGroupList,
-  updateTrivia
-} from "@/service/homepage/triviaService"
-import { languageColors } from "@/config/colors"
-import { TriviaState } from "@/index.d.ts"
+  updateTrivia,
+} from '@/service/homepage/triviaService'
+import { languageColors } from '@/config/colors'
+import { TriviaState } from '@/index.d.ts'
 
 const { Option } = Select
 
@@ -33,7 +33,7 @@ function RenderEmpty(props) {
           className="add"
           type="default"
           size="small"
-          onClick={props.event.bind(this, "add")}
+          onClick={props.event.bind(this, 'add')}
         >
           添加
         </Button>
@@ -45,37 +45,37 @@ function RenderEmpty(props) {
 
 function reducer(state: TriviaState, action): TriviaState {
   switch (action.type) {
-    case "showPanel":
+    case 'showPanel':
       return {
         ...state,
         visible: true,
         panelType: action.panelType,
-        current: action.current ? action.current : -127
+        current: action.current ? action.current : -127,
       }
-    case "triviaList":
+    case 'triviaList':
       return {
         ...state,
-        triviaList: action.triviaList
+        triviaList: action.triviaList,
       }
-    case "closePanel":
+    case 'closePanel':
       return {
         ...state,
-        visible: false
+        visible: false,
       }
-    case "groupList":
+    case 'groupList':
       return {
         ...state,
-        groupList: action.groupList
+        groupList: action.groupList,
       }
-    case "groupChange":
+    case 'groupChange':
       return {
         ...state,
-        group: action.group
+        group: action.group,
       }
-    case "setGroupMap":
+    case 'setGroupMap':
       return {
         ...state,
-        groupMap: action.groupMap
+        groupMap: action.groupMap,
       }
     default:
       break
@@ -84,27 +84,27 @@ function reducer(state: TriviaState, action): TriviaState {
 
 function TriviaView(props) {
   const { assets } = useContext(LocaleContext)
-  let headConfig = props.head
+  const headConfig = props.head
   const initState = {
     triviaList: [],
     groupList: [],
     group: -127,
     groupMap: {},
-    panelType: "add",
+    panelType: 'add',
     current: -127,
-    visible: false
+    visible: false,
   }
   const [state, dispatch] = useReducer(reducer, initState)
   const { Paragraph } = Typography
   const initTriviaList = async () => {
     const params = {
-      group: state.group
+      group: state.group,
     }
     const res = await getTriviaList(params)
     if (res.success) {
       dispatch({
-        type: "triviaList",
-        triviaList: res.data.list
+        type: 'triviaList',
+        triviaList: res.data.list,
       })
     }
   }
@@ -113,45 +113,45 @@ function TriviaView(props) {
     if (res.success) {
       dispatch({
         groupList: res.data.list,
-        type: "groupList"
+        type: 'groupList',
       })
       initGroupMap(res.data.list)
     }
   }
-  const initGroupMap = list => {
+  const initGroupMap = (list) => {
     let map = {
-      "-127": assets.all
+      '-127': assets.all,
     }
-    list.forEach(item => {
+    list.forEach((item) => {
       map[String(item.id)] = item.name
     })
     dispatch({
-      type: "setGroupMap",
-      groupMap: map
+      type: 'setGroupMap',
+      groupMap: map,
     })
   }
   const drawerClose = () => {
     dispatch({
-      type: "closePanel"
+      type: 'closePanel',
     })
   }
   const showPannel = (type?: string, id = -127) => {
     dispatch({
-      type: "showPanel",
+      type: 'showPanel',
       panelType: type,
-      current: id
+      current: id,
     })
   }
   const selectTrivia = (value: string) => {
     dispatch({
-      type: "groupChange",
-      group: Number(value)
+      type: 'groupChange',
+      group: Number(value),
     })
   }
   const jumpLink = (link: string): void => {
-    window.open(link, "blank")
+    window.open(link, 'blank')
   }
-  const deleteTrivia = async item => {
+  const deleteTrivia = async (item) => {
     const params = Object.assign({}, item)
     params.status = 0
     delete params.last_update
@@ -207,7 +207,7 @@ function TriviaView(props) {
                 className="list"
                 grid={{ gutter: 16, column: 4 }}
                 dataSource={state.triviaList}
-                renderItem={item => (
+                renderItem={(item) => (
                   <List.Item>
                     <Card className="card" size="small" hoverable={true}>
                       <Row className="name" type="flex" justify="space-between">
@@ -216,7 +216,7 @@ function TriviaView(props) {
                             className="label"
                             style={{
                               backgroundColor:
-                                languageColors[item.name.toLocaleLowerCase()]
+                                languageColors[item.name.toLocaleLowerCase()],
                             }}
                           >
                             {item.name}
@@ -237,7 +237,7 @@ function TriviaView(props) {
                             className="dark"
                             size="small"
                             type="link"
-                            onClick={showPannel.bind(this, "edit", item.id)}
+                            onClick={showPannel.bind(this, 'edit', item.id)}
                           >
                             <Icon type="form" />
                           </Button>

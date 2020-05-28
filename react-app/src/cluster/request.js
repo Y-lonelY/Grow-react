@@ -1,18 +1,14 @@
-import Axios from "axios"
-import { message } from "antd"
+import Axios from 'axios'
+import { message } from 'antd'
 
 // 声明一个 Map 用于存储每个**请求**的标识和取消方法
-let pending = new Map()
-
-// 通过工厂方法创建 canceltoken，用于取消用户请求
-let CancelToken = Axios.CancelToken
-let source = CancelToken.source()
+const pending = new Map()
 
 // axios 实例
-let service = Axios.create({
-  baseURL: "/service/",
+const service = Axios.create({
+  baseURL: '/service/',
   timeout: 60000,
-  headers: { "X-Requested-With": "XMLHttpRequest" },
+  headers: { 'X-Requested-With': 'XMLHttpRequest' },
 })
 
 // 在 pending 内添加请求对
@@ -22,8 +18,9 @@ const addPending = (config) => {
     config.url,
     JSON.stringify(config.params),
     JSON.stringify(config.data),
-  ].join("&")
+  ].join('&')
   // current request config params
+  // 通过工厂方法创建 canceltoken，用于取消用户请求
   config.cancelToken =
     config.cancelToken ||
     new Axios.CancelToken((cancel) => {
@@ -44,7 +41,7 @@ const removePending = (config) => {
     config.url,
     JSON.stringify(config.params),
     JSON.stringify(config.data),
-  ].join("&")
+  ].join('&')
   if (pending.has(url)) {
     // 如果在 pending 中存在当前请求标识，需要取消当前请求，并且移除
     const cancel = pending.get(url)
@@ -73,7 +70,7 @@ service.interceptors.request.use(
   }
 )
 
-// 设置响应拦截器
+// 设置响应拦截器，这里拦截网络请求本身的错误
 service.interceptors.response.use(
   (response) => {
     removePending(response.config) // 在请求结束后，移除本次请求
@@ -98,23 +95,23 @@ service.interceptors.response.use(
  */
 export async function get(url, config = {}) {
   try {
-    const response = await service.get(url, config)
+    const { data } = await service.get(url, config)
     // 返回服务器传值
-    return response.data
-  } catch (error) {
-    const err = error.toString()
+    return data
+  } catch (e) {
+    const err = e.toString()
     message.error(err)
   }
 }
 
 /**
- * params 用来接收查询参数
+ * data 用来接收查询参数，放在 request body 内
  */
 export async function post(url, params, config = {}) {
   try {
-    const response = await service.post(url, params, config)
+    const { data } = await service.post(url, params, config)
     // 返回服务器传值
-    return response.data
+    return data
   } catch (e) {
     throw e
   }
