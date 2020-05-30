@@ -1,6 +1,6 @@
 import { post, get } from '@/cluster/request';
 import { addData, focusData } from '../mock/homepage';
-import { config } from '@/config/sysConfig';
+import { config } from '@/config/sysConfig'
 import { message } from 'antd';
 
 const useMock = config.useMock === 'false' ? false : true;

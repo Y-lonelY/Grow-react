@@ -2,7 +2,7 @@ import React from 'react'
 import config from './config'
 import { Route, Switch } from 'react-router-dom'
 
-function Router(props) {
+function Router() {
   /**
    * defaultConfig 代表默认配置
    * 根据路由对象来生成不同的 Route
