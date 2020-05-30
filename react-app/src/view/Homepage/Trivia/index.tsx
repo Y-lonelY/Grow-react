@@ -108,18 +108,8 @@ function TriviaView(props) {
       })
     }
   }
-  const initTriviaGroup = async () => {
-    const res = await getTriviaGroupList()
-    if (res.success) {
-      dispatch({
-        groupList: res.data.list,
-        type: 'groupList',
-      })
-      initGroupMap(res.data.list)
-    }
-  }
   const initGroupMap = (list) => {
-    let map = {
+    const map = {
       '-127': assets.all,
     }
     list.forEach((item) => {
@@ -130,6 +120,17 @@ function TriviaView(props) {
       groupMap: map,
     })
   }
+  const initTriviaGroup = async () => {
+    const res = await getTriviaGroupList()
+    if (res.success) {
+      dispatch({
+        groupList: res.data.list,
+        type: 'groupList',
+      })
+      initGroupMap(res.data.list)
+    }
+  }
+  
   const drawerClose = () => {
     dispatch({
       type: 'closePanel',

@@ -40,16 +40,19 @@
     "@typescript-eslint/no-explicit-any": 0,
     // 分隔符样式，none, Semicolon(分号), Comma(逗号)
     // Prevents us from using any delimiter for interface properties.
-    "@typescript-eslint/member-delimiter-style": ["error", {
-      "multiline": {
-        "delimiter": "none",
-        "requireLast": false
-      },
-      "singleline": {
-        "delimiter": "comma",
-        "requireLast": false
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "none",
+          "requireLast": false
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": false
+        }
       }
-    }],
+    ],
     // 函数显示返回值
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/camelcase": 0,
@@ -58,7 +61,6 @@
     "quotes": [1, "single", "avoid-escape"],
     "semi": [2, "never"],
     "no-var": 2,
-    // "indent": [2, 2],
     "no-console": 0,
     "no-undef": 0
   },
