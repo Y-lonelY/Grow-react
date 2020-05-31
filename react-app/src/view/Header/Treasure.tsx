@@ -1,8 +1,7 @@
-import React, { useState, useReducer, useEffect } from 'react'
-import { Popover, Input, Row, Col, Button } from 'antd'
-import { SuperEmpty } from '@/components/Override'
+import React, { useReducer, useEffect } from 'react'
+import { Popover, Input } from 'antd'
 import { getHeaderMetadata } from '@/service/Header'
-import {} from 'react-router-dom'
+import RenderContent from './Content'
 
 const { Search } = Input
 
@@ -14,7 +13,7 @@ interface MetaAtom {
   icon?: string
 }
 
-interface TreasureState {
+export interface TreasureState {
   expanded?: boolean
   metadata: {
     links: MetaAtom[]
@@ -32,44 +31,9 @@ function reducer(state: TreasureState, action): Partial<TreasureState> {
   }
 }
 
-function RenderContent ({ metadata }: Pick<TreasureState, 'metadata'>) {
-  const { links, components } = metadata
-  const count = links.length + components.length
-  return (
-    <div>
-      {count > 0 ? (
-        <React.Fragment>
-          {Object.entries(metadata).map((item) => {
-            const [key, value] = item
-            return (
-              value && (
-                <Row key={key} type="flex" justify="space-between">
-                  <Col span={24}>{key}</Col>
-                  <React.Fragment>
-                    {value.map((v) => {
-                      const { label, id } = v
-                      return (
-                        <Col key={id} span={6}>
-                          <Button size="small" type="link">
-                            {label}
-                          </Button>
-                        </Col>
-                      )
-                    })}
-                  </React.Fragment>
-                </Row>
-              )
-            )
-          })}
-        </React.Fragment>
-      ) : (
-        <SuperEmpty />
-      )}
-    </div>
-  )
-}
 
-function Treasure() {
+
+export default function Treasure() {
   const initState = {
     expanded: false,
     metadata: {
@@ -124,5 +88,3 @@ function Treasure() {
     </div>
   )
 }
-
-export default Treasure
