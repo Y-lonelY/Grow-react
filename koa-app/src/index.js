@@ -1,8 +1,10 @@
 import Koa from 'koa';
 import Compose from 'koa-compose';
 import BodyParser from 'koa-bodyparser';
-import {listenError} from 'M/errors';
 import compress from 'koa-compress';
+import * as logger from 'koa-logger'
+import * as json from 'koa-json'
+import {listenError} from 'M/errors';
 import Homepage from 'V/Homepage';
 import Practice from 'V/Practice';
 import SystemView from 'V/System';
@@ -19,6 +21,8 @@ const compressInstance = compress({
 
 // 合并中间件
 app.use(Compose([
+    logger,
+    json,
     compressInstance,
     BodyParser(),
     Homepage,
