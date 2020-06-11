@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@hapi/joi": "^16.1.7",
-    "@koa/multer": "^2.0.0",
+    "@koa/multer": "^3.0.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "concurrently": "^4.1.1",
     "koa": "^2.7.0",
@@ -37,8 +37,8 @@
     "gulp-concat": "^2.6.1",
     "gulp-nodemon": "^2.5.0",
     "gulp-uglify": "^3.0.2",
-    "gulp-webpack": "^1.5.0",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "webpack-stream": "^5.2.1"
   },
   "scripts": {
     "build": "npx babel src --out-dir dist",
