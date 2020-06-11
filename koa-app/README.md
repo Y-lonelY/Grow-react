@@ -1,4 +1,12 @@
 
+## Gulp
+
+[gulp](https://www.gulpjs.com.cn/docs/getting-started/creating-tasks/) 自动化构建工具
+
+
+`npm install --save-dev gulp-clean` 删除文件/目录
+
+
 ## Start
 
 在 package.json 文件内添加 `scripts` 配置项，用于执行对应的脚本

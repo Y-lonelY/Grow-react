@@ -21,8 +21,8 @@ const compressInstance = compress({
 
 // 合并中间件
 app.use(Compose([
-    logger,
-    json,
+    // logger,
+    // json,
     compressInstance,
     BodyParser(),
     Homepage,
