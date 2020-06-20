@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout } from 'antd'
 // 路由
 import { BrowserRouter } from 'react-router-dom'
-import Router from '@/cluster/Router'
+import Router from '@/router'
 import { config as systemConfig } from '@/config/sysConfig'
 import FlowHeader from '@/view/Header'
 import FlowFooter from '@/view/Footer'
