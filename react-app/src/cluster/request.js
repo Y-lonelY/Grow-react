@@ -6,7 +6,7 @@ const pending = new Map()
 
 // axios 实例
 const service = Axios.create({
-  baseURL: '/service/',
+  baseURL: '/grow',
   timeout: 60000,
   headers: { 'X-Requested-With': 'XMLHttpRequest' },
 })
@@ -82,8 +82,6 @@ service.interceptors.response.use(
       // 再次尝试 cancel
       console.error(error.message)
     }
-    // 信息提示
-    message.error(error.message)
     return Promise.reject(error)
   }
 )
@@ -93,26 +91,43 @@ service.interceptors.response.use(
  * config: { params: {}} 放在 header 内
  * config: { data: {}} 放在 request body 内
  */
-export async function get(url, config = {}) {
+export const get = async (url, config = {}) => {
   try {
-    const { data } = await service.get(url, config)
+    const res = await service.get(url, config)
     // 返回服务器传值
-    return data
-  } catch (e) {
-    const err = e.toString()
-    message.error(err)
+    return res.data
+  } catch (error) {
+    message.error(String(error))
   }
 }
 
 /**
  * data 用来接收查询参数，放在 request body 内
  */
-export async function post(url, params, config = {}) {
+export const post =  async (url, data, config = {}) => {
   try {
-    const { data } = await service.post(url, params, config)
-    // 返回服务器传值
-    return data
-  } catch (e) {
-    throw e
+    const res = await service.post(url, data, config)
+    return res.data
+  } catch (error) {
+    message.error(String(error))
+  }
+}
+
+
+export const del = async (url, config = {}) => {
+  try {
+    const res = await service.delete(url, config)
+    return res.data
+  } catch (error) {
+    message.error(String(error))
+  }
+}
+
+export const patch = async (url, data, config = {}) => {
+  try {
+    const res = await service.patch(url, data, config)
+    return res.data
+  } catch (error) {
+    message.error(String(error))
   }
 }
