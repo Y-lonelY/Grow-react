@@ -1,6 +1,5 @@
 import {
   ExerciseChartAction,
-  ExerciseData,
   GoalListAction,
   GoalListItem,
   ProgramOverviewAction,
