@@ -1,42 +1,33 @@
 import React, { useState, useEffect } from 'react'
+import { connect, MapStateToProps } from 'react-redux'
 import { getUsers } from '@/service/Weight'
 import { Select } from 'antd'
+import Skeleton from '@/components/Skeleton'
 
 const { Option } = Select
+
+const skeleton = {
+    icon: {
+      type: 'header-weight'
+    },
+    label: 'weight'
+}
 
 export default function WeightView() {
   const [users, setUsers] = useState([])
 
   async function init() {
     const res = await getUsers()
-    console.log(res)
     setUsers(res)
   }
 
   useEffect(() => {
-    init()
+    // init()
   }, [])
 
   return (
     <div className="weight-content">
-      <div>
-        <Select
-          mode="multiple"
-          style={{ width: '200px' }}
-          maxTagCount={2}
-          placeholder="select a user"
-          showSearch
-        >
-          {users.length > 0 &&
-            users.map(({ value, label }) => {
-              return (
-                <Option key={value} value={value}>
-                  {label}
-                </Option>
-              )
-            })}
-        </Select>
-      </div>
+      <Skeleton header={skeleton}></Skeleton>
     </div>
   )
 }
