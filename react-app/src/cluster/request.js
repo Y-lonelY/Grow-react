@@ -97,7 +97,7 @@ export const get = async (url, config = {}) => {
     // 返回服务器传值
     return res.data
   } catch (error) {
-    message.error(String(error))
+    message.error(String(error), 2)
   }
 }
 
@@ -109,7 +109,7 @@ export const post =  async (url, data, config = {}) => {
     const res = await service.post(url, data, config)
     return res.data
   } catch (error) {
-    message.error(String(error))
+    message.error(String(error), 2)
   }
 }
 
@@ -119,7 +119,7 @@ export const del = async (url, config = {}) => {
     const res = await service.delete(url, config)
     return res.data
   } catch (error) {
-    message.error(String(error))
+    message.error(String(error), 2)
   }
 }
 
@@ -128,6 +128,6 @@ export const patch = async (url, data, config = {}) => {
     const res = await service.patch(url, data, config)
     return res.data
   } catch (error) {
-    message.error(String(error))
+    message.error(String(error), 2)
   }
 }
