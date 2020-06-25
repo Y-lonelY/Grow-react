@@ -1,4 +1,5 @@
 import { get, post, patch, del } from '@/cluster/request'
+import moment from 'moment'
 
 const prefix = '/weight'
 
@@ -10,6 +11,21 @@ export const getUsers = async () => {
       return {
         value,
         label: value,
+      }
+    })
+  }
+  return []
+}
+
+// Query weight list
+export const queryWeights = async (data) => {
+  const weights = await post(`${prefix}/query`, data)
+  if (weights && weights.length) {
+    return weights.map(({ updatedAt, user, weight }) => {
+      return {
+        date: moment(updatedAt).format('YYYY-MM-DD'),
+        user,
+        weight
       }
     })
   }

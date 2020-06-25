@@ -1,7 +1,8 @@
-import moment from "moment";
+import moment from 'moment'
 
 export interface WeightState {
   users: []
+  weights: []
 }
 
 export interface WeightContext {

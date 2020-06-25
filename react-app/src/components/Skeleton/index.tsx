@@ -6,9 +6,7 @@ import './index.scss'
 export default function Skeleton(props: SkeletonType) {
   return (
     <div className="m-skeleton">
-      <Header {...props.header}>
-        <div></div>
-      </Header>
+      <Header {...props.header} />
       <section className="s-skeleton">
         {props.filter && <div className="filter-panel">{props.filter}</div>}
         {props.children && <div className="main-panel">{props.children}</div>}

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import { getUsers } from '@/service/Weight'
-import { Select } from 'antd'
 import Skeleton from '@/components/Skeleton'
-import Filter from './filter'
+import WeightFilter from './filter'
+import WeightMain from './main'
 import WeightContext, { initState } from './context'
 import { WeightState } from './types'
 
@@ -20,6 +20,11 @@ function reducer (state: WeightState, action): WeightState {
         ...state,
         users: action.users
       }
+    case 'queryWeight':
+      return {
+        ...state,
+        weights: action.weights
+      }
     default:
       return state
   }
@@ -35,9 +40,9 @@ export default function WeightView() {
       type: 'updateUsers',
       users
     })
-    console.log(state)
   }
 
+  // maps to componentMounted
   useEffect(() => {
     init()
   }, [])
@@ -45,7 +50,9 @@ export default function WeightView() {
   return (
     <WeightContext.Provider value={{ state, dispatch }}>
       <div className="weight-content">
-      <Skeleton header={skeleton} filter={<Filter />}></Skeleton>
+      <Skeleton header={skeleton} filter={<WeightFilter />}>
+        <WeightMain weights={state.weights} />
+      </Skeleton>
     </div>
     </WeightContext.Provider>
   )

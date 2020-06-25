@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+import { queryWeights } from '@/service/Weight'
 import { Select } from 'antd'
 import moment from 'moment'
 import GrowDatePicker from '@/components/GrowDatePicker'
@@ -13,11 +14,22 @@ export default function WeightFilter() {
   const [params, setParams] = useState<QueryParams>({
     user: '',
     start: moment().subtract(7, 'days'),
-    end: moment(),
+    end: moment()
   })
 
-  function query() {
-    console.log(params)
+  async function query() {
+    // format date params, from moment.Moment to string
+    const data = Object.assign({}, params, {
+      start: params.start.format('YYYY-MM-DD'),
+      end: params.end.format('YYYY-MM-DD')
+    })
+    // get weight list
+    const weights = await queryWeights(data)
+    // trigger to update
+    dispatch({
+      type: 'queryWeight',
+      weights
+    })
   }
 
   function userSelect(user) {
@@ -28,13 +40,23 @@ export default function WeightFilter() {
   }
 
   function dateRangeChange(dates, dateStrings) {
-    const [start, end] = dateStrings
+    const [start, end] = dates
     setParams({
       ...params,
       start,
       end
     })
   }
+
+  // watch params change then to query
+  useEffect(() => {
+    query()
+  }, [params])
+
+  // componentMounted
+  // useEffect(() => {
+  //   query()
+  // }, [])
 
   return (
     <div>

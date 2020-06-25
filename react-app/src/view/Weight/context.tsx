@@ -2,7 +2,8 @@ import React from 'react'
 import { WeightContext, WeightState } from './types'
 
 export const initState: WeightState = {
-  users: []
+  users: [],
+  weights: []
 }
 
 export default React.createContext<WeightContext>({
