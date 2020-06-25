@@ -1,20 +1,20 @@
-import React from "react"
-import { Popover, Progress } from "antd"
-import moment from "moment"
-import "./index.scss"
+import React from 'react'
+import { Popover, Progress } from 'antd'
+import moment from 'moment'
+import './index.scss'
 
 interface ClockState {
-  date: String
+  date: string
 }
 
-class Clock extends React.Component<{}, ClockState> {
+export default class Clock extends React.Component<{}, ClockState> {
   timeInterval: number
   // 添加一个类构造函数来初始化状态 this.state
   // 类组件应该始终使用 props 调用基础构造函数，super() 方法就是为达到此目的
   constructor(props) {
     super(props)
     this.state = {
-      date: moment().format("YYYY-MM-DD H:mm:ss A"),
+      date: moment().format('YYYY-MM-DD H:mm:ss A'),
     }
   }
 
@@ -22,7 +22,7 @@ class Clock extends React.Component<{}, ClockState> {
     // 新建一个定时器任务
     this.timeInterval = window.setInterval(() => {
       this.setState({
-        date: moment().format("YYYY-MM-DD HH:mm:ss A"),
+        date: moment().format('YYYY-MM-DD HH:mm:ss A'),
       })
     }, 1000)
   }
@@ -33,7 +33,7 @@ class Clock extends React.Component<{}, ClockState> {
   }
 
   timeFlow = () => {
-    const endDate = moment().endOf("year").format("MM-DD, YYYY")
+    const endDate = moment().endOf('year').format('MM-DD, YYYY')
     const days = moment().dayOfYear()
     const isLeap = moment().isLeapYear()
     let fullDays = 365
@@ -42,8 +42,8 @@ class Clock extends React.Component<{}, ClockState> {
       fullDays = 366
     }
 
-    let leftDays = fullDays - days
-    let percent = Number(((days * 100) / fullDays).toFixed(0))
+    const leftDays = fullDays - days
+    const percent = Number(((days * 100) / fullDays).toFixed(0))
 
     return (
       <div className="dateBox">
@@ -55,8 +55,8 @@ class Clock extends React.Component<{}, ClockState> {
           percent={percent}
           status="active"
           strokeColor={{
-            from: "#eee",
-            to: "#777",
+            from: '#eee',
+            to: '#777',
           }}
         ></Progress>
       </div>
@@ -73,5 +73,3 @@ class Clock extends React.Component<{}, ClockState> {
     )
   }
 }
-
-export default Clock
