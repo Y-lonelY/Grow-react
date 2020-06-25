@@ -5,7 +5,6 @@ const prefix = '/weight'
 // Get all users
 export const getUsers = async () => {
   const users = await get(`${prefix}/users`)
-  console.log(users)
   if (users && Array.isArray(users)) {
     return users.map(({ value }) => {
       return {

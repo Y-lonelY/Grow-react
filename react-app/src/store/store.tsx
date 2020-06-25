@@ -1,10 +1,10 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import * as goalListData from '@/store/Exercise/reducer';
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import * as goalListData from '@/store/Exercise/reducer'
 
-let store = createStore(
-    combineReducers({...goalListData}),
-    applyMiddleware(thunk)
-);
+const store = createStore(
+  combineReducers({ ...goalListData }),
+  applyMiddleware(thunk)
+)
 
-export default store;
+export default store
