@@ -1,5 +1,5 @@
 import React from "react"
-import { Layout, Col, Row, Switch, Icon, Divider, Button, Modal } from "antd"
+import { Layout, Col, Row, Divider, Button, Modal } from "antd"
 import { LocaleContext } from "@/cluster/context"
 import { config, setUseMock } from "@/config/sysConfig"
 import "./index.scss"
@@ -29,7 +29,7 @@ class FlowFooter extends React.PureComponent<{}, FlowFooterState> {
         <Divider className="footer-seprator">
           Respect everything that happens
         </Divider>
-        <Row className="main-footer" type="flex" justify="start">
+        <Row className="main-footer" justify="start">
           <Col className="cm" span={8}></Col>
           <Col className="cm mid" span={8}>
             <h2 className="title">关于</h2>

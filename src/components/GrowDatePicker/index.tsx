@@ -9,9 +9,6 @@ const { RangePicker } = DatePicker
 
 export default class GrowDatePicker extends React.Component<DatePickerType> {
   static contextType = LocaleContext
-  constructor(props) {
-    super(props)
-  }
 
   render() {
     const locale = this.context.locale

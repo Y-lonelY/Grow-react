@@ -25,7 +25,7 @@ export default function RenderContent ({ metadata }: Pick<TreasureState, 'metada
             const [key, value] = item
             return (
               value && (
-                <Row key={key} type="flex" justify="space-between">
+                <Row key={key} justify="space-between">
                   <Col span={24}>{key}</Col>
                   <React.Fragment>
                     {value.map((v) => {

@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { queryWeights } from '@/service/Weight'
 import { Select } from 'antd'
 import moment from 'moment'
-import GrowDatePicker from '@/components/GrowDatePicker'
+import { GrowDatePicker } from '@/components'
 import WeightContext from './context'
 import { QueryParams } from './types'
 
@@ -13,23 +13,24 @@ export default function WeightFilter() {
   // query params
   const [params, setParams] = useState<QueryParams>({
     user: '',
-    start: moment().subtract(7, 'days'),
-    end: moment()
+    start: moment().subtract(30, 'days'),
+    end: moment(),
   })
 
   async function query() {
     // format date params, from moment.Moment to string
     const data = Object.assign({}, params, {
       start: params.start.format('YYYY-MM-DD'),
-      end: params.end.format('YYYY-MM-DD')
+      end: params.end.format('YYYY-MM-DD'),
     })
+    // loadding true
+    dispatch({ type: 'updateLoading', loading: true })
     // get weight list
     const weights = await queryWeights(data)
     // trigger to update
-    dispatch({
-      type: 'queryWeight',
-      weights
-    })
+    dispatch({ type: 'queryWeight', weights })
+    // cancel loading
+    dispatch({ type: 'updateLoading', loading: false })
   }
 
   function userSelect(user) {
@@ -44,7 +45,7 @@ export default function WeightFilter() {
     setParams({
       ...params,
       start,
-      end
+      end,
     })
   }
 
@@ -52,11 +53,6 @@ export default function WeightFilter() {
   useEffect(() => {
     query()
   }, [params])
-
-  // componentMounted
-  // useEffect(() => {
-  //   query()
-  // }, [])
 
   return (
     <div>
@@ -74,7 +70,7 @@ export default function WeightFilter() {
         showSearch
       >
         <Option key="all" value="">
-          全部
+          All Users
         </Option>
         {state.users.length > 0 &&
           state.users.map(({ value, label }) => {

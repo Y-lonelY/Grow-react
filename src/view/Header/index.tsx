@@ -38,7 +38,7 @@ class FlowHeader extends React.PureComponent<FlowHeaderProps, FlowHeaderState> {
     return (
       <div className="flow-header">
         <Header className="header">
-          <Row className="main-row" type="flex" justify="start">
+          <Row className="main-row" justify="start">
             <Col span={2}>
               <span className="label" onClick={this.viewHomepage}>
                 {assets.mainTitle}
@@ -46,7 +46,7 @@ class FlowHeader extends React.PureComponent<FlowHeaderProps, FlowHeaderState> {
               </span>
             </Col>
             <Col className="list" span={13} offset={1}>
-              {headerItems.map((item, index) => {
+              {/* {headerItems.map((item, index) => {
                 if (item.type === 'item') {
                   return (
                     <div
@@ -78,7 +78,7 @@ class FlowHeader extends React.PureComponent<FlowHeaderProps, FlowHeaderState> {
                     </div>
                   )
                 }
-              })}
+              })} */}
             </Col>
             <Col span={8}>
               <div className="func-box">

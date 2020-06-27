@@ -1,10 +1,9 @@
-import HomepageView from '@/view/Homepage'
 import { asyncComponent } from './AsyncComponent'
 
 interface RouteConfigItem {
-  key: string
-  title?: string
-  path: string
+  key: string;
+  title?: string;
+  path: string;
   component: any
 }
 
@@ -17,23 +16,23 @@ const config: RouterConfig = {
     {
       key: 'entry',
       path: '/',
-      component: HomepageView,
+      component: asyncComponent(() => import('@/view/Weight')),
     },
     {
       key: 'weight',
       path: '/weight',
       component: asyncComponent(() => import('@/view/Weight')),
     },
-    {
-      key: 'practice',
-      path: '/practice',
-      component: asyncComponent(() => import('@/view/Practice')),
-    },
-    {
-      key: 'tools',
-      path: '/tools',
-      component: asyncComponent(() => import('@/view/Tools')),
-    },
+    // {
+    //   key: 'practice',
+    //   path: '/practice',
+    //   component: asyncComponent(() => import('@/view/Practice')),
+    // },
+    // {
+    //   key: 'tools',
+    //   path: '/tools',
+    //   component: asyncComponent(() => import('@/view/Tools')),
+    // },
   ],
 }
 

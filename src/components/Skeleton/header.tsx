@@ -1,6 +1,6 @@
 import React from 'react'
 import { LocaleContext } from '@/cluster/context'
-import { Col, Row, Badge } from 'antd'
+import { Col, Row } from 'antd'
 import SuperIcon from '@/components/SupIcon'
 import { HeaderType } from './types'
 
@@ -16,7 +16,6 @@ export default React.memo(function HeaderMemo(props: HeaderType) {
       {({ assets }) => (
         <Row
           className="h-skeleton"
-          type="flex"
           justify="space-between"
           align="top"
           style={{

@@ -3,7 +3,9 @@ import { WeightContext, WeightState } from './types'
 
 export const initState: WeightState = {
   users: [],
-  weights: []
+  weights: [],
+  loading: true,
+  drawerDisplay: false
 }
 
 export default React.createContext<WeightContext>({

@@ -1,9 +1,10 @@
 import React from 'react'
-import { Empty, Icon, Button, Col, Row } from 'antd'
+import { Empty, Button, Col, Row } from 'antd'
+import { createFromIconfontCN } from '@ant-design/icons'
 import { LocaleContext } from '@/cluster/context'
 import './index.scss'
 
-const IconFont = Icon.createFromIconfontCN({
+const IconFont = createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_1509932_mtwffsv2db.js',
 })
 
@@ -35,7 +36,7 @@ function HeaderMemo(props) {
     <LocaleContext.Consumer>
       {/* value 在这里代表 this.context */}
       {({ assets }) => (
-        <Row className="module-header" type="flex" justify="space-between">
+        <Row className="module-header" justify="space-between">
           <Col className="text-box">
             <IconFont
               className="icon"

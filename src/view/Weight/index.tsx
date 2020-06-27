@@ -1,29 +1,41 @@
 import React, { useEffect, useReducer } from 'react'
+import { Drawer, Form, Select } from 'antd'
 import { getUsers } from '@/service/Weight'
 import Skeleton from '@/components/Skeleton'
 import WeightFilter from './filter'
 import WeightMain from './main'
 import WeightContext, { initState } from './context'
 import { WeightState } from './types'
+import './index.scss'
 
 const skeleton = {
-    icon: {
-      type: 'header-weight'
-    },
-    label: 'weight'
+  icon: {
+    type: 'header-weight',
+  },
+  label: 'weight',
 }
 
-function reducer (state: WeightState, action): WeightState {
+function reducer(state: WeightState, action): WeightState {
   switch (action.type) {
     case 'updateUsers':
       return {
         ...state,
-        users: action.users
+        users: action.users,
       }
     case 'queryWeight':
       return {
         ...state,
-        weights: action.weights
+        weights: action.weights,
+      }
+    case 'updateLoading':
+      return {
+        ...state,
+        loading: action.loading,
+      }
+    case 'updateDrawer':
+      return {
+        ...state,
+        drawerDisplay: action.drawerDisplay
       }
     default:
       return state
@@ -38,7 +50,7 @@ export default function WeightView() {
     const users = await getUsers()
     dispatch({
       type: 'updateUsers',
-      users
+      users,
     })
   }
 
@@ -50,10 +62,22 @@ export default function WeightView() {
   return (
     <WeightContext.Provider value={{ state, dispatch }}>
       <div className="weight-content">
-      <Skeleton header={skeleton} filter={<WeightFilter />}>
-        <WeightMain weights={state.weights} />
-      </Skeleton>
-    </div>
+        <Skeleton header={skeleton} filter={<WeightFilter />}>
+          <WeightMain />
+        </Skeleton>
+        <Drawer
+          title="Create a new weight record"
+          placement="right"
+          width={360}
+          closable={false}
+          onClose={() => { dispatch({ type: 'updateDrawer', drawerDisplay: false })}}
+          visible={state.drawerDisplay}
+        >
+          <Form>
+            <Form.Item label="user"></Form.Item>
+          </Form>
+        </Drawer>
+      </div>
     </WeightContext.Provider>
   )
 }

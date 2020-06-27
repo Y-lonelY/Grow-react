@@ -55,7 +55,7 @@ class App extends React.Component<{}, AppState> {
               >
                 <Layout className="layout">
                   <FlowHeader></FlowHeader>
-                  <Content className="content">
+                  <Content className="content" style={{ minHeight: '500px' }}>
                     {/* 路由主体 */}
                     <Router />
                     {/* 路由主体 */}

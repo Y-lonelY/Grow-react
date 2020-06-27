@@ -1,17 +1,19 @@
 import moment from 'moment'
 
 export interface WeightState {
-  users: []
-  weights: []
+  users: [];
+  weights: [];
+  loading: boolean;
+  drawerDisplay: boolean
 }
 
 export interface WeightContext {
-  state: WeightState
+  state: WeightState;
   dispatch: Function
 }
 
 export interface QueryParams {
-  user: string
-  start: moment.Moment
+  user: string;
+  start: moment.Moment;
   end: moment.Moment
 }
