@@ -1,0 +1,261 @@
+import React from 'react'
+import { SuperEmpty } from '@/components/Override'
+import {
+  G2,
+  Chart,
+  Geom,
+  Axis,
+  Tooltip,
+  Legend,
+  Coord,
+  View,
+  Label,
+} from 'bizcharts'
+import DataSet from '@antv/data-set'
+import { ExercisePolyline, ExercisePie, getProgramScale } from './config'
+import { config as SystemConfig } from '@/config/sysConfig'
+import { PieData, PolylineData } from '@/index.d.ts'
+
+interface PolylineProps {
+  data: PolylineData[]
+  avgData: PieData
+  className: string
+  normalize?: boolean
+}
+
+interface PieProps {
+  data: PieData
+}
+
+// 数据集视图构造函数
+const { DataView } = DataSet
+
+/**
+ * 考虑到图表实际是一个纯函数，输入数据和输出保持一致，所以将 class 写法改写为 function
+ */
+
+/**
+ * 折线图
+ * width 根据dom结构计算，防止其渲染有闪动
+ * forceFit 根据父节点的宽度进行定位
+ * placeholder 处理无数据时提示
+ */
+function Polyline(props: PolylineProps) {
+  // 归一化
+  const normalize = (data) => {
+    const list = []
+    data.forEach((item) => {
+      const avgValue = props.avgData[item.type]
+      const currentItem = {}
+      currentItem['type'] = item.type
+      currentItem['date'] = item.date
+      currentItem['number'] = (item.number / avgValue).toFixed(2)
+      list.push(currentItem)
+    })
+    return list
+  }
+
+  return (
+    <div>
+      {Array.isArray(props.data) && props.data.length > 0 ? (
+        <Chart
+          className={props.className}
+          padding="auto"
+          height={500}
+          width={((window.innerWidth - 100) * 14) / 24}
+          data={props.normalize ? normalize(props.data) : props.data}
+          scale={ExercisePolyline.scale}
+          forceFit
+        >
+          {/* 图例 */}
+          <Legend></Legend>
+          {/* Axis 通过 name 来指定坐标轴 */}
+          {/* position 控制当前坐标轴展示位置 */}
+          <Axis name="date" position="bottom"></Axis>
+          <Axis name="number" position="left"></Axis>
+          {/* 点，线，面几何图形 */}
+          {/* position 位置属性的映射，表示标记位置是由哪些数据控制，即（x,y） */}
+          {/* 对于 line 来说，size表示线的宽度 */}
+          <Geom type="line" position="date*number" size={2} color="type"></Geom>
+          {/* 'shapeType'，指定常量，将所有数据值映射到固定的 shape */}
+          {/* 对于 point 来说，size表示点的半径 */}
+          {/* style 作用于点样式 */}
+          <Geom
+            type="point"
+            position="date*number"
+            size={4}
+            shape={'circle'}
+            color="type"
+            style={{ stroke: '#fff', lineWidth: 1 }}
+          />
+          {/* 设置y:垂直辅助线 */}
+          <Tooltip crosshairs={{ type: 'y' }} />
+        </Chart>
+      ) : (
+        <SuperEmpty mTop="250px" />
+      )}
+    </div>
+  )
+}
+
+/**
+ * 饼图
+ * sumItem 用于判断每项是否全为 null
+ */
+function Pie(props: PieProps) {
+  const sumMap = props.data
+  const sumChartData = []
+  let sumItem = 0
+
+  Object.entries(sumMap).forEach((item) => {
+    const currentObj = {}
+    currentObj['item'] = item[0].toUpperCase()
+
+    if (item[1] !== null) {
+      currentObj['count'] = item[1]
+    } else {
+      currentObj['count'] = 0
+    }
+
+    sumItem += Number(currentObj['count'])
+
+    sumChartData.push(currentObj)
+  })
+
+  // 声明一个数据视图实例
+  const dv = new DataView()
+  // source 载入数据
+  // transform 根据配置项处理数据
+  dv.source(sumChartData).transform({
+    // 通过 type 指定总和百分比
+    type: 'percent',
+    // 每个 dimension 下，其 filed 占比
+    field: 'count',
+    dimension: 'item',
+    // 将结果存储在 percent 字段
+    as: 'percent',
+  })
+
+  const spe = {
+    fontSize: SystemConfig.hugeScreen ? '12' : '10',
+  }
+
+  return (
+    <Chart
+      data={sumItem === 0 ? {} : dv}
+      scale={ExercisePie.scale}
+      height={320}
+      width={((window.innerWidth - 100) * 6) / 24}
+      padding="auto"
+      forceFit
+      placeholder
+    >
+      <Coord type="theta" radius={0.65} />
+      <Axis name="percent" />
+      <Geom
+        type="interval"
+        position="percent"
+        color="item"
+        style={{ lineWidth: 1, stroke: '#fff' }}
+      >
+        <Label
+          content="percent"
+          textStyle={{
+            fontSize: spe.fontSize,
+          }}
+          formatter={(val, item) => {
+            const percent = (item.point.percent * 100).toFixed(2)
+            return `${percent}%`
+          }}
+        />
+      </Geom>
+    </Chart>
+  )
+}
+
+/**
+ * 堆叠柱状图
+ *
+ */
+function StackedColumn(props) {
+  const w = (window.innerWidth - 100) * props.width
+  return (
+    <div>
+      {Array.isArray(props.data) && props.data.length > 0 ? (
+        <Chart
+          scale={getProgramScale(props.data.length)}
+          padding="auto"
+          width={w}
+          height={500}
+          data={props.data}
+          forceFit
+        >
+          <Axis name="date" position="bottom" />
+          <Axis name="value" position="left" />
+          <Tooltip />
+          <Geom
+            type="interval"
+            position="date*value"
+            color={'name'}
+            style={{
+              stroke: '#fff',
+              lineWidth: 1,
+            }}
+          />
+        </Chart>
+      ) : (
+        <SuperEmpty mTop="250px" />
+      )}
+    </div>
+  )
+}
+
+/**
+ * 雷达图
+ */
+function Polar(props) {
+  const data = [
+    { item: 'Design', user: 'AppEngineer', score: 70 },
+    { item: 'Development', user: 'AppEngineer', score: 60 },
+    { item: 'Marketing', user: 'AppEngineer', score: 50 },
+    { item: 'Users', user: 'AppEngineer', score: 40 },
+    { item: 'Test', user: 'AppEngineer', score: 60 },
+    { item: 'Language', user: 'AppEngineer', score: 70 },
+  ]
+  return (
+    <div>
+      <Chart height={250} width={330} data={data}>
+        <Coord type="polar" radius={0.8} />
+        <Axis
+          name="item"
+          line={null}
+          tickLine={null}
+        />
+        <Tooltip />
+        <Axis
+          name="score"
+          line={null}
+          tickLine={null}
+          grid={{
+            alternateColor: 'rgba(0, 0, 0, 0.04)',
+          }}
+        />
+        <Geom type="line" position="item*score" color="user" size={2} />
+        <Geom
+          type="point"
+          position="item*score"
+          color="user"
+          shape="circle"
+          size={4}
+          style={{
+            stroke: '#fff',
+            lineWidth: 1,
+            fillOpacity: 1,
+          }}
+        />
+      </Chart>
+    </div>
+  )
+}
+
+export { Polyline, Pie, StackedColumn, Polar }

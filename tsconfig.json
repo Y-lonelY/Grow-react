@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        // 指定 jsx 工作模式: 'preserve', 'react-native', or 'react'，影响的是编译策略
+        // preserve 模式会在生成代码中保留 jsx
+        // react 模式会直接编译成 React.createElement，输出文件格式为 js
+        // react-native 模式会保留所有的 jsx，但是其输出文件格式为 js
+        "jsx": "preserve",
+        // 为运行时babel生态系统兼容性发出'__importStar'和'__importDefault'助手
+        "esModuleInterop": true,
+        "baseUrl": "./",
+        // 模块名到基于 baseUrl 的路径映射的列表
+        "paths": {
+            "@/*":["src/*"]
+        }
+    },
+    // 用来指定不需要编译的文件
+    "exclude": [
+        "node_modules"
+    ]
+}

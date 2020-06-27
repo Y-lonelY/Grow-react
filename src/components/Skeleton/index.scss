@@ -1,0 +1,33 @@
+.m-skeleton {
+  .h-skeleton {
+    height: 32px;
+    margin: 20px 0;
+    line-height: 32px;
+    border-bottom: 1px solid #e8e8e8;
+    .title {
+      .label {
+        padding-left: 3px;
+        text-transform: capitalize;
+        font: {
+          size: 18px;
+          weight: bold;
+        }
+        .sub {
+          vertical-align: text-top;
+          font-size: 12px;
+          color: rgba(0, 0, 0, 0.25);
+          padding: 0 0 0 4px;
+          font-weight: lighter;
+        }
+      }
+    }
+    .func-box {
+      .ant-btn-link {
+        font-size: 12px;
+      }
+    }
+  }
+  .s-skeleton {
+    min-height: 400px;
+  }
+}

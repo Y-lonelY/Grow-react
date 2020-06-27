@@ -1,0 +1,33 @@
+$gray: #bdc1c6;
+
+.dateBox {
+    font: {
+        size: 12px;
+    }
+    .title-bold {
+        font: {
+            weight: 700;
+        }
+    }
+    .date-progress {
+        font-size: 12px;
+    }
+}
+.clockBox {
+    text: {
+        align: right;
+    }
+    .clock-btn {
+        height: 50px;
+        display: inline-block;
+        color: $gray;
+        cursor: default;
+        user-select: none;
+        font: {
+            size: 12px;
+        }
+        &:hover {
+            color: #fff;
+        }
+    }
+}

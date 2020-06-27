@@ -1,0 +1,114 @@
+@import "@/common.scss";
+
+.flow-header {
+  .header {
+    background: {
+      color: $blackBack;
+    }
+    .main-row {
+      .ant-col {
+        height: 64px;
+      }
+
+      .label {
+        padding: 3px 6px;
+        border: 2px solid #fff;
+        border-radius: 6px;
+        font: {
+          size: 16px;
+          family: $robotFont;
+          weight: 400;
+        }
+        text-transform: uppercase;
+        color: #ffffff;
+        cursor: pointer;
+      }
+
+      .list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+
+        .seperator {
+          width: 2px;
+          height: 12px;
+          margin-right: 12px;
+          background-color: $gray;
+          transform: translateY(26px);
+          border-radius: 4px;
+        }
+
+        .item {
+          margin-right: 24px;
+          color: $gray;
+          cursor: pointer;
+          text-transform: capitalize;
+          font: {
+            size: 14px;
+            weight: bold;
+          }
+
+          &:hover {
+            color: #ffffff;
+          }
+
+          &.active {
+            color: #ffffff;
+          }
+        }
+
+        .link {
+          margin-right: 8px;
+          color: $gray;
+          cursor: pointer;
+          text-transform: capitalize;
+          font: {
+            size: 14px;
+            weight: bold;
+          }
+
+          &:hover {
+            color: #ffffff;
+          }
+
+          &.active {
+            color: #ffffff;
+          }
+        }
+      }
+
+      .func-box {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        .locale {
+          margin-top: 20px;
+          cursor: pointer;
+          color: $gray;
+          &:hover {
+            color: #fff;
+          }
+
+          .icon {
+            position: relative;
+            top: 1px;
+            font-size: 20px;
+          }
+        }
+        .treasure-box {
+          .icon {
+            position: relative;
+            top: 2px;
+            font-size: 18px;
+            &.clicked {
+              @include circle;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
