@@ -1,19 +1,23 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Button, Row, Col, Spin } from 'antd'
 import { GrowResult } from '@/components'
-import { Chart, Line, Point, Tooltip } from 'bizcharts'
-import DataSet from '@antv/data-set'
 import WeightContext from './context'
+import { GrowPolyline } from '@/components/GrowChart'
 
 export default function WeightMain(props: {}) {
+  const [chartList, setChartList] = useState([])
   const { state, dispatch } = useContext(WeightContext)
-  // declare a data set
-  const ds = new DataSet({
-    state: {
-      name: 'weight',
-    },
-  })
-  const dv = ds.createView().source(state.weights)
+
+  useEffect(() => {
+    const list = state.weights.map(({ date, user, weight }) => {
+      return {
+        x: date,
+        y: weight,
+        value: user
+      }
+    })
+    setChartList(list)
+  }, [state.weights])
 
   return (
     <div
@@ -22,7 +26,7 @@ export default function WeightMain(props: {}) {
     >
       {state.loading ? (
         <Spin style={{ marginTop: '200px' }} />
-      ) : dv.rows && dv.rows.length > 0 ? (
+      ) : chartList && chartList.length > 0 ? (
         <Row
           justify="space-between"
           align="top"
@@ -37,7 +41,7 @@ export default function WeightMain(props: {}) {
               justify="start"
             >
               <Col className="length" span={6}>
-                <b>Totol {dv.rows.length} records</b>
+                <b>Totol {chartList.length} records</b>
               </Col>
               <Col className="handler" span={18}>
                 <Button
@@ -51,16 +55,7 @@ export default function WeightMain(props: {}) {
                 </Button>
               </Col>
             </Row>
-            <Chart
-              data={dv.rows}
-              height={500}
-              padding={[10, 20, 50, 40]}
-              autoFit
-            >
-              <Line shape="smooth" position="date*weight" color="user" />
-              <Point position="date*weight" color="user" />
-              <Tooltip shared={true} />
-            </Chart>
+            <GrowPolyline data={chartList}  height={500} padding={[50]} yLabel="kg"  />
           </Col>
           <Col span={8}>panel</Col>
         </Row>

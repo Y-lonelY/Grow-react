@@ -1,9 +1,9 @@
 import React, { useEffect, useReducer } from 'react'
-import { Drawer, Form, Select } from 'antd'
 import { getUsers } from '@/service/Weight'
 import Skeleton from '@/components/Skeleton'
 import WeightFilter from './filter'
 import WeightMain from './main'
+import WeightDrawer from './atoms/Drawer'
 import WeightContext, { initState } from './context'
 import { WeightState } from './types'
 import './index.scss'
@@ -35,7 +35,7 @@ function reducer(state: WeightState, action): WeightState {
     case 'updateDrawer':
       return {
         ...state,
-        drawerDisplay: action.drawerDisplay
+        drawerDisplay: action.drawerDisplay,
       }
     default:
       return state
@@ -65,18 +65,7 @@ export default function WeightView() {
         <Skeleton header={skeleton} filter={<WeightFilter />}>
           <WeightMain />
         </Skeleton>
-        <Drawer
-          title="Create a new weight record"
-          placement="right"
-          width={360}
-          closable={false}
-          onClose={() => { dispatch({ type: 'updateDrawer', drawerDisplay: false })}}
-          visible={state.drawerDisplay}
-        >
-          <Form>
-            <Form.Item label="user"></Form.Item>
-          </Form>
-        </Drawer>
+        <WeightDrawer />
       </div>
     </WeightContext.Provider>
   )
