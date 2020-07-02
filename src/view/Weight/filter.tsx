@@ -9,28 +9,21 @@ import { QueryParams } from './types'
 const { Option } = Select
 
 export default function WeightFilter() {
-  const { state, dispatch } = useContext(WeightContext)
+  const { state, dispatch, query } = useContext(WeightContext)
   // query params
   const [params, setParams] = useState<QueryParams>({
     user: '',
     start: moment().subtract(30, 'days'),
-    end: moment(),
+    end: moment().add(1, 'days'),
   })
 
-  async function query() {
+  async function queryWeight() {
     // format date params, from moment.Moment to string
     const data = Object.assign({}, params, {
       start: params.start.format('YYYY-MM-DD'),
       end: params.end.format('YYYY-MM-DD'),
     })
-    // loadding true
-    dispatch({ type: 'updateLoading', loading: true })
-    // get weight list
-    const weights = await queryWeights(data)
-    // trigger to update
-    dispatch({ type: 'queryWeight', weights })
-    // cancel loading
-    dispatch({ type: 'updateLoading', loading: false })
+    query(data)
   }
 
   function userSelect(user) {
@@ -51,7 +44,7 @@ export default function WeightFilter() {
 
   // watch params change then to query
   useEffect(() => {
-    query()
+    queryWeight()
   }, [params])
 
   return (

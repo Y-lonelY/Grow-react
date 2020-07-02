@@ -31,3 +31,8 @@ export const queryWeights = async (data) => {
   }
   return []
 }
+
+// create a new weight
+export const createWeight = async (data) => {
+  return await post(`${prefix}/`, data)
+}

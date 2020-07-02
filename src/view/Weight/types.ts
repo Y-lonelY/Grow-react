@@ -4,12 +4,14 @@ export interface WeightState {
   users: [];
   weights: [];
   loading: boolean;
-  drawerDisplay: boolean
+  drawerDisplay: boolean;
+  params?: Object
 }
 
 export interface WeightContext {
   state: WeightState;
-  dispatch: Function
+  dispatch: Function;
+  query: Function
 }
 
 export interface QueryParams {

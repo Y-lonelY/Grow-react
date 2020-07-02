@@ -5,10 +5,12 @@ export const initState: WeightState = {
   users: [],
   weights: [],
   loading: true,
-  drawerDisplay: false
+  drawerDisplay: false,
 }
 
 export default React.createContext<WeightContext>({
   state: initState,
-  dispatch: () => { return false }
+  dispatch: () => { return false },
+  // global query function, used many times
+  query: () => { console.log('query function is undefined!')}
 })

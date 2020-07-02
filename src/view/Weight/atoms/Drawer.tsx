@@ -1,13 +1,35 @@
-import React, { useContext, useState } from 'react'
-import { Drawer, Form, Select, InputNumber, Button } from 'antd'
+import React, { useContext } from 'react'
+import { Drawer, Form, Select, InputNumber, Button, message } from 'antd'
 import WeightContext from '../context'
+import { createWeight } from '@/service/Weight'
 
 const { Option } = Select
 
 export default function WeightDrawer() {
-  const [params, setParams] = useState({ user: '', weight: 0 })
-  const { state, dispatch } = useContext(WeightContext)
+  const { state, dispatch, query } = useContext(WeightContext)
   const { users } = state
+  const [form] = Form.useForm()
+
+  async function submit () {
+    try {
+      const values = await form.validateFields()
+      const success = await createWeight(values)
+      dispatch({
+        type: 'updateDrawer',
+        drawerDisplay: false
+      })
+      if (success) {
+        message.success('Created successfully!', 1)
+      } else {
+        message.success('Creation failed!🙈', 1)
+      }
+      // after created, refresh the weight record
+      query(state.params)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Drawer
       title="Create a new weight record"
@@ -27,13 +49,13 @@ export default function WeightDrawer() {
           <Button style={{ marginRight: 8 }}>
             Cancel
           </Button>
-          <Button type="primary">
+          <Button type="primary" onClick={submit}>
             Submit
           </Button>
         </div>
       }
     >
-      <Form>
+      <Form form={form} labelCol={{ span: 6 }} labelAlign="right">
         <Form.Item
           label="user"
           name="user"

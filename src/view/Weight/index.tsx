@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react'
-import { getUsers } from '@/service/Weight'
+import { getUsers, queryWeights } from '@/service/Weight'
 import Skeleton from '@/components/Skeleton'
 import WeightFilter from './filter'
 import WeightMain from './main'
@@ -37,13 +37,32 @@ function reducer(state: WeightState, action): WeightState {
         ...state,
         drawerDisplay: action.drawerDisplay,
       }
+      case 'storeParams':
+        return {
+          ...state,
+          params: action.data,
+        }
     default:
       return state
   }
 }
 
+
 export default function WeightView() {
   const [state, dispatch] = useReducer(reducer, initState)
+
+  async function query(data) {
+    // loadding true
+    dispatch({ type: 'updateLoading', loading: true })
+    // get weight list
+    const weights = await queryWeights(data)
+    // trigger to update
+    dispatch({ type: 'queryWeight', weights })
+    // store current query params
+    dispatch({ type: 'storeParams', data })
+    // cancel loading
+    dispatch({ type: 'updateLoading', loading: false })
+  }
 
   async function init() {
     // get current users for select options
@@ -60,7 +79,7 @@ export default function WeightView() {
   }, [])
 
   return (
-    <WeightContext.Provider value={{ state, dispatch }}>
+    <WeightContext.Provider value={{ state, dispatch, query }}>
       <div className="weight-content">
         <Skeleton header={skeleton} filter={<WeightFilter />}>
           <WeightMain />
