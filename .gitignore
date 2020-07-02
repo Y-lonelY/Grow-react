@@ -1,14 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # webstorm
-/koa-app/.idea
-/react-app/.idea
+/.idea
 
 # dependencies
 /node_modules
-/koa-app/node_modules
-/koa-app/dist
-/react-app/node_modules
 /.pnp
 .pnp.js
 
@@ -17,7 +13,7 @@
 
 # production
 # react build category
-/Grow-react/build
+/build
 
 # misc
 .DS_Store
