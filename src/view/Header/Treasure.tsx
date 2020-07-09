@@ -1,37 +1,23 @@
 import React, { useReducer, useEffect } from 'react'
 import { Popover, Input } from 'antd'
-import { getHeaderMetadata } from '@/service/Header'
-import RenderContent from './Content'
+import { getModules } from '@/service/Header'
+import TreasureContent from './Content'
+import { TreasureState } from './types'
 
 const { Search } = Input
-
-interface MetaAtom {
-  id: number
-  label: string
-  type: string
-  target: string
-  icon?: string
-}
-
-export interface TreasureState {
-  expanded?: boolean
-  metadata: {
-    links: MetaAtom[]
-    components: MetaAtom[]
-  }
-}
 
 // current state and in actions
 function reducer(state: TreasureState, action): Partial<TreasureState> {
   switch (action.type) {
     case 'metadata':
       return {
+        ...state,
         metadata: Object.assign({}, action.metadata),
       }
+    default:
+      return state
   }
 }
-
-
 
 export default function Treasure() {
   const initState = {
@@ -43,18 +29,21 @@ export default function Treasure() {
   }
   const [state, dispatch] = useReducer(reducer, initState)
 
-  // init component, get metadata
+  // Group the modules by [param path] in order to render link or components
   async function init() {
-    const data = await getHeaderMetadata()
+    const list = await getModules()
     const links = []
     const components = []
-    data.forEach((item) => {
-      if (item.type === 'link') {
+
+    list.forEach(item => {
+      const { path } = item
+      if (path.includes('http')) {
         links.push(item)
-      } else if (item.type === 'component') {
+      } else {
         components.push(item)
       }
     })
+
     dispatch({
       type: 'metadata',
       metadata: {
@@ -73,7 +62,7 @@ export default function Treasure() {
     <div className="treasure-box">
       <Popover
         title=""
-        content={<RenderContent metadata={state.metadata} />}
+        content={<TreasureContent metadata={state.metadata} />}
         placement="bottom"
         trigger="click"
       >
