@@ -23,16 +23,11 @@ const config: RouterConfig = {
       path: '/weight',
       component: asyncComponent(() => import('@/view/Weight')),
     },
-    // {
-    //   key: 'practice',
-    //   path: '/practice',
-    //   component: asyncComponent(() => import('@/view/Practice')),
-    // },
-    // {
-    //   key: 'tools',
-    //   path: '/tools',
-    //   component: asyncComponent(() => import('@/view/Tools')),
-    // },
+    {
+      key: 'wakatime',
+      path: '/wakatime',
+      component: asyncComponent(() => import('@/view/Wakatime'))
+    }
   ],
 }
 
