@@ -64,6 +64,7 @@ export default function WeightView() {
     dispatch({ type: 'updateLoading', loading: false })
   }
 
+  // do some preparation work
   async function init() {
     // get current users for select options
     const users = await getUsers()

@@ -22,7 +22,7 @@ export default function WeightMain(props: {}) {
   return (
     <div
       className="weight-main"
-      style={{ width: '100%', minHeight: '500px', textAlign: 'center' }}
+      style={{ width: '100%', textAlign: 'center' }}
     >
       {state.loading ? (
         <Spin style={{ marginTop: '200px' }} />
