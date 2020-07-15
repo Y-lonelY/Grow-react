@@ -1,14 +1,14 @@
 import React, { useEffect, useReducer } from 'react'
 import { getUsers, queryWeights } from '@/service/Weight'
-import Skeleton from '@/components/Skeleton'
-import WeightFilter from './filter'
-import WeightMain from './main'
+import { Skeleton } from '@/components'
+import WeightFilter from './atoms/filter'
+import WeightMain from './atoms/main'
 import WeightDrawer from './atoms/Drawer'
 import WeightContext, { initState } from './context'
 import { WeightState } from './types'
 import './index.scss'
 
-const skeleton = {
+const headerConfig = {
   icon: {
     type: 'header-weight',
   },
@@ -81,7 +81,7 @@ export default function WeightView() {
   return (
     <WeightContext.Provider value={{ state, dispatch, query }}>
       <div className="weight-content">
-        <Skeleton header={skeleton} filter={<WeightFilter />}>
+        <Skeleton header={headerConfig} filter={<WeightFilter />}>
           <WeightMain />
         </Skeleton>
         <WeightDrawer />

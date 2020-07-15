@@ -1,15 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { queryWeights } from '@/service/Weight'
 import { Select } from 'antd'
 import moment from 'moment'
 import { GrowDatePicker } from '@/components'
-import WeightContext from './context'
-import { QueryParams } from './types'
+import WeightContext from '../context'
+import { QueryParams } from '../types'
 
 const { Option } = Select
 
 export default function WeightFilter() {
-  const { state, dispatch, query } = useContext(WeightContext)
+  const { state, query } = useContext(WeightContext)
   // query params
   const [params, setParams] = useState<QueryParams>({
     user: '',

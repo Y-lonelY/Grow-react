@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Button, Row, Col, Spin } from 'antd'
 import { GrowResult } from '@/components'
-import WeightContext from './context'
+import WeightContext from '../context'
 import { GrowPolyline } from '@/components/GrowChart'
 
 export default function WeightMain(props: {}) {
