@@ -45,41 +45,7 @@ class FlowHeader extends React.PureComponent<FlowHeaderProps, FlowHeaderState> {
                 <sup>✦</sup>
               </span>
             </Col>
-            <Col className="list" span={13} offset={1}>
-              {/* {headerItems.map((item, index) => {
-                if (item.type === 'item') {
-                  return (
-                    <div
-                      className={`${item.type} ${
-                        item.id === this.state.current ? 'active' : ''
-                      }`}
-                      key={index}
-                      onClick={this.handleRouter.bind(this, item.id)}
-                    >
-                      {item.label}
-                    </div>
-                  )
-                } else if (item.type === 'seperator') {
-                  return <div key={index} className="seperator"></div>
-                } else if (item.type === 'link') {
-                  return (
-                    <div
-                      className={`${item.type} ${
-                        item.id === this.state.current ? 'active' : ''
-                      }`}
-                      key={index}
-                      title={item.label}
-                      onClick={this.handleRouter.bind(this, item.id)}
-                    >
-                      <SuperIcon
-                        type={`icon-${item.icon}`}
-                        style={{ fontSize: '14px', paddingLeft: '2px' }}
-                      />
-                    </div>
-                  )
-                }
-              })} */}
-            </Col>
+            <Col className="list" span={13} offset={1}></Col>
             <Col span={8}>
               <div className="func-box">
                 <Treasure />

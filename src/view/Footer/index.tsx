@@ -28,40 +28,7 @@ class FlowFooter extends React.PureComponent<{}, FlowFooterState> {
       <Footer className="flow-footer">
         <Divider className="footer-seprator">
           Respect everything that happens
-        </Divider>
-        <Row className="main-footer" justify="start">
-          <Col className="cm" span={8}></Col>
-          <Col className="cm mid" span={8}>
-            <h2 className="title">关于</h2>
-            <Button type="link" size="small" onClick={this.showAboutPanel}>
-              About
-            </Button>
-            <Modal
-              title="Basic Modal"
-              visible={this.state.visible}
-              onCancel={() => {
-                this.setState({ visible: false })
-              }}
-            >
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-            </Modal>
-          </Col>
-          <Col className="cm" span={8}>
-            <h2 className="title">更多</h2>
-            <div className="ft-item">
-              <Button type="link" size="small" onClick={this.checkMockMode}>
-                Mock
-              </Button>
-              <span className="ft-seperator">-</span>
-              <span className="ft-label">
-                {this.state.mockMode ? assets.mockMode : assets.realMode}
-              </span>
-            </div>
-          </Col>
-        </Row>
-      </Footer>
+        </Divider></Footer>
     )
   }
 
