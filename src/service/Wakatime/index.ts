@@ -4,7 +4,7 @@ import moment from 'moment'
 const prefix = 'wakatime'
 
 // Query wakatime lists
-export const queryWakatimes = (data) => {
-  const wakatimes = post(`${prefix}/query`, data)
-  console.log(wakatimes)
+export const queryWakatimes = async (data) => {
+  const wakatimes = await post(`${prefix}/query`, data)
+  return wakatimes
 }
