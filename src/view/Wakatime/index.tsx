@@ -4,7 +4,9 @@ import { WakatimeState } from './types'
 import WakatimeFilter from './atoms/filter'
 import WakatimeMain from './atoms/main'
 import WakatimeContext, { initState } from './context'
-import { queryWakatimes } from '@/service/Wakatime'
+import { queryWakatimes, queryStatistics } from '@/service/Wakatime'
+import moment from 'moment'
+import './index.scss'
 
 const headerConfig = {
   icon: {
@@ -21,6 +23,11 @@ function reducer(state: WakatimeState, action): WakatimeState {
       return {
         ...state,
         wakatimes: action.wakatimes,
+      }
+    case 'putStatistics':
+      return {
+        ...state,
+        statistics: action.statistics,
       }
     case 'updateParams':
       return {
@@ -40,14 +47,27 @@ function reducer(state: WakatimeState, action): WakatimeState {
 // Output the display view
 export default function WakaTimeView() {
   const [state, dispatch] = useReducer(reducer, initState)
+  const { params } = state
 
   // query
   async function query() {
     dispatch({ type: 'updateLoading', loading: true })
-    const wakatimes = await queryWakatimes(state.params)
+    const { start, end } = params
+    const queryParmas = Object.assign({}, params, {
+      start: moment(start).format('YYYY-MM-DD'),
+      end: moment(end).format('YYYY-MM-DD')
+    }) 
+    const [wakatimes, statistics] = await Promise.all([
+      await queryWakatimes(queryParmas),
+      await queryStatistics(queryParmas),
+    ])
     dispatch({
       type: 'putWakatimes',
       wakatimes,
+    })
+    dispatch({
+      type: 'putStatistics',
+      statistics,
     })
     dispatch({ type: 'updateLoading', loading: false })
   }
@@ -57,8 +77,11 @@ export default function WakaTimeView() {
       type: 'updateParams',
       params: initState.params,
     })
-    query()
   }, [])
+
+  useEffect(() => {
+    query()
+  }, [state.params])
 
   return (
     <WakatimeContext.Provider value={{ state, dispatch, query }}>

@@ -5,6 +5,7 @@ import moment from 'moment'
 export const initState: WakatimeState = {
   loading: true,
   wakatimes: [],
+  statistics: [],
   params: {
     type: 'project',
     start: moment().subtract(30, 'days'),
