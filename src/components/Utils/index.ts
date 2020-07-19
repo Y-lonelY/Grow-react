@@ -2,12 +2,12 @@
  * 格式化时间展示
  * value 为秒数
  */
-export function formatSeconds(value) {
-  const months = Math.floor(value / (3600 * 24 * 30))
-  const d = Math.floor(value / (3600 * 24))
-  const h = Math.floor((value - d * 3600 * 24) / 3600)
-  const m = Math.floor((value - h * 3600) / 60)
-  const s = value % 60
+export function formatSeconds(seconds) {
+  const months = Math.floor(seconds / (3600 * 24 * 30))
+  const d = Math.floor(seconds / (3600 * 24))
+  const h = Math.floor((seconds - d * 3600 * 24) / 3600)
+  const m = Math.floor((seconds - h * 3600) / 60)
+  const s = Math.round(seconds % 60)
   let date = ""
   // 如果超过三个月，则直接展示月份
   if (months > 2) {
@@ -28,7 +28,7 @@ export function formatSeconds(value) {
       }
     
       if (s > 0) {
-        date += `${s > 1 ? `${s}secs` : `${s}sec`}`
+        date += `${s > 1 ? `${s}s` : `${s}s`}`
       }
     }
   }
