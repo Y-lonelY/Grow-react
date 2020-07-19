@@ -1,6 +1,7 @@
 import React from 'react'
 import { Row, Col, Button } from 'antd'
 import { SuperEmpty } from '@/components/Override'
+import SuperIcon from '@/components/SupIcon'
 import { useHistory } from 'react-router'
 import { TreasureState } from './types'
 
@@ -25,9 +26,17 @@ export default function RenderContent({
       {components.length > 0 && (
         <Row>
           {components.map((item) => {
+            const { name, id, path, status } = item
             return (
-              <Col key={item.id}>
-                <Button type='link' size='small' onClick={() => { go('component', item.path) }}>{item.name}</Button>
+              <Col key={id}>
+                <Button type='link' size='small' onClick={() => { go('component', path) }}>
+                  {name}
+                  {status === 1 &&
+                  <sup>
+                    <SuperIcon type="new" size={14} />
+                  </sup>
+                  }
+                </Button>
               </Col>
             )
           })}

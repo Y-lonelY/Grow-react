@@ -34,6 +34,7 @@ export default function Treasure() {
     const list = await getModules()
     const links = []
     const components = []
+    console.log(list)
 
     list.forEach(item => {
       const { path } = item

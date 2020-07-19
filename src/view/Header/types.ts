@@ -1,6 +1,7 @@
 export interface MetaAtom {
   id: number,
   name: string,
+  status: number,
   icon: string | null,
   path: string,
   group: string,
