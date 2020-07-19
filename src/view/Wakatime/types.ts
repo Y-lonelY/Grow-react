@@ -3,6 +3,7 @@ import moment from 'moment'
 export interface WakatimeState {
   loading: boolean,
   wakatimes: [],
+  statistics: [],
   params: {
     type: string,
     start: moment.Moment,

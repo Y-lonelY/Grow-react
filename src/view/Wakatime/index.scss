@@ -1,0 +1,35 @@
+.wakatime-main {
+  .p-list {
+    padding: 10px 0;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    transition: border .3s ease;
+    &:hover {
+      border: 1px solid #1890ff;
+    }
+  }
+  .statistic-item {
+    padding: 0 0 5px 0;
+    .header {
+      text-align: start;
+    }
+    .title {
+      margin-bottom: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      .index {
+        padding-right: 10px;
+        color: #1890ff;
+      }
+      .record {
+        font-size: 12px;
+        font-weight: lighter;
+      }
+    }
+    .statistic {
+      border: 1px solid #eee;
+      border-radius: 6px;
+      cursor: default;
+    }
+  }
+}

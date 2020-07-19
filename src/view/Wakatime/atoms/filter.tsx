@@ -27,6 +27,18 @@ export default function Filter() {
     })
   }
 
+  function changeDateRange(dates, dateString) {
+    const [start, end] = dates
+    dispatch({
+      type: 'updateParams',
+      params: {
+        ...state.params,
+        start,
+        end,
+      },
+    })
+  }
+
   return (
     <Row gutter={16} align="middle">
       <Col>
@@ -40,7 +52,10 @@ export default function Filter() {
         />
       </Col>
       <Col>
-        <GrowDatePicker value={[state.params.start, state.params.end]} />
+        <GrowDatePicker
+          value={[state.params.start, state.params.end]}
+          change={changeDateRange}
+        />
       </Col>
     </Row>
   )
