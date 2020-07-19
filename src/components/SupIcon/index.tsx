@@ -3,12 +3,8 @@ import { createFromIconfontCN } from '@ant-design/icons'
 import { IconType } from './types'
 
 const IconFont = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_1509932_m6lq4l2p0dn.js',
+  scriptUrl: '//at.alicdn.com/t/font_1509932_rgauvila6w.js',
 })
-
-const initStyle = {
-  fontSize: '20px'
-}
 
 /**
  * manage icons in iconfont.cn
@@ -16,11 +12,14 @@ const initStyle = {
  */
 export default React.memo(
   function SuperIcon(props: IconType) {
-    const { type, style = {} } = props
+    const { type, size = 20,  style = {} } = props
+    const fontStyle = {
+      fontSize: `${size}px`
+    }
     return (
       <IconFont
         type={`icon-${type}`}
-        style={Object.assign({}, initStyle, style)}
+        style={Object.assign({}, fontStyle, style)}
       />
     )
   }
