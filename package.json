@@ -145,5 +145,6 @@
     "node-sass": "^4.13.0",
     "redux-devtools": "^3.5.0",
     "typescript": "^3.9.5"
-  }
+  },
+  "proxy": "http://localhost:3000"
 }
