@@ -1,15 +1,12 @@
 import { post, get } from '@/cluster/request'
-import { addData, focusData } from '../mock/homepage'
 import { config } from '@/config/sysConfig'
 import { message } from 'antd'
-
-const useMock = config.useMock === 'false' ? false : true
 
 /**
  * Focus Moduel
  */
 export const addFocusRecord = async (params) => {
-  const res = useMock ? await addData : await post('focus/add', params)
+  const res = await post('focus/add', params)
   if (!res.success) {
     message.error('添加失败！')
   }
@@ -17,7 +14,7 @@ export const addFocusRecord = async (params) => {
 }
 
 export const editFocusRecord = async (params) => {
-  const res = useMock ? await addData : await post('focus/update', params)
+  const res = await post('focus/update', params)
   if (!res.success) {
     message.error('更新失败！')
   }
@@ -25,9 +22,7 @@ export const editFocusRecord = async (params) => {
 }
 
 export const getFocusList = async (params) => {
-  const res = useMock
-    ? await focusData
-    : await get('focus/list', { params: params })
+  const res = await get('focus/list', { params: params })
   if (!res.success) {
     message.error('获取列表失败！')
   }

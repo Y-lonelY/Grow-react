@@ -1,7 +1,7 @@
 import { post } from '@/cluster/request'
 import moment from 'moment'
 
-const prefix = 'wakatime'
+const prefix = '/grow/wakatime'
 
 // Query wakatime lists
 export const queryWakatimes = async (data) => {

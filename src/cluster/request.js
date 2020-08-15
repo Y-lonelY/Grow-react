@@ -6,7 +6,7 @@ const pending = new Map()
 
 // axios 实例
 const service = Axios.create({
-  baseURL: '/grow',
+  baseURL: '/api',
   timeout: 60000,
   headers: { 'X-Requested-With': 'XMLHttpRequest' },
 })

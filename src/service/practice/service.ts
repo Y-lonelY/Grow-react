@@ -1,5 +1,4 @@
 import { post, get } from '@/cluster/request';
-import { exerciseList, addData, goalList, programOverview, wakaTimeData } from '../mock/practice';
 import { config } from '@/config/sysConfig';
 import { message } from 'antd';
 
@@ -10,7 +9,7 @@ const useMock = config.useMock === 'false' ? false : true;
  * Exercise Module
  */
 export async function getDailyExerciseList(params = {}) {
-    const res = useMock ? await exerciseList : await post("exercise/list", params);
+    const res = await post("exercise/list", params);
     if (!res.success) {
         message.error('获取失败');
     }
@@ -18,7 +17,7 @@ export async function getDailyExerciseList(params = {}) {
 }
 
 export async function addExerciseList(params: { date: string, leg: number, belly: number, chest: number }) {
-    const res = useMock ? await addData : await post("exercise/add", params);
+    const res = await post("exercise/add", params);
     if (!res.success) {
         message.error('添加失败');
     }
@@ -29,7 +28,7 @@ export async function addExerciseList(params: { date: string, leg: number, belly
  * Goal Module
  */
 export async function getGoalList() {
-    const res = useMock ? await goalList : await get("exercise/goal/list");
+    const res = await get("exercise/goal/list");
     if (!res.success) {
         message.error('获取失败');
     }
@@ -40,7 +39,7 @@ export async function getGoalList() {
  * Program Module
  */
 export async function getProgramOverview(params) {
-    const res = useMock ? await programOverview : await post("program/overview", params);
+    const res = await post("program/overview", params);
     if (!res.success) {
         message.error('获取失败');
     }
@@ -50,7 +49,7 @@ export async function getProgramOverview(params) {
 // 同步 wakatime 数据，设置用不超时
 // 如果返回500，则 res === undefined
 export async function asyncWakatime() {
-    const res = useMock ? await wakaTimeData : await get("program/wakatime", { timeout: 0 });
+    const res = await get("program/wakatime", { timeout: 0 });
     if (!res.success) {
         message.error('同步失败');
     }

@@ -1,7 +1,7 @@
 import { get, post, patch, del } from '@/cluster/request'
 import moment from 'moment'
 
-const prefix = '/weight'
+const prefix = '/grow/weight'
 
 // Get all users
 export const getUsers = async () => {
