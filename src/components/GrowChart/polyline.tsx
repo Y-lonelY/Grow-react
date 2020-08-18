@@ -5,8 +5,7 @@
 import React from 'react'
 import DataSet from '@antv/data-set'
 import { Chart, Line, Point, Tooltip, Axis } from 'bizcharts'
-import { PolylineType } from './types'
-
+import { PolylineType } from './type.d'
 export default function GrowPolyline(props: PolylineType) {
   const {
     data,

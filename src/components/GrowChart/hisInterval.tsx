@@ -5,7 +5,7 @@
 import React from 'react'
 import DataSet from '@antv/data-set'
 import { Chart, Interval, Tooltip, Axis } from 'bizcharts'
-import { HisInterval } from './types'
+import { HisInterval } from './type.d'
 
 export default function GrowHisInterval(props: HisInterval) {
   const { data, width = null, height = 500, padding = 'auto' } = props
