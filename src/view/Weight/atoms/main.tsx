@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Button, Row, Col, Spin } from 'antd'
 import { GrowResult } from '@/components'
 import WeightContext from '../context'
-import { GrowPolyline, GrowHisInterval } from '@/components/GrowChart'
+import { GrowPolyline, Polyline } from '@/components/GrowChart'
 
 export default function WeightMain(props: {}) {
   const [chartList, setChartList] = useState([])
@@ -55,7 +55,7 @@ export default function WeightMain(props: {}) {
                 </Button>
               </Col>
             </Row>
-            <GrowPolyline data={chartList}  height={500} padding={[50]} yLabel="kg"  />
+            <Polyline data={chartList}  height={500} padding={[50]} z="value"  />
           </Col>
           <Col span={8}>panel</Col>
         </Row>
