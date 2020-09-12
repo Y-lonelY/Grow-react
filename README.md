@@ -1,35 +1,40 @@
-### Code Splitting
+English | [简体中文](./README.zh-CN.md)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+# FE-TEMPLATE
 
-### Analyzing the Bundle Size
+This is a fe-template **React** project based on [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html) and [antd](https://ant.design/docs/react/introduce-cn)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Attention Point
 
-### Making a Progressive Web App
+1. In `.prettierrc` set `{ "endOfLine": "auto" }` to solve **Delete \`cr\` eslint(prettier/prettier)**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+2. `config-overrides.js` use to override config of create react app，you can see to learn more on [react-app-rewired](https://github.com/timarney/react-app-rewired/)
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+3. you need to config `src/typing.d.ts` to declare global moduels, which will be compile by ts
 
 
-## Modules Develop
 
-Use `react hook useReducer && useContext` to manage the module state:
+### About override the webpack config 
 
-MainFloder
-- [DIR]atoms: add some business compoents
-- [F]index.tsx: build skeleton && distribute the state, dispatch and events(like: query() etc)
-- [F]types.ts: define the interface used in the module
-- [F]context.ts: define the initState and create the context
+In fact, I have tried many ways to do this job, emmm, someone looks can not do the job perfectly!
+
+Then, why not [Craco](https://github.com/gsoft-inc/craco)?
+
+It do the less-loader to config the theme looks good, but when config the webpack about `alias`, everything becomes terrible, you can see [this issue](https://github.com/risenforces/craco-alias/issues/1) for more messages!
+
+Fine, then i use [react-app-rewired](https://github.com/timarney/react-app-rewired) to overide the config, but it support the version of CRA below 2.0, so you should to add [customize-cra](https://github.com/arackaf/customize-cra) to support the CRA 2.0
+
+You can search [customize-cra-apis](https://github.com/arackaf/customize-cra/blob/master/api.md) to get what you need 🙉.
+
+In this **Template**, we use these below:
+- `yarn add less less-loader --dev` to support less file
+- `yarn add react-hot-loader` and `yarn add react-app-rewire-hot-loader --dev` to support the react-hot-loader, you can see (react-app-rewire-hot-loader)[https://github.com/cdharris/react-app-rewire-hot-loader] and (issues)[https://github.com/arackaf/customize-cra/issues/54] for some details
+
+Config `alisa` is more complicated, you need to create `paths.json` and config `config-overrides.js` and `tsconfig.json` to make it work!
+
+The key point is to config `{"extends": "./paths.json"}`, when compling, the compiler will remove the `paths`, so you need to use `extends` param to inherit from, you can see [extends](https://www.typescriptlang.org/tsconfig#extends) for details!
+
+
+
+
 

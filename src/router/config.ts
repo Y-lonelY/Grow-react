@@ -1,34 +1,31 @@
-import { asyncComponent } from './AsyncComponent'
+import { RouteType } from './data.d'
+import Welcome from '@/pages/Welcome'
+import PanelOne from '@/pages/panel/CompOne'
+import PanelTwo from '@/pages/panel/CompTwo'
 
-interface RouteConfigItem {
-  key: string;
-  title?: string;
-  path: string;
-  component: any
-}
+const routes: RouteType[] = [
+  {
+    path: '/',
+    name: 'home',
+    redirect: '/welcome',
+  },
+  {
+    path: '/welcome',
+    name: 'welcome',
+    component: Welcome,
+    routes: [
+      {
+        path: '/p1',
+        name: 'panel1',
+        component: PanelOne,
+      },
+      {
+        path: '/p2',
+        name: 'panel2',
+        component: PanelTwo,
+      },
+    ],
+  },
+]
 
-interface RouterConfig {
-  routeConfig: RouteConfigItem[]
-}
-
-const config: RouterConfig = {
-  routeConfig: [
-    {
-      key: 'entry',
-      path: '/',
-      component: asyncComponent(() => import('@/view/Weight')),
-    },
-    {
-      key: 'weight',
-      path: '/weight',
-      component: asyncComponent(() => import('@/view/Weight')),
-    },
-    {
-      key: 'wakatime',
-      path: '/wakatime',
-      component: asyncComponent(() => import('@/view/Wakatime'))
-    }
-  ],
-}
-
-export default config
+export { routes }
