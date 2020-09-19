@@ -38,3 +38,4 @@ The key point is to config `{"extends": "./paths.json"}`, when compling, the com
 
 
 
+3. you need to config `src/typing.d.ts` to declare global moduels, which will be compile by ts

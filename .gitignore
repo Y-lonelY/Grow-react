@@ -12,7 +12,6 @@
 /coverage
 
 # production
-# react build category
 /build
 
 # misc
@@ -25,4 +24,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-koa-app/scripts/wakatime/__pycache__/db.cpython-37.pyc
