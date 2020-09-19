@@ -3,8 +3,6 @@ import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom'
 import { routes } from './config'
 import { RouteType } from './data.d'
 
-console.log(routes)
-
 function renderRoutes(data: RouteType, prevPath?: string) {
   const { path, name, exact, redirect, routes } = Object.assign(
     {},
